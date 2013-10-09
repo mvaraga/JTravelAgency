@@ -65,6 +65,8 @@ public class Customer implements Serializable {
     public String getFirstName() {
         return firstName;
     }
+    
+    
 
     /**
      * @param firstName the firstName to set
@@ -78,6 +80,10 @@ public class Customer implements Serializable {
      */
     public String getLastName() {
         return lastName;
+    }
+    
+    public void setLastName(String lastName){
+        this.lastName=lastName;
     }
 
     @Override
