@@ -32,9 +32,9 @@ public class TripDAOTest extends TestCase {
     
     @Override
     protected void setUp() throws Exception {
-        emf = Persistence.createEntityManagerFactory("TestPU");
-        em = emf.createEntityManager();
-        tripDAOImpl = new cz.muni.fi.pa165.jtravelagency.jtravelagency.TripDAOImpl(em);
+       emf = Persistence.createEntityManagerFactory("TestPU");
+       em = emf.createEntityManager();
+       tripDAOImpl = new cz.muni.fi.pa165.jtravelagency.jtravelagency.TripDAOImpl(em);
     }
     
     @Override
@@ -46,14 +46,18 @@ public class TripDAOTest extends TestCase {
     /**
      * Test of createTrip method, of class TripDAO.
      */
+   
     public void testCreateTrip() {
+   
         System.out.println("createTrip");
         em.getTransaction().begin();
         Trip trip = new Trip();
         trip.setAvailableTrips(5);
         em.getTransaction().commit();
         assertTrue(trip.getId() == 1);
+        
     }
+    
 
     /**
      * Test of getTrip method, of class TripDAO.
