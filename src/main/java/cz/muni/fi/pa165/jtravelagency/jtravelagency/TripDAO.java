@@ -10,8 +10,9 @@ import java.util.List;
 
 /**
  *
- * @author Jakub Marecek
+ * Jakub Marecek (404364)
  */
+
 public interface TripDAO {
     
     /**
@@ -68,5 +69,5 @@ public interface TripDAO {
      * @param price
      * @return 
      */
-    List<Trip> findTripsByPrcie(BigDecimal price);
+    List<Trip> findTripsByPrice(BigDecimal price);
 }
