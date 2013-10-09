@@ -20,14 +20,14 @@ import javax.persistence.OneToOne;
 @Entity
 public class Reservation {
     
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
-    @OneToOne 
+    @ManyToOne 
     private Customer customer;
     
-    @OneToOne
+    @ManyToOne
     private Trip trip;
     
     @OneToMany
