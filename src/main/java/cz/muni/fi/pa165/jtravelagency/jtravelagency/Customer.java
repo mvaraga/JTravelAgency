@@ -13,6 +13,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -20,22 +21,28 @@ import javax.persistence.OneToMany;
  * @author Marian Varaga
  */
 @Entity
+@NamedQuery(name = "findAllCustomers", query = "SELECT c FROM Customer c")
 public class Customer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    
     @Column(name = "first_name")
     private String firstName;
+    
     @Column(name = "last_name")
     private String lastName;
+    
     @Enumerated(EnumType.STRING)
     @Column(length = 10, nullable = false)
     private CustomerStatus status;
+    
     @OneToMany(mappedBy = "customer")
     private List<Reservation> reservations;
 
     public Customer() {
+        status = CustomerStatus.REGULAR;
     }
 
     /**
