@@ -5,6 +5,7 @@
 package cz.muni.fi.pa165.jtravelagency.jtravelagency;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -45,6 +46,7 @@ public class Trip implements Serializable {
     @OneToMany(mappedBy="trip", cascade=CascadeType.ALL)
     private List<Excursion> excursions;
 
+    private BigDecimal price;
     
     public Trip() {
     }
@@ -118,6 +120,18 @@ public class Trip implements Serializable {
      */
     public void setExcursions(List<Excursion> excursions) {
         this.excursions = excursions;
+    }
+    
+    /**
+     * 
+     * @return  the price
+     */
+    public BigDecimal getPrice() {
+        return price;
+    }
+    
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
     
     @Override
