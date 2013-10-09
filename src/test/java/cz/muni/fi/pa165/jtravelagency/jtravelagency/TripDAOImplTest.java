@@ -17,16 +17,16 @@ import junit.framework.TestCase;
  *
  * @author jakub
  */
-public class TripDAOTest extends TestCase {
+public class TripDAOImplTest extends TestCase {
     
     private EntityManagerFactory emf;
     
     private EntityManager em;
     
-    private  cz.muni.fi.pa165.jtravelagency.jtravelagency.TripDAOImpl tripDAOImpl;
+    private  cz.muni.fi.pa165.jtravelagency.jtravelagency.TripDAO tripDAOImpl;
     
     
-    public TripDAOTest(String testName) {
+    public TripDAOImplTest(String testName) {
         super(testName);
     }
     
