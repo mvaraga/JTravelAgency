@@ -5,19 +5,31 @@
 package cz.muni.fi.pa165.jtravelagency.jtravelagency;
 
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author jakub
  */
+@Entity
 public class Reservation {
     
+     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
+    @ManyToOne 
     private Customer customer;
     
+    @
     private Trip trip;
     
+    @OneT
     private List<Excursion> excursions;
 
     /**
