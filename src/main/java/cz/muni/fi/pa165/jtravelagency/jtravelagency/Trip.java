@@ -5,6 +5,7 @@
 package cz.muni.fi.pa165.jtravelagency.jtravelagency;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -13,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
@@ -20,11 +23,22 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author Jakub Marecek
+ *  Jakub Marecek (404364)
  */
 
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "getAllTrips",
+            query = "SELECT e FROM Trip e"),
+    @NamedQuery(name = "findTripsByDateRange",
+            query = "SELECT e FROM Trip e WHERE e.dateFrom >= :from AND e.dateTo <= :to"),
+    @NamedQuery(name = "findTripsByDestination",
+            query = "SELECT e FROM Trip e WHERE e.destination = :destination"),
+    @NamedQuery(name = "findTripsByPrice",
+            query = "SELECT e FROM Trip e WHERE e.price = :price")
+    
+})
 public class Trip implements Serializable {
     
     @Id
@@ -39,12 +53,15 @@ public class Trip implements Serializable {
     @Column(name="date_from")
     private Date dateFrom;
     
+    private String destination;
+    
     @Column(name="available_trips")
     private int availableTrips;
     
     @OneToMany(mappedBy="trip", cascade=CascadeType.ALL)
     private List<Excursion> excursions;
 
+    private BigDecimal price;
     
     public Trip() {
     }
@@ -77,7 +94,22 @@ public class Trip implements Serializable {
     public void setDateTo(Date dateTo) {
         this.dateTo = dateTo;
     }
+    
+    /**
+     * 
+     * @return 
+     */
+    public String getDestination() {
+        return destination;
+    }
 
+    /**
+     * 
+     * @param destination 
+     */
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
     /**
      * @return the dateFrom
      */
@@ -118,6 +150,18 @@ public class Trip implements Serializable {
      */
     public void setExcursions(List<Excursion> excursions) {
         this.excursions = excursions;
+    }
+    
+    /**
+     * 
+     * @return  the price
+     */
+    public BigDecimal getPrice() {
+        return price;
+    }
+    
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
     
     @Override
