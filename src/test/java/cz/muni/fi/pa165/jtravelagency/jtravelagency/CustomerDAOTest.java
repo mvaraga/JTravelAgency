@@ -13,6 +13,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.fail;
 import junit.framework.TestCase;
 
@@ -34,7 +37,7 @@ public class CustomerDAOTest extends TestCase {
     
     @Override
     protected void setUp() throws Exception {
-       //super.setUp();
+       
        emf = Persistence.createEntityManagerFactory("TestPU");
        em = emf.createEntityManager();
        customerDAOImpl = new cz.muni.fi.pa165.jtravelagency.jtravelagency.CustomerDAOImpl(em);
@@ -54,21 +57,24 @@ public class CustomerDAOTest extends TestCase {
     public void testCreateCustomer() {
         System.out.println("createCustomer");
         Customer customer=newCustomer("Meno1", "Priezvisko1");
+        
+        //nejak nastavit tie rezervacie, dolu su na to pomocne metody
+        
         customerDAOImpl.createCustomer(customer);
         assertNotNull(customerDAOImpl.getCustomer(customer.getId()));
         assertEquals("Meno1", customerDAOImpl.getCustomer(customer.getId()).getFirstName());
         assertEquals("Priezvisko1", customerDAOImpl.getCustomer(customer.getId()).getLastName());
-        //doriesit tuna este tu kolekciu, alebo spravit nato svoju metodu s deepEquals ...
+        //doriesit tuna kontrolu tej nastavenej kolekcie rezervacii
     }
 
     /**
      * Test of getCustomer method, of class CustomerDAO.
      */
     public void testGetCustomer() {
+        //nejak ceknut ci je ta databaza predtym prazdna, asi staci toto
         assertNull(customerDAOImpl.getCustomer(1l));
-        //nejak ceknut ci je ta databaza predtym prazdna
         Customer customer=newCustomer("Meno1", "Priezvisko1");
-        //este to nejako poriesit s tou kolekciou
+        //este to nejako poriesit s tou kolekciou, zase nejak nastavit tu kolekciu k tomu
         customerDAOImpl.createCustomer(customer);
         Long customerId = customer.getId();
         Customer result = customerDAOImpl.getCustomer(customerId);
@@ -77,70 +83,86 @@ public class CustomerDAOTest extends TestCase {
         assertEquals(customer.getLastName(), result.getLastName());
         //tuna overit este tu rovnost toho kontajnera
         
-        
-
     }
     
-    /**
-     * 
-     * aby to hadzalo este nejake vynimky, ta trieda customer
-    public void testGetCustomerWrong(){
+
+    public void testGetCustomerWrongInput(){
  
-            try {
-            customerManager.getCustomerById(null);
+        try {
+        customerDAOImpl.getCustomer(null);
             fail();
         } catch (IllegalArgumentException ex) {
         }
-        customerManager.deleteCustomer(customer);
     }
-    */
+    
 
     /**
      * Test of updateCustomer method, of class CustomerDAO.
      */
     public void testUpdateCustomer() {
         System.out.println("updateCustomer");
-                System.out.println("updateCustomer");
-        Customer customer = newCustomer("abc", "def", "ab12trtztr");
-        
-        customerManager.createCustomer(customer);
+        Customer customer = newCustomer("Meno1", "Priezvisko1");
+        //este tie rezervacie nejak nastavit
+        customerDAOImpl.createCustomer(customer);
         Long customerId = customer.getId();
-
-        customer = customerManager.getCustomerById(customer.getId());
-        customer.setFirstName("cba");
-        customerManager.updateCustomer(customer);
-        assertEquals("cba", customer.getFirstName());
-        assertEquals("def", customer.getSurName());
-        assertEquals("ab12trtztr", customer.getNumberOfIdCard());
-
-        customer = customerManager.getCustomerById(customer.getId());
-        customer.setSurName("fed");
-        customerManager.updateCustomer(customer);
-        assertEquals("cba", customer.getFirstName());
-        assertEquals("fed", customer.getSurName());
-        assertEquals("ab12trtztr", customer.getNumberOfIdCard());
-
-        customer = customerManager.getCustomerById(customer.getId());
-        customer.setNumberOfIdCard("21ba");
-        customerManager.updateCustomer(customer);
-        assertEquals("cba", customer.getFirstName());
-        assertEquals("fed", customer.getSurName());
-        assertEquals("21ba", customer.getNumberOfIdCard());
+        customer = customerDAOImpl.getCustomer(customer.getId());
         
+        customer.setFirstName("Menonove");
+        customerDAOImpl.updateCustomer(customer);
+        assertEquals("Menonove", customer.getFirstName());
+        assertEquals("Priezvisko1", customer.getLastName());
+       //ocekovat ci zostal ten kontajner rezervacii taky isty
+
+        customer = customerDAOImpl.getCustomer(customer.getId());
+        customer.setLastName("Priezviskonove");
+        customerDAOImpl.updateCustomer(customer);
+        assertEquals("Menonove", customer.getFirstName());
+        assertEquals("Priezviskonove", customer.getLastName());
+        //ocekovat ten kontajner zase
+
+        customer = customerDAOImpl.getCustomer(customer.getId());
+       //skusit nastavit iny kontajner, updatnut a ceknut ci sa to 
+        //nerozbilo
         
-        
-        customer.setNumberOfIdCard("12av15");
-        customerManager.updateCustomer(customer);
-        customerManager.deleteCustomer(customer);
     }
 
     /**
      * Test of deleteCustomer method, of class CustomerDAO.
      */
     public void testDeleteCustomer() {
+        /**
         System.out.println("deleteCustomer");
 
-        fail("The test case is a prototype.");
+        Customer customer = newCustomer("Meno1", "Priezvisko1");
+        //nejak donastavit ten kontajner zase
+        Customer customer2=newCustomer("Meno2","Priezvisko2");
+        //zase asi ten kontajner
+        customerDAOImpl.createCustomer(customer);
+        customerDAOImpl.createCustomer(customer2);
+        
+        assertEquals(2,customerDAOImpl.getAllCustomers().size());
+        assertNotNull(customerDAOImpl.getCustomer(customer.getId()));
+        assertNotNull(customerDAOImpl.getCustomer(customer.getId()));
+        
+        customerDAOImpl.deleteCustomer(customer);
+        assertEquals(1,customerDAOImpl.getAllCustomers().size());
+         assertNull(customerDAOImpl.getCustomer(customer.getId()));
+        assertNotNull(customerDAOImpl.getCustomer(customer2.getId()));
+        
+         customerDAOImpl.deleteCustomer(customer2);
+        assertEquals(0,customerDAOImpl.getAllCustomers().size());
+         assertNull(customerDAOImpl.getCustomer(customer.getId()));
+        assertNull(customerDAOImpl.getCustomer(customer2.getId()));
+        
+               
+        try {
+            customerDAOImpl.deleteCustomer(null);
+            fail();
+        
+        } catch (IllegalArgumentException ex) {            
+           
+        }
+        */
     }
 
     /**
@@ -150,19 +172,18 @@ public class CustomerDAOTest extends TestCase {
         System.out.println("getAllCustomers");
         assertTrue(customerDAOImpl.getAllCustomers().isEmpty());
         Customer customer1 = newCustomer("Meno1", "Priezvisko1");
-        Customer customer2 = newCustomer ("Meno2", "Priezvisko2");
         
+        Customer customer2 = newCustomer ("Meno2", "Priezvisko2");
+        //aj tie kolekcie asi ponastavovat
         customerDAOImpl.createCustomer(customer1);
         customerDAOImpl.createCustomer(customer2);
         
-        List<DVD> expected = Arrays.asList(dvd1, dvd2);
-        List<DVD> result = manager.findAllDVDs();
-        
-        Collections.sort(expected, idComparator);
-        Collections.sort(result, idComparator);
-        
-        assertEquals(expected, result);
-        assertDeepEquals(expected, result);
+       
+        List<Customer> result = customerDAOImpl.getAllCustomers();
+                
+        assertEquals(2, result.size());
+        assertTrue(result.contains(customer1));
+        assertTrue(result.contains(customer2));
     }
 
     /**

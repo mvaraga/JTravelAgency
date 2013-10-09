@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -18,6 +20,14 @@ import javax.persistence.OneToOne;
  * @author jakub
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "getAllReservations",
+            query = "SELECT e FROM Reservation e"),
+    @NamedQuery(name = "getReservationsByTrip",
+            query = "SELECT e FROM Reservation e WHERE e.trip.id = :trip"),
+    @NamedQuery(name = "getReservationsByCustomer",
+            query = "SELECT e FROM Reservation e WHERE e.customer.id = :customer"),    
+})
 public class Reservation {
     
     @Id
