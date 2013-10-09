@@ -4,9 +4,11 @@
  */
 package cz.muni.fi.pa165.jtravelagency.jtravelagency;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -177,15 +179,39 @@ public class CustomerDAOTest extends TestCase {
         customer.setFirstName(firstName);
         customer.setStatus(CustomerStatus.REGULAR);
         customer.setLastName(lastName);
+        
         List<Reservation> reservations=new ArrayList<Reservation>();
-        reservations.add(new Reservation());
-        reservations.add(new Reservation());
+        /**
+         * dorobit pripadne ponastavovanie tych jednotlivych atributov
+         * Excursion ex=new Excursion("asdf",....);
+         * ex.setTrip(trip);
+         * ???????????????? nejak inak vymysliet
+         */
+        Reservation reserv1=new Reservation();
+        Reservation reserv2=new Reservation();
+        
+        reservations.add(reserv1);
+        reservations.add(reserv2);
+        customer.setReservations(reservations);
         return customer;
     }
     
-    private Reservation newReservation(){
-       //naplnit realnymi datami
-        return null;
+    private Trip newTrip(Date dateFrom, Date dateTo, int availableTrips, BigDecimal price, String destination){
+        Trip trip=new Trip();
+        trip.setAvailableTrips(availableTrips);
+        trip.setDateFrom(dateFrom);
+        trip.setDateTo(dateTo);
+        trip.setDestination(destination);
+        trip.setPrice(price);
+        return trip;
+    }
+    
+    private Excursion newExcursion(Date excursionDate, String description, BigDecimal price){
+        Excursion excursion=new Excursion();
+        excursion.setDescription(description);
+        excursion.setExcursionDate(excursionDate);
+        excursion.setPrice(price);
+        return excursion;
     }
 
 
