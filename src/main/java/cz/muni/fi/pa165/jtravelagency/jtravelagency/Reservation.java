@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -23,13 +24,13 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
-    @ManyToOne 
+    @OneToOne 
     private Customer customer;
     
-    @
+    @OneToOne
     private Trip trip;
     
-    @OneT
+    @OneToMany
     private List<Excursion> excursions;
 
     /**
