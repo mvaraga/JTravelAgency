@@ -62,6 +62,7 @@ public class CustomerDAOTest extends TestCase {
         assertEquals("Meno1", customerDAOImpl.getCustomer(customer.getId()).getFirstName());
         assertEquals("Priezvisko1", customerDAOImpl.getCustomer(customer.getId()).getLastName());
         assertEquals(customer.getStatus(), customerDAOImpl.getCustomer(customer.getId()).getStatus());
+        assertDeepEquals(customer.getReservations(), customerDAOImpl.getCustomer(customer.getId()).getReservations());
     }
 
     /**
@@ -77,7 +78,7 @@ public class CustomerDAOTest extends TestCase {
         assertEquals(customer.getFirstName(), result.getFirstName());
         assertEquals(customer.getLastName(), result.getLastName());
         assertEquals(customer.getStatus(), customerDAOImpl.getCustomer(customer.getId()).getStatus());
-
+        assertDeepEquals(customer.getReservations(), customerDAOImpl.getCustomer(customer.getId()).getReservations());
     }
     
 
@@ -107,17 +108,14 @@ public class CustomerDAOTest extends TestCase {
         assertEquals("Menonove", customer.getFirstName());
         assertEquals("Priezvisko1", customer.getLastName());
       assertEquals(customer.getStatus(), customerDAOImpl.getCustomer(customer.getId()).getStatus());
-
+      assertDeepEquals(customer.getReservations(), customerDAOImpl.getCustomer(customer.getId()).getReservations());
         customer = customerDAOImpl.getCustomer(customer.getId());
         customer.setLastName("Priezviskonove");
         customerDAOImpl.updateCustomer(customer);
         assertEquals("Menonove", customer.getFirstName());
         assertEquals("Priezviskonove", customer.getLastName());
-        //ocekovat ten kontajner zase
+        assertDeepEquals(customer.getReservations(), customerDAOImpl.getCustomer(customer.getId()).getReservations());
 
-        customer = customerDAOImpl.getCustomer(customer.getId());
-       //skusit nastavit iny kontajner, updatnut a ceknut ci sa to 
-        //nerozbilo
         
     }
 
@@ -127,9 +125,9 @@ public class CustomerDAOTest extends TestCase {
     public void testDeleteCustomer() {
         System.out.println("deleteCustomer");
         Customer customer = newCustomer("Meno1", "Priezvisko1");
-        //nejak donastavit ten kontajner zase
+       
         Customer customer2=newCustomer("Meno2","Priezvisko2");
-        //zase asi ten kontajner
+      
         customerDAOImpl.createCustomer(customer);
         customerDAOImpl.createCustomer(customer2);
         
@@ -168,7 +166,7 @@ public class CustomerDAOTest extends TestCase {
         Customer customer1 = newCustomer("Meno1", "Priezvisko1");
         
         Customer customer2 = newCustomer ("Meno2", "Priezvisko2");
-        //aj tie kolekcie asi ponastavovat
+        
         customerDAOImpl.createCustomer(customer1);
         customerDAOImpl.createCustomer(customer2);
         
@@ -194,8 +192,26 @@ public class CustomerDAOTest extends TestCase {
         customer.setFirstName(firstName);
         customer.setStatus(CustomerStatus.REGULAR);
         customer.setLastName(lastName);
-
+        List<Reservation> reservations=new ArrayList<Reservation>();
+        reservations.add(new Reservation());
+        reservations.add(new Reservation());
+        customer.setReservations(reservations);
         return customer;
+    }
+    
+        private void assertDeepEquals(Reservation expected, Reservation actual) {
+        assertEquals(expected.getId(), actual.getId());
+        assertEquals(expected.getCustomer(), actual.getCustomer());
+        assertEquals(expected.getTrip(), actual.getTrip());
+        assertEquals(expected.getExcursions().size(), actual.getExcursions().size());
+    }
+
+    private void assertDeepEquals(List<Reservation> expectedList, List<Reservation> actualList) {
+        for (int i = 0; i < expectedList.size(); i++) {
+            Reservation expected = expectedList.get(i);
+            Reservation actual = actualList.get(i);
+            assertDeepEquals(expected, actual);
+        }
     }
 
 }
