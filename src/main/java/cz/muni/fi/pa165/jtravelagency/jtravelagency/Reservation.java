@@ -26,23 +26,16 @@ import javax.persistence.OneToOne;
     @NamedQuery(name = "getReservationsByTrip",
             query = "SELECT e FROM Reservation e WHERE e.trip.id = :trip"),
     @NamedQuery(name = "getReservationsByCustomer",
-            query = "SELECT e FROM Reservation e WHERE e.customer.id = :customer"),    
-})
+            query = "SELECT e FROM Reservation e WHERE e.customer.id = :customer"),})
 public class Reservation {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    
-   
-
-    
-    @ManyToOne 
+    @ManyToOne
     private Customer customer;
-    
     @ManyToOne
     private Trip trip;
-    
     @OneToMany
     private List<Excursion> excursions;
 
@@ -101,6 +94,24 @@ public class Reservation {
     public void setExcursions(List<Excursion> excursions) {
         this.excursions = excursions;
     }
-    
-    
+
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Reservation other = (Reservation) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    public int hashCode() {
+        int hash = 7;
+        hash = 91 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
+    }
 }
