@@ -17,24 +17,24 @@ import junit.framework.TestCase;
  *
  * @author jakub
  */
-public class TripDAOTest extends TestCase {
+public class TripDAOImplTest extends TestCase {
     
     private EntityManagerFactory emf;
     
     private EntityManager em;
     
-    private  cz.muni.fi.pa165.jtravelagency.jtravelagency.TripDAOImpl tripDAOImpl;
+    private  cz.muni.fi.pa165.jtravelagency.jtravelagency.TripDAO tripDAOImpl;
     
     
-    public TripDAOTest(String testName) {
+    public TripDAOImplTest(String testName) {
         super(testName);
     }
     
     @Override
     protected void setUp() throws Exception {
-       emf = Persistence.createEntityManagerFactory("TestPU");
-       em = emf.createEntityManager();
-       tripDAOImpl = new cz.muni.fi.pa165.jtravelagency.jtravelagency.TripDAOImpl(em);
+        emf = Persistence.createEntityManagerFactory("TestPU");
+        em = emf.createEntityManager();
+        tripDAOImpl = new cz.muni.fi.pa165.jtravelagency.jtravelagency.TripDAOImpl(em);
     }
     
     @Override
@@ -46,18 +46,14 @@ public class TripDAOTest extends TestCase {
     /**
      * Test of createTrip method, of class TripDAO.
      */
-   
     public void testCreateTrip() {
-   
         System.out.println("createTrip");
         em.getTransaction().begin();
         Trip trip = new Trip();
         trip.setAvailableTrips(5);
         em.getTransaction().commit();
         assertTrue(trip.getId() == 1);
-        
     }
-    
 
     /**
      * Test of getTrip method, of class TripDAO.
