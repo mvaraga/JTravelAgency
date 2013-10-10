@@ -155,14 +155,18 @@ public class CustomerDAOTest extends TestCase {
         assertNull(customerDAOImpl.getCustomer(customer2.getId()));
         
                
-        try {
+       
+        */
+    }
+    
+    public void testDeleteCustomersWrongDate(){
+         try {
             customerDAOImpl.deleteCustomer(null);
             fail();
         
         } catch (IllegalArgumentException ex) {            
            
         }
-        */
     }
 
     /**
