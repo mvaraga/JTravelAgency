@@ -31,8 +31,6 @@ public class ReservationDAOImpl implements ReservationDAO {
         }
 
         em.persist(reservation);
-        em.flush();
-        em.detach(reservation);
     }
 
     public void updateReservation(Reservation reservation) {
