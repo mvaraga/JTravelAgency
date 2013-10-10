@@ -80,13 +80,6 @@ public class TripDAOImpl implements TripDAO {
         query.setParameter("destination", destination);
         return (List<Trip>) query.getResultList();
     }
-
-    public List<Trip> findTripsByPrice(BigDecimal price) {
-        TypedQuery<Trip> query = em.createNamedQuery(
-                "findTripsByPrice", Trip.class);        
-        query.setParameter("price", price);
-        return (List<Trip>) query.getResultList();
-    }
     
     private void validateTrip(Trip trip) {
         if (trip.getDateFrom() == null) throw new IllegalArgumentException("Trip date from can not be null");

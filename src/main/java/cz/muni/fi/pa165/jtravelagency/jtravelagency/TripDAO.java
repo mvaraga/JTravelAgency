@@ -63,11 +63,4 @@ public interface TripDAO {
      * @return 
      */
     public List<Trip> findTripsByDestination(String destination);
-    
-    /**
-     * 
-     * @param price
-     * @return 
-     */
-    List<Trip> findTripsByPrice(BigDecimal price);
 }
