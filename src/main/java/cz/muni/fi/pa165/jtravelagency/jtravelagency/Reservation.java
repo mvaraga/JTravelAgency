@@ -5,10 +5,12 @@
 package cz.muni.fi.pa165.jtravelagency.jtravelagency;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -32,11 +34,14 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @ManyToOne
+    
+    @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
-    @ManyToOne
+    
+    @ManyToOne(cascade = CascadeType.ALL)
     private Trip trip;
-    @OneToMany
+    
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Excursion> excursions;
 
     /**
@@ -94,7 +99,15 @@ public class Reservation {
     public void setExcursions(List<Excursion> excursions) {
         this.excursions = excursions;
     }
+    
+        @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
+    }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -107,11 +120,5 @@ public class Reservation {
             return false;
         }
         return true;
-    }
-
-    public int hashCode() {
-        int hash = 7;
-        hash = 91 * hash + (this.id != null ? this.id.hashCode() : 0);
-        return hash;
     }
 }
