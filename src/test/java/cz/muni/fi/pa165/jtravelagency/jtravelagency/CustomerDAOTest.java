@@ -183,8 +183,12 @@ public class CustomerDAOTest extends TestCase {
      */
     public void testSetDeletedStatus() {
         System.out.println("setDeletedStatus");
-
-        fail("The test case is a prototype.");
+        Customer customer= newCustomer("Meno1", "Priezvisko1");
+        
+        customerDAOImpl.createCustomer(customer);
+        customerDAOImpl.setDeletedStatus(customer);
+        
+        assertEquals(customer.getStatus(), CustomerStatus.DELETED);
     }
     
     private Customer newCustomer(String firstName, String lastName){
