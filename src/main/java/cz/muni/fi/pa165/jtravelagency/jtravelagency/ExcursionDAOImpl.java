@@ -4,32 +4,94 @@
  */
 package cz.muni.fi.pa165.jtravelagency.jtravelagency;
 
+import java.math.BigDecimal;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
  * @author Peter Petrinec
  */
 public class ExcursionDAOImpl implements ExcursionDAO {
+    private EntityManager em;
 
+    public ExcursionDAOImpl(EntityManager em) {
+        if(em == null) {
+            throw new IllegalArgumentException("Entity manager cannot be null");
+        }
+        this.em = em;
+    }
+    
     public void createExcurtion(Excursion excursion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        validateExcursion(excursion);
+        if(excursion.getId() != null) {
+            throw new IllegalArgumentException("Excursion's is null.");
+        }
+        em.persist(excursion);
+        em.flush();
+        em.detach(excursion);
     }
 
     public Excursion getExcursion(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(id == null) {
+            throw new IllegalArgumentException("Id cannot be null.");
+        }
+        return em.find(Excursion.class, id);
     }
 
     public void updateExcursion(Excursion excursion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        validateExcursion(excursion);
+        if(excursion.getId() == null) {
+            throw new IllegalArgumentException("Id cannot be null.");
+        }
+        em.merge(excursion);
+        em.flush();
+        em.detach(excursion);
     }
 
     public void deleteExcursion(Excursion excursion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        validateExcursion(excursion);
+        if(excursion.getId() == null) {
+            throw new IllegalArgumentException("Id cannot be null.");
+        }
+        em.remove(excursion);
+        em.flush();
+        em.detach(excursion);
     }
 
     public List<Excursion> getAllExcursions() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query query = em.createNamedQuery("getAllExcursions");
+        return query.getResultList();
     }
     
+    public Trip getTrip(Excursion excursion) {
+        return excursion.getTrip();
+    }
+    
+    private void validateExcursion(Excursion excursion) {
+        if(excursion == null) {
+            throw new IllegalArgumentException("Excursion cannot be null.");
+        }
+        if(excursion.getDescription() == null) {
+            throw new IllegalArgumentException("Excursion's description cannot "
+                    + "be null.");
+        }
+        if(excursion.getDescription().isEmpty()) {
+            throw new IllegalArgumentException("Excursion's description cannot "
+                    + "be empty.");
+        }
+        if(excursion.getPrice() == null) {
+            throw new IllegalArgumentException("Excursion's price cannot "
+                    + "be null");
+        }
+        if(excursion.getPrice().compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Excursion's price cannot "
+                    + "be a negative number");
+        }
+        if(excursion.getExcursionDate() == null) {
+            throw new IllegalArgumentException("Excursion's date cannot "
+                    + "be null.");
+        }
+    }
 }

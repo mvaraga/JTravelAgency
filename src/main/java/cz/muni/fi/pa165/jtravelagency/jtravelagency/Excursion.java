@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 
 /**
@@ -20,9 +21,11 @@ import javax.persistence.Temporal;
  * @author Peter Petrinec
  */
 @Entity
+@NamedQuery(name = "getAllExcursions", query = "SELECT e FROM Excursion e")
 public class Excursion implements Serializable {
 
     public Excursion() {
+        
     }
     
     @Id
