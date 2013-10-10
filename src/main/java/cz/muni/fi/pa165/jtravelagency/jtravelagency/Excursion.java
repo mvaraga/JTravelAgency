@@ -7,6 +7,7 @@ package cz.muni.fi.pa165.jtravelagency.jtravelagency;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +41,7 @@ public class Excursion implements Serializable {
     
     private BigDecimal price;
     
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     private Trip trip;
 
     public Trip getTrip() {
