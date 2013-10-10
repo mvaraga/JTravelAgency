@@ -199,18 +199,13 @@ public class CustomerDAOTest extends TestCase {
         return customer;
     }
     
-        private void assertDeepEquals(Reservation expected, Reservation actual) {
-        assertEquals(expected.getId(), actual.getId());
-        assertEquals(expected.getCustomer(), actual.getCustomer());
-        assertEquals(expected.getTrip(), actual.getTrip());
-        assertEquals(expected.getExcursions().size(), actual.getExcursions().size());
-    }
+
 
     private void assertDeepEquals(List<Reservation> expectedList, List<Reservation> actualList) {
         for (int i = 0; i < expectedList.size(); i++) {
             Reservation expected = expectedList.get(i);
             Reservation actual = actualList.get(i);
-            assertDeepEquals(expected, actual);
+            assertEquals(expected, actual);
         }
     }
 
