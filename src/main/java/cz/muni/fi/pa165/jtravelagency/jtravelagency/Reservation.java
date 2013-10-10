@@ -28,10 +28,9 @@ import javax.persistence.OneToOne;
     @NamedQuery(name = "getReservationsByTrip",
             query = "SELECT e FROM Reservation e WHERE e.trip.id = :trip"),
     @NamedQuery(name = "getReservationsByCustomer",
-            query = "SELECT e FROM Reservation e WHERE e.customer.id = :customer"),    
-})
+            query = "SELECT e FROM Reservation e WHERE e.customer.id = :customer"),})
 public class Reservation {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
