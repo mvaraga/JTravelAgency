@@ -11,7 +11,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author jakub
+ * @author radka
  */
 public class ReservationDAOImpl implements ReservationDAO {
 
