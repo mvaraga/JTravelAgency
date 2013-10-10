@@ -7,12 +7,14 @@ package cz.muni.fi.pa165.jtravelagency.jtravelagency;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 
 /**
@@ -20,9 +22,11 @@ import javax.persistence.Temporal;
  * @author Peter Petrinec
  */
 @Entity
+@NamedQuery(name = "getAllExcursions", query = "SELECT e FROM Excursion e")
 public class Excursion implements Serializable {
 
     public Excursion() {
+        
     }
     
     @Id
@@ -37,7 +41,7 @@ public class Excursion implements Serializable {
     
     private BigDecimal price;
     
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     private Trip trip;
 
     public Trip getTrip() {
