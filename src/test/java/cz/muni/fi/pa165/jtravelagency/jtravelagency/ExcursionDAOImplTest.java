@@ -5,14 +5,19 @@
 package cz.muni.fi.pa165.jtravelagency.jtravelagency;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 import junit.framework.TestCase;
@@ -26,6 +31,8 @@ public class ExcursionDAOImplTest extends TestCase {
     private EntityManagerFactory emf;
     private EntityManager em;
     private cz.muni.fi.pa165.jtravelagency.jtravelagency.ExcursionDAO instance;
+    private SimpleDateFormat sdf =  new SimpleDateFormat("dd. MM. yyyy");
+    private SimpleDateFormat dateTime =  new SimpleDateFormat("HH:mm dd. MM. yyyy");
 
     public ExcursionDAOImplTest(String testName) {
         super(testName);
@@ -62,12 +69,20 @@ public class ExcursionDAOImplTest extends TestCase {
         assertDeepEquals(excursion, result);
     }
 
-        private Excursion newExcursion() {
+    private Excursion newExcursion() {
+        Date date = null;
+        try {
+            date = dateTime.parse("12:00 12. 5. 2013");
+        } catch (ParseException ex) {
+            Logger.getLogger(TripDAOImplTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         Excursion excursion = new Excursion();
         excursion.setDescription("description");
-        excursion.setExcursionDate(new Date());
+        excursion.setExcursionDate(date);
         excursion.setPrice(BigDecimal.ZERO.setScale(2));
-        excursion.setTrip(new Trip());
+        Trip trip = prepareTrip();
+        excursion.setTrip(trip);
         return excursion;
     }
 
@@ -92,13 +107,22 @@ public class ExcursionDAOImplTest extends TestCase {
     public void testUpdateExcursion() {
         System.out.println("updateExcursion");
         Excursion excursion = newExcursion();
-             
+        Trip trip = new Trip();
+        excursion.setTrip(trip);
+        Date date = null;
+        try {
+            date = dateTime.parse("12:00 12. 6. 2013");
+        } catch (ParseException ex) {
+            Logger.getLogger(TripDAOImplTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         em.getTransaction().begin();
         instance.createExcurtion(excursion);
         excursion.setDescription("new description");
-        excursion.setExcursionDate(new Date());
+        excursion.setExcursionDate(date);
         excursion.setPrice(BigDecimal.ONE.setScale(2));
-        excursion.setTrip(new Trip());
+        excursion.setTrip(trip);
+        
         instance.updateExcursion(excursion);
         Excursion result = instance.getExcursion(excursion.getId());
         em.getTransaction().commit();
@@ -155,26 +179,22 @@ public class ExcursionDAOImplTest extends TestCase {
         }
     }
 
-//    /**
-//     * Test of getTrip method, of class ExcursionDAOImpl.
-//     */
-//    public void testGetTrip() {
-//        System.out.println("getTrip");
-//        
-//        Excursion excursion = newExcursion();
-//             
-//        em.getTransaction().begin();
-//        instance.createExcurtion(excursion);
-//        Excursion result = instance.getExcursion(excursion.getId());
-//        em.getTransaction().commit();
-//        
-//        assertDeepEquals(excursion, result);
-//        
-//        Trip result = instance.getTrip(excursion);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    /**
+     * Test of getTrip method, of class ExcursionDAOImpl.
+     */
+    public void testGetTrip() {
+        System.out.println("getTrip");
+        
+        Excursion excursion = newExcursion();
+        Trip trip = excursion.getTrip();
+             
+        em.getTransaction().begin();
+        instance.createExcurtion(excursion);
+        Trip result = instance.getExcursion(excursion.getId()).getTrip();
+        em.getTransaction().commit();
+
+        assertEquals(trip, result);
+    }
 
     private void assertDeepEquals(Excursion first, Excursion second) {
         assertNotNull(second.getId());
@@ -191,6 +211,21 @@ public class ExcursionDAOImplTest extends TestCase {
         instance.getExcursion(null);
             fail();
         } catch (IllegalArgumentException ex) {
+        }
+    }
+    
+        private Trip prepareTrip() {
+        Trip preparedTrip = new Trip();
+        try {
+            preparedTrip.setDateFrom(sdf.parse("23. 11. 2013"));
+            preparedTrip.setDateTo(sdf.parse("30. 11. 2013"));
+            preparedTrip.setDestination("Spain");
+            preparedTrip.setAvailableTrips(10);
+            preparedTrip.setPrice(new BigDecimal(15200.25));
+        } catch (ParseException ex) {
+            Logger.getLogger(TripDAOImplTest.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return preparedTrip;
         }
     }
 }
