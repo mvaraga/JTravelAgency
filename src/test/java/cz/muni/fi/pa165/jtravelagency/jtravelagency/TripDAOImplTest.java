@@ -6,11 +6,17 @@ package cz.muni.fi.pa165.jtravelagency.jtravelagency;
 
 import cz.muni.fi.pa165.jtravelagency.jtravelagency.TripDAOImpl;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
 import junit.framework.TestCase;
 
 /**
@@ -25,10 +31,13 @@ public class TripDAOImplTest extends TestCase {
     
     private  cz.muni.fi.pa165.jtravelagency.jtravelagency.TripDAO tripDAOImpl;
     
+    private SimpleDateFormat sdf =  new SimpleDateFormat("dd. MM. yyyy");
+    
     
     public TripDAOImplTest(String testName) {
         super(testName);
     }
+    
     
     @Override
     protected void setUp() throws Exception {
@@ -43,109 +52,253 @@ public class TripDAOImplTest extends TestCase {
         emf.close();
     }
 
+    
     /**
      * Test of createTrip method, of class TripDAO.
      */
     public void testCreateTrip() {
-        System.out.println("createTrip");
+        Trip trip = prepareTrip();
         em.getTransaction().begin();
-        Trip trip = new Trip();
-        trip.setAvailableTrips(5);
+        tripDAOImpl.createTrip(trip);
+        Trip result = tripDAOImpl.getTrip(trip.getId());
         em.getTransaction().commit();
-        assertTrue(trip.getId() == 1);
+        assertEquals(trip, result);
+        assertTripDeepEquals(trip, result);
+    }
+    
+    /**
+     * Test of createTrip method, of class TripDAO.
+     */
+    public void testCreateTripWithWrongAttributes() {
+        // fail with null
+        try {
+            tripDAOImpl.createTrip(null);
+            fail();
+        } catch (IllegalArgumentException ex) {
+            // OK
+        }
+        
+        // fail with set ID
+        Trip trip = prepareTrip();
+        trip.setId(Long.MIN_VALUE);
+        try {
+            tripDAOImpl.createTrip(trip);
+            fail();
+        } catch (IllegalArgumentException ex) {
+            // OK
+        }
+        
+        // fail with null dateFrom
+        trip = prepareTrip();
+        trip.setDateFrom(null);
+        try {
+            tripDAOImpl.createTrip(trip);
+            fail();
+        } catch (IllegalArgumentException ex) {
+            // OK
+        }
+
+        // fail with null dateTo
+        trip = prepareTrip();
+        trip.setDateTo(null);
+        try {
+            tripDAOImpl.createTrip(trip);
+            fail();
+        } catch (IllegalArgumentException ex) {
+            // OK
+        }
+        
+        // fail with null destination
+        trip = prepareTrip();
+        trip.setDestination(null);
+        try {
+            tripDAOImpl.createTrip(trip);
+            fail();
+        } catch (IllegalArgumentException ex) {
+            // OK
+        }
     }
 
     /**
      * Test of getTrip method, of class TripDAO.
      *
     public void testGetTrip() {
-        System.out.println("getTrip");
-        Long id = null;
-        TripDAO instance = new TripDAOImpl();
-        Trip expResult = null;
-        Trip result = instance.getTrip(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        assertNull(tripDAOImpl.getTrip(Long.MIN_VALUE));
+        em.getTransaction().begin();
+        Trip trip = prepareTrip();
+        tripDAOImpl.createTrip(trip);
+        Long tripId = trip.getId();
+        Trip result = tripDAOImpl.getTrip(tripId);
+        em.getTransaction().commit();
+        assertEquals(trip, result);
+        assertTripDeepEquals(trip, result);
+    }*/
 
     /**
      * Test of updateTrip method, of class TripDAO.
-     *
+     */
     public void testUpdateTrip() {
-        System.out.println("updateTrip");
-        Trip trip = null;
-        TripDAO instance = new TripDAOImpl();
-        instance.updateTrip(trip);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try {
+            em.getTransaction().begin();
+            Trip trip = prepareTrip();
+            tripDAOImpl.createTrip(trip);
+            Long tripId = trip.getId();
+            em.getTransaction().commit();
+            
+            // test updated dateFrom
+            em.getTransaction().begin();
+            trip.setDateFrom(sdf.parse("12. 12. 2013"));
+            tripDAOImpl.updateTrip(trip);
+            Trip result = tripDAOImpl.getTrip(tripId);
+            em.getTransaction().commit();
+            assertEquals(trip, result);
+            assertTripDeepEquals(trip, result);
+            
+            // test updated dateTo
+            em.getTransaction().begin();
+            trip.setDateTo(sdf.parse("22. 12. 2013"));
+            tripDAOImpl.updateTrip(trip);
+            result = tripDAOImpl.getTrip(tripId);
+            em.getTransaction().commit();
+            assertEquals(trip, result);
+            assertTripDeepEquals(trip, result);
+            
+            // test updated destination
+            em.getTransaction().begin();
+            trip.setDestination("Another Destination");
+            tripDAOImpl.updateTrip(trip);
+            result = tripDAOImpl.getTrip(tripId);
+            em.getTransaction().commit();
+            assertEquals(trip, result);
+            assertTripDeepEquals(trip, result);
+            
+            // test updated availableTrips
+            em.getTransaction().begin();
+            trip.setAvailableTrips(20);
+            tripDAOImpl.updateTrip(trip);
+            result = tripDAOImpl.getTrip(tripId);
+            em.getTransaction().commit();
+            assertEquals(trip, result);
+            assertTripDeepEquals(trip, result);
+            
+            // test updated excursions
+            
+            // test updated price
+            em.getTransaction().begin();
+            trip.setPrice(BigDecimal.valueOf(18200.50));
+            tripDAOImpl.updateTrip(trip);
+            result = tripDAOImpl.getTrip(tripId);
+            em.getTransaction().commit();
+            assertEquals(trip, result);
+            assertTripDeepEquals(trip, result);
+        } catch (ParseException ex) {
+            Logger.getLogger(TripDAOImplTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
      * Test of deleteTrip method, of class TripDAO.
-     *
+     */
     public void testDeleteTrip() {
-        System.out.println("deleteTrip");
-        Trip trip = null;
-        TripDAO instance = new TripDAOImpl();
-        instance.deleteTrip(trip);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        em.getTransaction().begin();
+        Trip trip = prepareTrip();
+        tripDAOImpl.createTrip(trip);
+        Long tripId = trip.getId();
+        assertNotNull(tripDAOImpl.getTrip(tripId));
+        tripDAOImpl.deleteTrip(trip);
+        em.getTransaction().commit();
+        assertNull(tripDAOImpl.getTrip(tripId));
     }
 
     /**
      * Test of getAllTrips method, of class TripDAO.
-     *
+     */
     public void testGetAllTrips() {
-        System.out.println("getAllTrips");
-        TripDAO instance = new TripDAOImpl();
-        List expResult = null;
-        List result = instance.getAllTrips();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        em.getTransaction().begin();
+        Trip trip1 = prepareTrip();
+        Trip trip2 = prepareTrip();        
+        tripDAOImpl.createTrip(trip1);
+        tripDAOImpl.createTrip(trip2);
+        em.getTransaction().commit();
+        assertEquals(2, tripDAOImpl.getAllTrips().size());
     }
 
     /**
      * Test of findTripsByDateRange method, of class TripDAO.
-     *
+     */
     public void testFindTripsByDateRange() {
-        System.out.println("findTripsByDateRange");
-        Date from = null;
-        Date to = null;
-        TripDAO instance = new TripDAOImpl();
-        List expResult = null;
-        List result = instance.findTripsByDateRange(from, to);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try {
+            em.getTransaction().begin();
+            Trip trip1 = prepareTrip();
+            trip1.setDateFrom(sdf.parse("23. 01. 2013"));
+            trip1.setDateTo(sdf.parse("25. 01. 2013"));
+            Trip trip2 = prepareTrip();
+            trip2.setDateFrom(sdf.parse("27. 01. 2013"));
+            trip2.setDateTo(sdf.parse("28. 01. 2013"));        
+            tripDAOImpl.createTrip(trip1);
+            tripDAOImpl.createTrip(trip2);
+            em.getTransaction().commit();
+            List<Trip> trips = tripDAOImpl.findTripsByDateRange(sdf.parse("18. 01. 2013"),
+                                                                sdf.parse("22. 01. 2013"));
+            assertEquals(0, trips.size());
+            trips = tripDAOImpl.findTripsByDateRange(sdf.parse("22. 01. 2013"),
+                                                     sdf.parse("29. 01. 2013"));
+            assertEquals(2, trips.size());
+            trips = tripDAOImpl.findTripsByDateRange(sdf.parse("01. 02. 2013"),
+                                                     sdf.parse("15. 02. 2013"));
+            assertEquals(0, trips.size());
+        } catch (ParseException ex) {
+            Logger.getLogger(TripDAOImplTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
      * Test of findTripsByDestination method, of class TripDAO.
-     *
+     */
     public void testFindTripsByDestination() {
-        System.out.println("findTripsByDestination");
-        String destination = "";
-        TripDAO instance = new TripDAOImpl();
-        List expResult = null;
-        List result = instance.findTripsByDestination(destination);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        em.getTransaction().begin();
+        Trip trip1 = prepareTrip();
+        trip1.setDestination("Greece");
+        tripDAOImpl.createTrip(trip1);
+        Trip trip2 = prepareTrip();
+        trip1.setDestination("Spain");
+        tripDAOImpl.createTrip(trip2);
+        Trip trip3 = prepareTrip();
+        trip1.setDestination("Greece");
+        tripDAOImpl.createTrip(trip3);
+        em.getTransaction().commit();
+        List<Trip> trips = tripDAOImpl.findTripsByDestination("Portugal");
+        assertEquals(0, trips.size());
+        trips = tripDAOImpl.findTripsByDestination("Greece");
+        assertEquals(1, trips.size());
+        trips = tripDAOImpl.findTripsByDestination("Spain");
+        assertEquals(2, trips.size());
     }
-
-    /**
-     * Test of findTripsByPrice method, of class TripDAO.
-     *
-    public void testFindTripsByPrice() {
-        System.out.println("findTripsByPrice");
-        BigDecimal price = null;
-        TripDAO instance = new TripDAOImpl();
-        List expResult = null;
-        List result = instance.findTripsByPrice(price);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    } */
+    
+    
+    private Trip prepareTrip() {
+        Trip preparedTrip = new Trip();
+        try {
+            preparedTrip.setDateFrom(sdf.parse("23. 11. 2013"));
+            preparedTrip.setDateTo(sdf.parse("30. 11. 2013"));
+            preparedTrip.setDestination("Spain");
+            preparedTrip.setAvailableTrips(10);
+            //preparedTrip.setExcursions(null);
+            preparedTrip.setPrice(new BigDecimal(15200.25));
+        } catch (ParseException ex) {
+            Logger.getLogger(TripDAOImplTest.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return preparedTrip;
+        }
+    }
+    
+    private static void assertTripDeepEquals(Trip expected, Trip actual) {
+        assertEquals(expected.getId(), actual.getId());
+        assertEquals(expected.getDateFrom(), actual.getDateFrom());
+        assertEquals(expected.getDateTo(), actual.getDateTo());
+        assertEquals(expected.getDestination(), actual.getDestination());
+        assertEquals(expected.getAvailableTrips(), actual.getAvailableTrips());
+        //assertEquals(expected.getExcursions(), actual.getExcursions());
+        assertEquals(expected.getPrice(), actual.getPrice());
+    }
 }
