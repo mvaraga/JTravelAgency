@@ -116,11 +116,12 @@ public class ExcursionDAOImplTest extends TestCase {
         em.getTransaction().begin();
         instance.createExcurtion(excursion);
         Excursion result = instance.getExcursion(excursion.getId());
+        assertNotNull(result);
         instance.deleteExcursion(result);
         result = instance.getExcursion(excursion.getId());
         em.getTransaction().commit();
-
-        assertEquals(null, result);
+        
+        assertNull(result);
     }
 
     /**
@@ -184,7 +185,7 @@ public class ExcursionDAOImplTest extends TestCase {
         assertEquals(first.getExcursionDate(), second.getExcursionDate());
     }
     
-    public void testGetCustomerWrongInput(){
+    public void testGetExcursionWrongInput(){
  
         try {
         instance.getExcursion(null);

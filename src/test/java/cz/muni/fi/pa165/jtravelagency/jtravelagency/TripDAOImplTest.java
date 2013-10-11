@@ -8,6 +8,7 @@ import cz.muni.fi.pa165.jtravelagency.jtravelagency.TripDAOImpl;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,7 +22,7 @@ import junit.framework.TestCase;
 
 /**
  *
- * @author jakub
+ * @author Jakub Marecek (404364)
  */
 public class TripDAOImplTest extends TestCase {
     
@@ -67,7 +68,7 @@ public class TripDAOImplTest extends TestCase {
     }
     
     /**
-     * Test of createTrip method, of class TripDAO.
+     * Test of createTrip method with wrong attributes, of class TripDAO.
      */
     public void testCreateTripWithWrongAttributes() {
         // fail with null
@@ -121,7 +122,7 @@ public class TripDAOImplTest extends TestCase {
 
     /**
      * Test of getTrip method, of class TripDAO.
-     *
+     */
     public void testGetTrip() {
         assertNull(tripDAOImpl.getTrip(Long.MIN_VALUE));
         em.getTransaction().begin();
@@ -132,7 +133,7 @@ public class TripDAOImplTest extends TestCase {
         em.getTransaction().commit();
         assertEquals(trip, result);
         assertTripDeepEquals(trip, result);
-    }*/
+    }
 
     /**
      * Test of updateTrip method, of class TripDAO.
@@ -181,8 +182,6 @@ public class TripDAOImplTest extends TestCase {
             assertEquals(trip, result);
             assertTripDeepEquals(trip, result);
             
-            // test updated excursions
-            
             // test updated price
             em.getTransaction().begin();
             trip.setPrice(BigDecimal.valueOf(18200.50));
@@ -198,7 +197,7 @@ public class TripDAOImplTest extends TestCase {
 
     /**
      * Test of deleteTrip method, of class TripDAO.
-     */
+     *
     public void testDeleteTrip() {
         em.getTransaction().begin();
         Trip trip = prepareTrip();
@@ -208,8 +207,8 @@ public class TripDAOImplTest extends TestCase {
         tripDAOImpl.deleteTrip(trip);
         em.getTransaction().commit();
         assertNull(tripDAOImpl.getTrip(tripId));
-    }
-
+    }*/
+    
     /**
      * Test of getAllTrips method, of class TripDAO.
      */
@@ -283,7 +282,6 @@ public class TripDAOImplTest extends TestCase {
             preparedTrip.setDateTo(sdf.parse("30. 11. 2013"));
             preparedTrip.setDestination("Spain");
             preparedTrip.setAvailableTrips(10);
-            //preparedTrip.setExcursions(null);
             preparedTrip.setPrice(new BigDecimal(15200.25));
         } catch (ParseException ex) {
             Logger.getLogger(TripDAOImplTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -298,7 +296,6 @@ public class TripDAOImplTest extends TestCase {
         assertEquals(expected.getDateTo(), actual.getDateTo());
         assertEquals(expected.getDestination(), actual.getDestination());
         assertEquals(expected.getAvailableTrips(), actual.getAvailableTrips());
-        //assertEquals(expected.getExcursions(), actual.getExcursions());
         assertEquals(expected.getPrice(), actual.getPrice());
     }
 }
