@@ -57,7 +57,11 @@ public class CustomerDAOTest extends TestCase {
     public void testCreateCustomer() {
         System.out.println("createCustomer");
         Customer customer=newCustomer("Meno1", "Priezvisko1");
+        
+        em.getTransaction().begin();
         customerDAOImpl.createCustomer(customer);
+        em.getTransaction().commit();
+        
         assertNotNull(customerDAOImpl.getCustomer(customer.getId()));
         assertEquals("Meno1", customerDAOImpl.getCustomer(customer.getId()).getFirstName());
         assertEquals("Priezvisko1", customerDAOImpl.getCustomer(customer.getId()).getLastName());
@@ -71,7 +75,11 @@ public class CustomerDAOTest extends TestCase {
     public void testGetCustomer() {
         assertNull(customerDAOImpl.getCustomer(1l));
         Customer customer=newCustomer("Meno1", "Priezvisko1");
+        
+        em.getTransaction().begin();
         customerDAOImpl.createCustomer(customer);
+        em.getTransaction().commit();
+        
         Long customerId = customer.getId();
         Customer result = customerDAOImpl.getCustomer(customerId);
         assertEquals(customer, result);
@@ -79,6 +87,8 @@ public class CustomerDAOTest extends TestCase {
         assertEquals(customer.getLastName(), result.getLastName());
         assertEquals(customer.getStatus(), customerDAOImpl.getCustomer(customer.getId()).getStatus());
         assertDeepEquals(customer.getReservations(), customerDAOImpl.getCustomer(customer.getId()).getReservations());
+        
+        
     }
     
 
@@ -99,19 +109,31 @@ public class CustomerDAOTest extends TestCase {
         System.out.println("updateCustomer");
         Customer customer = newCustomer("Meno1", "Priezvisko1");
         
+        em.getTransaction().begin();
         customerDAOImpl.createCustomer(customer);
+        em.getTransaction().commit();
       
         customer = customerDAOImpl.getCustomer(customer.getId());
         
+        em.getTransaction().begin();
         customer.setFirstName("Menonove");
+        
         customerDAOImpl.updateCustomer(customer);
+        
+        em.getTransaction().commit();
+        
         assertEquals("Menonove", customer.getFirstName());
         assertEquals("Priezvisko1", customer.getLastName());
       assertEquals(customer.getStatus(), customerDAOImpl.getCustomer(customer.getId()).getStatus());
       assertDeepEquals(customer.getReservations(), customerDAOImpl.getCustomer(customer.getId()).getReservations());
         customer = customerDAOImpl.getCustomer(customer.getId());
+        
+        em.getTransaction().begin();
         customer.setLastName("Priezviskonove");
         customerDAOImpl.updateCustomer(customer);
+        
+        em.getTransaction().commit();
+        
         assertEquals("Menonove", customer.getFirstName());
         assertEquals("Priezviskonove", customer.getLastName());
         assertDeepEquals(customer.getReservations(), customerDAOImpl.getCustomer(customer.getId()).getReservations());
@@ -127,20 +149,32 @@ public class CustomerDAOTest extends TestCase {
         Customer customer = newCustomer("Meno1", "Priezvisko1");
        
         Customer customer2=newCustomer("Meno2","Priezvisko2");
-      
+        
+        em.getTransaction().begin();
         customerDAOImpl.createCustomer(customer);
+        em.getTransaction().commit();
+        
+        em.getTransaction().begin();
         customerDAOImpl.createCustomer(customer2);
+        em.getTransaction().commit();
+       
         
         assertEquals(2,customerDAOImpl.getAllCustomers().size());
         assertNotNull(customerDAOImpl.getCustomer(customer.getId()));
         assertNotNull(customerDAOImpl.getCustomer(customer.getId()));
         
+        em.getTransaction().begin();
         customerDAOImpl.deleteCustomer(customer);
+        em.getTransaction().commit();
+        
         assertEquals(1,customerDAOImpl.getAllCustomers().size());
          assertNull(customerDAOImpl.getCustomer(customer.getId()));
         assertNotNull(customerDAOImpl.getCustomer(customer2.getId()));
         
+        em.getTransaction().begin();
          customerDAOImpl.deleteCustomer(customer2);
+         em.getTransaction().commit();
+         
         assertEquals(0,customerDAOImpl.getAllCustomers().size());
          assertNull(customerDAOImpl.getCustomer(customer.getId()));
         assertNull(customerDAOImpl.getCustomer(customer2.getId()));
@@ -167,11 +201,16 @@ public class CustomerDAOTest extends TestCase {
         
         Customer customer2 = newCustomer ("Meno2", "Priezvisko2");
         
+        em.getTransaction().begin();
         customerDAOImpl.createCustomer(customer1);
+        em.getTransaction().commit();
+        em.getTransaction().begin();
         customerDAOImpl.createCustomer(customer2);
+        em.getTransaction().commit();
         
-       
+       em.getTransaction().begin();
         List<Customer> result = customerDAOImpl.getAllCustomers();
+                em.getTransaction().commit();
                 
         assertEquals(2, result.size());
         assertTrue(result.contains(customer1));
@@ -185,7 +224,10 @@ public class CustomerDAOTest extends TestCase {
         System.out.println("setDeletedStatus");
         Customer customer= newCustomer("Meno1", "Priezvisko1");
         
+        em.getTransaction().begin();
         customerDAOImpl.createCustomer(customer);
+        em.getTransaction().commit();
+        
         customerDAOImpl.setDeletedStatus(customer);
         
         assertEquals(customer.getStatus(), CustomerStatus.DELETED);
