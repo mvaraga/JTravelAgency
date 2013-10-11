@@ -125,7 +125,7 @@ public class CustomerDAOTest extends TestCase {
     /**
      * Test of deleteCustomer method, of class CustomerDAO.
      */
-    /**
+    
     public void testDeleteCustomer() {
         System.out.println("deleteCustomer");
         Customer customer = newCustomer("Meno1", "Priezvisko1");
@@ -142,23 +142,23 @@ public class CustomerDAOTest extends TestCase {
         assertNotNull(customerDAOImpl.getCustomer(customer.getId()));
         assertNotNull(customerDAOImpl.getCustomer(customer.getId()));
         
-        
+        em.getTransaction().begin();
         customerDAOImpl.deleteCustomer(customer);
-        
+        em.getTransaction().commit();
          
         assertEquals(1,customerDAOImpl.getAllCustomers().size());
          assertNull(customerDAOImpl.getCustomer(customer.getId()));
         assertNotNull(customerDAOImpl.getCustomer(customer2.getId()));
         
-       
+       em.getTransaction().begin();
          customerDAOImpl.deleteCustomer(customer2);
-         
+         em.getTransaction().commit();
         assertEquals(0,customerDAOImpl.getAllCustomers().size());
          assertNull(customerDAOImpl.getCustomer(customer.getId()));
         assertNull(customerDAOImpl.getCustomer(customer2.getId()));
         
     }
-    */
+    
     
     public void testDeleteCustomersWrongDate(){
          try {

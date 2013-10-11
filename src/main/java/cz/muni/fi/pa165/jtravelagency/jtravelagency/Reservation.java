@@ -35,7 +35,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.ALL)
     private Customer customer;
     
     @ManyToOne(cascade = CascadeType.ALL)
