@@ -123,4 +123,11 @@ public class Customer implements Serializable {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" + "id=" + id + ", firstName=" + firstName
+                + ", lastName=" + lastName + ", status=" + status
+                + ", count of reservations=" + reservations.size() + '}';
+    }
 }
