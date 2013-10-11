@@ -35,7 +35,7 @@ public class Excursion implements Serializable {
     private Long id;
     
     @Column(name = "excursion_date")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date excursionDate;
     
     private String description;
