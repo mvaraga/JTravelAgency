@@ -67,7 +67,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         
         em.remove(customer);
         em.flush();
-        em.detach(em);
+        //em.detach(em);
     }
 
     public List<Customer> getAllCustomers() {
