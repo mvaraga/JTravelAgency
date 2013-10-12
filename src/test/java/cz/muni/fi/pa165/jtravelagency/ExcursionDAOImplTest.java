@@ -2,8 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.pa165.jtravelagency.jtravelagency;
+package cz.muni.fi.pa165.jtravelagency;
 
+import cz.muni.fi.pa165.jtravelagency.Trip;
+import cz.muni.fi.pa165.jtravelagency.Excursion;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,7 +32,7 @@ public class ExcursionDAOImplTest extends TestCase {
     
     private EntityManagerFactory emf;
     private EntityManager em;
-    private cz.muni.fi.pa165.jtravelagency.jtravelagency.ExcursionDAO instance;
+    private cz.muni.fi.pa165.jtravelagency.ExcursionDAO instance;
     private SimpleDateFormat sdf =  new SimpleDateFormat("dd. MM. yyyy");
     private SimpleDateFormat dateTime =  new SimpleDateFormat("HH:mm dd. MM. yyyy");
 
@@ -42,7 +44,7 @@ public class ExcursionDAOImplTest extends TestCase {
     protected void setUp() throws Exception {
         emf = Persistence.createEntityManagerFactory("TestPU");
         em = emf.createEntityManager();
-        instance = new cz.muni.fi.pa165.jtravelagency.jtravelagency.ExcursionDAOImpl(em);
+        instance = new cz.muni.fi.pa165.jtravelagency.ExcursionDAOImpl(em);
 
     }
     

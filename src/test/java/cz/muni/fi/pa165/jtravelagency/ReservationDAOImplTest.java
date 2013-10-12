@@ -2,8 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.pa165.jtravelagency.jtravelagency;
+package cz.muni.fi.pa165.jtravelagency;
 
+import cz.muni.fi.pa165.jtravelagency.Customer;
+import cz.muni.fi.pa165.jtravelagency.Trip;
+import cz.muni.fi.pa165.jtravelagency.Excursion;
+import cz.muni.fi.pa165.jtravelagency.Reservation;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -20,7 +24,7 @@ import junit.framework.TestCase;
 public class ReservationDAOImplTest extends TestCase {
     private EntityManagerFactory emf;
     private EntityManager em;
-    private cz.muni.fi.pa165.jtravelagency.jtravelagency.ReservationDAO instance;
+    private cz.muni.fi.pa165.jtravelagency.ReservationDAO instance;
 
     public ReservationDAOImplTest(String testName) {
         super(testName);
@@ -30,7 +34,7 @@ public class ReservationDAOImplTest extends TestCase {
     protected void setUp() throws Exception {
         emf = Persistence.createEntityManagerFactory("TestPU");
         em = emf.createEntityManager();
-        instance = new cz.muni.fi.pa165.jtravelagency.jtravelagency.ReservationDAOImpl(em);
+        instance = new cz.muni.fi.pa165.jtravelagency.ReservationDAOImpl(em);
 
     }
     

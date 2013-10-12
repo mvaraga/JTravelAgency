@@ -1,5 +1,8 @@
-package cz.muni.fi.pa165.jtravelagency.jtravelagency;
+package cz.muni.fi.pa165.jtravelagency;
 
+import cz.muni.fi.pa165.jtravelagency.Customer;
+import cz.muni.fi.pa165.jtravelagency.CustomerStatus;
+import cz.muni.fi.pa165.jtravelagency.Reservation;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,15 +24,15 @@ import junit.framework.TestCase;
  *
  * @author Radka
  */
-public class CustomerDAOTest extends TestCase {
+public class CustomerDAOImplTest extends TestCase {
     
     private EntityManagerFactory emf;
     
     private EntityManager em;
     
-    private  cz.muni.fi.pa165.jtravelagency.jtravelagency.CustomerDAO customerDAOImpl;
+    private  cz.muni.fi.pa165.jtravelagency.CustomerDAO customerDAOImpl;
     
-    public CustomerDAOTest(String testName) {
+    public CustomerDAOImplTest(String testName) {
         super(testName);
     }
     
@@ -37,7 +40,7 @@ public class CustomerDAOTest extends TestCase {
     protected void setUp() throws Exception {
        emf = Persistence.createEntityManagerFactory("TestPU");
        em = emf.createEntityManager();
-       customerDAOImpl = new cz.muni.fi.pa165.jtravelagency.jtravelagency.CustomerDAOImpl(em);
+       customerDAOImpl = new cz.muni.fi.pa165.jtravelagency.CustomerDAOImpl(em);
     }
     
     @Override

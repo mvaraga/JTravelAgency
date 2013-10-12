@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.pa165.jtravelagency.jtravelagency;
+package cz.muni.fi.pa165.jtravelagency;
 
 import java.math.BigDecimal;
 import java.util.Date;

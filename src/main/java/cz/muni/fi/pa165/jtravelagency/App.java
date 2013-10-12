@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.jtravelagency.jtravelagency;
+package cz.muni.fi.pa165.jtravelagency;
 
 /**
  * Hello world!

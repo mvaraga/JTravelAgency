@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.pa165.jtravelagency.jtravelagency;
+package cz.muni.fi.pa165.jtravelagency;
 
-import cz.muni.fi.pa165.jtravelagency.jtravelagency.TripDAOImpl;
+import cz.muni.fi.pa165.jtravelagency.Trip;
+import cz.muni.fi.pa165.jtravelagency.TripDAOImpl;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,7 +31,7 @@ public class TripDAOImplTest extends TestCase {
     
     private EntityManager em;
     
-    private  cz.muni.fi.pa165.jtravelagency.jtravelagency.TripDAO tripDAOImpl;
+    private  cz.muni.fi.pa165.jtravelagency.TripDAO tripDAOImpl;
     
     private SimpleDateFormat sdf =  new SimpleDateFormat("dd. MM. yyyy");
     
@@ -44,7 +45,7 @@ public class TripDAOImplTest extends TestCase {
     protected void setUp() throws Exception {
         emf = Persistence.createEntityManagerFactory("TestPU");
         em = emf.createEntityManager();
-        tripDAOImpl = new cz.muni.fi.pa165.jtravelagency.jtravelagency.TripDAOImpl(em);
+        tripDAOImpl = new cz.muni.fi.pa165.jtravelagency.TripDAOImpl(em);
     }
     
     @Override
