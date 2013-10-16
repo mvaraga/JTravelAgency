@@ -4,13 +4,10 @@
  */
 package cz.muni.fi.pa165.jtravelagency;
 
-import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import org.joda.time.LocalDate;
 
 /**
  *
@@ -66,7 +63,7 @@ public class TripDAOImpl implements TripDAO {
         return (List<Trip>) query.getResultList();
     }
 
-    public List<Trip> findTripsByDateRange(Date from, Date to) {
+    public List<Trip> findTripsByDateRange(LocalDate from, LocalDate to) {
         TypedQuery<Trip> query = em.createNamedQuery(
                 "findTripsByDateRange", Trip.class);        
         query.setParameter("from", from);

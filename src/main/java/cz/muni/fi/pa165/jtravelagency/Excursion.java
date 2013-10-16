@@ -6,7 +6,6 @@ package cz.muni.fi.pa165.jtravelagency;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,7 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.Temporal;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -35,8 +35,8 @@ public class Excursion implements Serializable {
     private Long id;
     
     @Column(name = "excursion_date")
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date excursionDate;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime excursionDate;
     
     private String description;
     
@@ -70,14 +70,14 @@ public class Excursion implements Serializable {
     /**
      * @return the date
      */
-    public Date getExcursionDate() {
+    public DateTime getExcursionDate() {
         return excursionDate;
     }
 
     /**
      * @param date the date to set
      */
-    public void setExcursionDate(Date excursionDate) {
+    public void setExcursionDate(DateTime excursionDate) {
         this.excursionDate = excursionDate;
     }
 

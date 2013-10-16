@@ -7,6 +7,7 @@ package cz.muni.fi.pa165.jtravelagency;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import org.joda.time.LocalDate;
 
 /**
  *
@@ -55,7 +56,7 @@ public interface TripDAO {
      * @param to
      * @return 
      */
-    public List<Trip> findTripsByDateRange(Date from, Date to);
+    public List<Trip> findTripsByDateRange(LocalDate from, LocalDate to);
     
     /**
      * 

@@ -5,21 +5,15 @@
 package cz.muni.fi.pa165.jtravelagency;
 
 import cz.muni.fi.pa165.jtravelagency.Trip;
-import cz.muni.fi.pa165.jtravelagency.TripDAOImpl;
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
 import junit.framework.TestCase;
+import org.joda.time.LocalDate;
 
 /**
  *
@@ -32,8 +26,6 @@ public class TripDAOImplTest extends TestCase {
     private EntityManager em;
     
     private  cz.muni.fi.pa165.jtravelagency.TripDAO tripDAOImpl;
-    
-    private SimpleDateFormat sdf =  new SimpleDateFormat("dd. MM. yyyy");
     
     
     public TripDAOImplTest(String testName) {
@@ -140,7 +132,6 @@ public class TripDAOImplTest extends TestCase {
      * Test of updateTrip method, of class TripDAO.
      */
     public void testUpdateTrip() {
-        try {
             em.getTransaction().begin();
             Trip trip = prepareTrip();
             tripDAOImpl.createTrip(trip);
@@ -149,7 +140,7 @@ public class TripDAOImplTest extends TestCase {
             
             // test updated dateFrom
             em.getTransaction().begin();
-            trip.setDateFrom(sdf.parse("12. 12. 2013"));
+            trip.setDateFrom(new LocalDate(2013, 12, 12));
             tripDAOImpl.updateTrip(trip);
             Trip result = tripDAOImpl.getTrip(tripId);
             em.getTransaction().commit();
@@ -158,7 +149,7 @@ public class TripDAOImplTest extends TestCase {
             
             // test updated dateTo
             em.getTransaction().begin();
-            trip.setDateTo(sdf.parse("22. 12. 2013"));
+            trip.setDateTo(new LocalDate(2013, 12, 22));
             tripDAOImpl.updateTrip(trip);
             result = tripDAOImpl.getTrip(tripId);
             em.getTransaction().commit();
@@ -191,9 +182,6 @@ public class TripDAOImplTest extends TestCase {
             em.getTransaction().commit();
             assertEquals(trip, result);
             assertTripDeepEquals(trip, result);
-        } catch (ParseException ex) {
-            Logger.getLogger(TripDAOImplTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
@@ -227,29 +215,25 @@ public class TripDAOImplTest extends TestCase {
      * Test of findTripsByDateRange method, of class TripDAO.
      */
     public void testFindTripsByDateRange() {
-        try {
-            em.getTransaction().begin();
-            Trip trip1 = prepareTrip();
-            trip1.setDateFrom(sdf.parse("23. 01. 2013"));
-            trip1.setDateTo(sdf.parse("25. 01. 2013"));
-            Trip trip2 = prepareTrip();
-            trip2.setDateFrom(sdf.parse("27. 01. 2013"));
-            trip2.setDateTo(sdf.parse("28. 01. 2013"));        
-            tripDAOImpl.createTrip(trip1);
-            tripDAOImpl.createTrip(trip2);
-            em.getTransaction().commit();
-            List<Trip> trips = tripDAOImpl.findTripsByDateRange(sdf.parse("18. 01. 2013"),
-                                                                sdf.parse("22. 01. 2013"));
-            assertEquals(0, trips.size());
-            trips = tripDAOImpl.findTripsByDateRange(sdf.parse("22. 01. 2013"),
-                                                     sdf.parse("29. 01. 2013"));
-            assertEquals(2, trips.size());
-            trips = tripDAOImpl.findTripsByDateRange(sdf.parse("01. 02. 2013"),
-                                                     sdf.parse("15. 02. 2013"));
-            assertEquals(0, trips.size());
-        } catch (ParseException ex) {
-            Logger.getLogger(TripDAOImplTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        em.getTransaction().begin();
+        Trip trip1 = prepareTrip();
+        trip1.setDateFrom(new LocalDate(2013, 1, 23));
+        trip1.setDateTo(new LocalDate(2013, 1, 25));
+        Trip trip2 = prepareTrip();
+        trip2.setDateFrom(new LocalDate(2013, 1, 27));
+        trip2.setDateTo(new LocalDate(2013, 1, 28));
+        tripDAOImpl.createTrip(trip1);
+        tripDAOImpl.createTrip(trip2);
+        em.getTransaction().commit();
+        List<Trip> trips = tripDAOImpl.findTripsByDateRange(new LocalDate(2013, 1, 18),
+                new LocalDate(2013, 1, 22));
+        assertEquals(0, trips.size());
+        trips = tripDAOImpl.findTripsByDateRange(new LocalDate(2013, 1, 22),
+                new LocalDate(2013, 1, 29));
+        assertEquals(2, trips.size());
+        trips = tripDAOImpl.findTripsByDateRange(new LocalDate(2013, 2, 1),
+                new LocalDate(2013, 2, 15));
+        assertEquals(0, trips.size());
     }
 
     /**
@@ -278,17 +262,13 @@ public class TripDAOImplTest extends TestCase {
     
     private Trip prepareTrip() {
         Trip preparedTrip = new Trip();
-        try {
-            preparedTrip.setDateFrom(sdf.parse("23. 11. 2013"));
-            preparedTrip.setDateTo(sdf.parse("30. 11. 2013"));
-            preparedTrip.setDestination("Spain");
-            preparedTrip.setAvailableTrips(10);
-            preparedTrip.setPrice(new BigDecimal(15200.25));
-        } catch (ParseException ex) {
-            Logger.getLogger(TripDAOImplTest.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            return preparedTrip;
-        }
+        preparedTrip.setDateFrom(new LocalDate(2013, 11, 23));
+        preparedTrip.setDateTo(new LocalDate(2013, 1, 30));
+        preparedTrip.setDestination("Spain");
+        preparedTrip.setAvailableTrips(10);
+        preparedTrip.setPrice(new BigDecimal(15200.25));
+        
+        return preparedTrip;
     }
     
     private static void assertTripDeepEquals(Trip expected, Trip actual) {

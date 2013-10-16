@@ -6,7 +6,6 @@ package cz.muni.fi.pa165.jtravelagency;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,9 +16,10 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDate;
 
 
 
@@ -45,13 +45,13 @@ public class Trip implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     @Column(name="date_from")
-    private Date dateFrom;
+    private LocalDate dateFrom;
     
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     @Column(name="date_to")
-    private Date dateTo;
+    private LocalDate dateTo;
        
     private String destination;
     
@@ -85,14 +85,14 @@ public class Trip implements Serializable {
     /**
      * @return the dateTo
      */
-    public Date getDateTo() {
+    public LocalDate getDateTo() {
         return dateTo;
     }
 
     /**
      * @param dateTo the dateTo to set
      */
-    public void setDateTo(Date dateTo) {
+    public void setDateTo(LocalDate dateTo) {
         this.dateTo = dateTo;
     }
     
@@ -114,14 +114,14 @@ public class Trip implements Serializable {
     /**
      * @return the dateFrom
      */
-    public Date getDateFrom() {
+    public LocalDate getDateFrom() {
         return dateFrom;
     }
 
     /**
      * @param dateFrom the dateFrom to set
      */
-    public void setDateFrom(Date dateFrom) {
+    public void setDateFrom(LocalDate dateFrom) {
         this.dateFrom = dateFrom;
     }
 

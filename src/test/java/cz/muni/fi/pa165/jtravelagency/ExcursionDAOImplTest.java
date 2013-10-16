@@ -7,13 +7,8 @@ package cz.muni.fi.pa165.jtravelagency;
 import cz.muni.fi.pa165.jtravelagency.Trip;
 import cz.muni.fi.pa165.jtravelagency.Excursion;
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -23,6 +18,8 @@ import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 import junit.framework.TestCase;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 /**
  *
@@ -33,8 +30,6 @@ public class ExcursionDAOImplTest extends TestCase {
     private EntityManagerFactory emf;
     private EntityManager em;
     private cz.muni.fi.pa165.jtravelagency.ExcursionDAO instance;
-    private SimpleDateFormat sdf =  new SimpleDateFormat("dd. MM. yyyy");
-    private SimpleDateFormat dateTime =  new SimpleDateFormat("HH:mm dd. MM. yyyy");
 
     public ExcursionDAOImplTest(String testName) {
         super(testName);
@@ -72,13 +67,7 @@ public class ExcursionDAOImplTest extends TestCase {
     }
 
     private Excursion newExcursion() {
-        Date date = null;
-        try {
-            date = dateTime.parse("12:00 12. 5. 2013");
-        } catch (ParseException ex) {
-            Logger.getLogger(TripDAOImplTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        DateTime date = new DateTime(2013, 5, 12, 12, 0);
         Excursion excursion = new Excursion();
         excursion.setDescription("description");
         excursion.setExcursionDate(date);
@@ -111,13 +100,8 @@ public class ExcursionDAOImplTest extends TestCase {
         Excursion excursion = newExcursion();
         Trip trip = new Trip();
         excursion.setTrip(trip);
-        Date date = null;
-        try {
-            date = dateTime.parse("12:00 12. 6. 2013");
-        } catch (ParseException ex) {
-            Logger.getLogger(TripDAOImplTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        DateTime date = new DateTime(2013, 6, 12, 12, 0);
+        
         em.getTransaction().begin();
         instance.createExcurtion(excursion);
         excursion.setDescription("new description");
@@ -218,16 +202,11 @@ public class ExcursionDAOImplTest extends TestCase {
     
         private Trip prepareTrip() {
         Trip preparedTrip = new Trip();
-        try {
-            preparedTrip.setDateFrom(sdf.parse("23. 11. 2013"));
-            preparedTrip.setDateTo(sdf.parse("30. 11. 2013"));
+            preparedTrip.setDateFrom(new LocalDate(2013, 11, 23));
+            preparedTrip.setDateTo(new LocalDate(2013, 1, 30));
             preparedTrip.setDestination("Spain");
             preparedTrip.setAvailableTrips(10);
             preparedTrip.setPrice(new BigDecimal(15200.25));
-        } catch (ParseException ex) {
-            Logger.getLogger(TripDAOImplTest.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
             return preparedTrip;
-        }
     }
 }
