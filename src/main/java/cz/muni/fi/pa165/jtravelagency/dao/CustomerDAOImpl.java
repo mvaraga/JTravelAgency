@@ -2,8 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.pa165.jtravelagency;
+package cz.muni.fi.pa165.jtravelagency.dao;
 
+import cz.muni.fi.pa165.jtravelagency.CustomerStatus;
+import cz.muni.fi.pa165.jtravelagency.entity.Customer;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;

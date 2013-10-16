@@ -4,7 +4,7 @@
  */
 package cz.muni.fi.pa165.jtravelagency;
 
-import cz.muni.fi.pa165.jtravelagency.Trip;
+import cz.muni.fi.pa165.jtravelagency.entity.Trip;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -25,7 +25,7 @@ public class TripDAOImplTest extends TestCase {
     
     private EntityManager em;
     
-    private  cz.muni.fi.pa165.jtravelagency.TripDAO tripDAOImpl;
+    private  cz.muni.fi.pa165.jtravelagency.dao.TripDAO tripDAOImpl;
     
     
     public TripDAOImplTest(String testName) {
@@ -37,7 +37,7 @@ public class TripDAOImplTest extends TestCase {
     protected void setUp() throws Exception {
         emf = Persistence.createEntityManagerFactory("TestPU");
         em = emf.createEntityManager();
-        tripDAOImpl = new cz.muni.fi.pa165.jtravelagency.TripDAOImpl(em);
+        tripDAOImpl = new cz.muni.fi.pa165.jtravelagency.dao.TripDAOImpl(em);
     }
     
     @Override

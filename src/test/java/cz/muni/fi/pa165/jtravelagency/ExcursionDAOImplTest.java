@@ -4,8 +4,8 @@
  */
 package cz.muni.fi.pa165.jtravelagency;
 
-import cz.muni.fi.pa165.jtravelagency.Trip;
-import cz.muni.fi.pa165.jtravelagency.Excursion;
+import cz.muni.fi.pa165.jtravelagency.entity.Trip;
+import cz.muni.fi.pa165.jtravelagency.entity.Excursion;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class ExcursionDAOImplTest extends TestCase {
     
     private EntityManagerFactory emf;
     private EntityManager em;
-    private cz.muni.fi.pa165.jtravelagency.ExcursionDAO instance;
+    private cz.muni.fi.pa165.jtravelagency.dao.ExcursionDAO instance;
 
     public ExcursionDAOImplTest(String testName) {
         super(testName);
@@ -39,7 +39,7 @@ public class ExcursionDAOImplTest extends TestCase {
     protected void setUp() throws Exception {
         emf = Persistence.createEntityManagerFactory("TestPU");
         em = emf.createEntityManager();
-        instance = new cz.muni.fi.pa165.jtravelagency.ExcursionDAOImpl(em);
+        instance = new cz.muni.fi.pa165.jtravelagency.dao.ExcursionDAOImpl(em);
 
     }
     

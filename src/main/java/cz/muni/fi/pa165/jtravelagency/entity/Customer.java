@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.pa165.jtravelagency;
+package cz.muni.fi.pa165.jtravelagency.entity;
 
+import cz.muni.fi.pa165.jtravelagency.CustomerStatus;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;

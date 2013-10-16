@@ -1,15 +1,8 @@
 package cz.muni.fi.pa165.jtravelagency;
 
-import cz.muni.fi.pa165.jtravelagency.Customer;
-import cz.muni.fi.pa165.jtravelagency.CustomerStatus;
-import cz.muni.fi.pa165.jtravelagency.Reservation;
-import java.math.BigDecimal;
+import cz.muni.fi.pa165.jtravelagency.entity.Customer;
+import cz.muni.fi.pa165.jtravelagency.entity.Reservation;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -30,7 +23,7 @@ public class CustomerDAOImplTest extends TestCase {
     
     private EntityManager em;
     
-    private  cz.muni.fi.pa165.jtravelagency.CustomerDAO customerDAOImpl;
+    private  cz.muni.fi.pa165.jtravelagency.dao.CustomerDAO customerDAOImpl;
     
     public CustomerDAOImplTest(String testName) {
         super(testName);
@@ -40,7 +33,7 @@ public class CustomerDAOImplTest extends TestCase {
     protected void setUp() throws Exception {
        emf = Persistence.createEntityManagerFactory("TestPU");
        em = emf.createEntityManager();
-       customerDAOImpl = new cz.muni.fi.pa165.jtravelagency.CustomerDAOImpl(em);
+       customerDAOImpl = new cz.muni.fi.pa165.jtravelagency.dao.CustomerDAOImpl(em);
     }
     
     @Override
