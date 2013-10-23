@@ -4,10 +4,47 @@
  */
 package cz.muni.fi.pa165.jtravelagency.service;
 
+import cz.muni.fi.pa165.jtravelagency.dto.CustomerDTO;
+import java.util.List;
+
 /**
  *
  * @author jakub
  */
 public interface CustomerService {
+    
+    void create(CustomerDTO customer);
+    
+    /*
+     * Gets customer specified by its id
+     * 
+     * @param id Id of the customer
+     */
+    CustomerDTO get(Long id);
+    
+    /*
+     * Updates customer
+     * 
+     * @param customer Customer to 
+     */
+    void update(CustomerDTO customer);
+    
+    /*
+     * Deletes customer from database.
+     * 
+     * @param customer Customer to delete
+     */
+    void delete(CustomerDTO customer);
+    
+    /*
+     * Gets all customers from database.
+     */
+    List<CustomerDTO> getAll();
+    
+    /*
+     * Set status to deleted
+     * @param
+     */
+    void setDeletedStatus(CustomerDTO customer);
     
 }
