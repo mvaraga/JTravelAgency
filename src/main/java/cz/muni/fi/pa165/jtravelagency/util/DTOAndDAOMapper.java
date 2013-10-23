@@ -51,7 +51,7 @@ public class DTOAndDAOMapper {
         return trip;
     }
     
-    public static Customer DtoToEntity(CustomerDTO cDto) {
+    public static Customer dtoToEntity(CustomerDTO cDto) {
         if (cDto == null) {
             return null;
         }
@@ -64,14 +64,14 @@ public class DTOAndDAOMapper {
         customer.setStatus(cDto.getStatus());
         List<Reservation> list = new ArrayList<Reservation>();
         for (ReservationDTO r : cDto.getReservations()) {
-            list.add(DTOAndDAOMapper.DtoToEntity(r));
+            list.add(DTOAndDAOMapper.dtoToEntity(r));
         }
         customer.setReservations(list);
 
         return customer;
     }
 
-    public static CustomerDTO EntityToDto(Customer c) {
+    public static CustomerDTO entityToDto(Customer c) {
         if (c == null) {
             return null;
         }
@@ -83,7 +83,7 @@ public class DTOAndDAOMapper {
         customerDto.setStatus(c.getStatus());
         List<ReservationDTO> list = new ArrayList<ReservationDTO>();
         for (Reservation r : c.getReservations()) {
-            list.add(DTOAndDAOMapper.EntityToDto(r));
+            list.add(DTOAndDAOMapper.entityToDto(r));
         }
         customerDto.setReservations(list);
 
@@ -91,11 +91,11 @@ public class DTOAndDAOMapper {
     }
 
 
-    public static Reservation DtoToEntity(ReservationDTO rDto) {
+    public static Reservation dtoToEntity(ReservationDTO rDto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public static ReservationDTO EntityToDto(Reservation r) {
+    public static ReservationDTO entityToDto(Reservation r) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
