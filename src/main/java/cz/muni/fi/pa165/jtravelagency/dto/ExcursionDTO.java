@@ -17,13 +17,13 @@ public class ExcursionDTO {
     private DateTime excursionDate;
     private String description;
     private BigDecimal price;
-    private Trip trip;
+    private TripDTO trip;
 
-    public Trip getTrip() {
+    public TripDTO getTrip() {
         return trip;
     }
 
-    public void setTrip(Trip trip) {
+    public void setTrip(TripDTO trip) {
         this.trip = trip;
     }
 

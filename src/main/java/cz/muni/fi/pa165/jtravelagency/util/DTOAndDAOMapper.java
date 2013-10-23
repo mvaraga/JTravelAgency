@@ -5,9 +5,11 @@
 package cz.muni.fi.pa165.jtravelagency.util;
 
 import cz.muni.fi.pa165.jtravelagency.dto.CustomerDTO;
+import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
 import cz.muni.fi.pa165.jtravelagency.entity.Customer;
+import cz.muni.fi.pa165.jtravelagency.entity.Excursion;
 import cz.muni.fi.pa165.jtravelagency.entity.Reservation;
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ import java.util.List;
 public class DTOAndDAOMapper {
 
     
-    private static TripDTO EntityTripToDTOTrip(Trip trip) {
+    public static TripDTO EntityToDto(Trip trip) {
         if (trip == null) {
             return null;
         }
@@ -36,7 +38,7 @@ public class DTOAndDAOMapper {
         return tripDTO;
     }
     
-    private static Trip DTOTripToEntityTrip(TripDTO tripDTO) {
+    public static Trip DtoToEntity(TripDTO tripDTO) {
         if (tripDTO == null) {
             return null;
         }
@@ -97,5 +99,25 @@ public class DTOAndDAOMapper {
 
     public static ReservationDTO EntityToDto(Reservation r) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public static Excursion DtoToEntity(ExcursionDTO excursionDTO) {
+        Excursion excursion = new Excursion();
+        excursion.setId(excursionDTO.getId());
+        excursion.setDescription(excursionDTO.getDescription());
+        excursion.setExcursionDate(excursionDTO.getExcursionDate());
+        excursion.setPrice(excursionDTO.getPrice());
+        excursion.setTrip(DtoToEntity(excursionDTO.getTrip()));
+        return excursion;
+    }
+    
+    public static ExcursionDTO EntityToDto(Excursion excursion) {
+        ExcursionDTO excursionDTO = new ExcursionDTO();
+        excursionDTO.setId(excursion.getId());
+        excursionDTO.setDescription(excursion.getDescription());
+        excursionDTO.setExcursionDate(excursion.getExcursionDate());
+        excursionDTO.setPrice(excursion.getPrice());
+        excursionDTO.setTrip(EntityToDto(excursion.getTrip()));
+        return excursionDTO;
     }
 }
