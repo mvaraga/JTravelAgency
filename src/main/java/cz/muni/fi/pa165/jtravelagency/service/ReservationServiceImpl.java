@@ -44,8 +44,8 @@ public class ReservationServiceImpl implements ReservationService {
         
         Reservation reservation = new Reservation();
         reservation.setId(reservationDTO.getId());
-        reservation.setTrip(reservationDTO.getTrip());
-        reservation.setExcursions(reservationDTO.getExcursions());
+        //reservation.setTrip(reservationDTO.getTrip());
+        //reservation.setExcursions(reservationDTO.getExcursions());
         
         return null;
   
