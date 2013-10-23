@@ -22,7 +22,7 @@ import java.util.List;
 public class DTOAndDAOMapper {
 
     
-    public static TripDTO EntityToDto(Trip trip) {
+    public static TripDTO entityToDto(Trip trip) {
         if (trip == null) {
             return null;
         }
@@ -38,7 +38,7 @@ public class DTOAndDAOMapper {
         return tripDTO;
     }
     
-    public static Trip DtoToEntity(TripDTO tripDTO) {
+    public static Trip dtoToEntity(TripDTO tripDTO) {
         if (tripDTO == null) {
             return null;
         }
@@ -101,23 +101,23 @@ public class DTOAndDAOMapper {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public static Excursion DtoToEntity(ExcursionDTO excursionDTO) {
+    public static Excursion dtoToEntity(ExcursionDTO excursionDTO) {
         Excursion excursion = new Excursion();
         excursion.setId(excursionDTO.getId());
         excursion.setDescription(excursionDTO.getDescription());
         excursion.setExcursionDate(excursionDTO.getExcursionDate());
         excursion.setPrice(excursionDTO.getPrice());
-        excursion.setTrip(DtoToEntity(excursionDTO.getTrip()));
+        excursion.setTrip(dtoToEntity(excursionDTO.getTrip()));
         return excursion;
     }
     
-    public static ExcursionDTO EntityToDto(Excursion excursion) {
+    public static ExcursionDTO entityToDto(Excursion excursion) {
         ExcursionDTO excursionDTO = new ExcursionDTO();
         excursionDTO.setId(excursion.getId());
         excursionDTO.setDescription(excursion.getDescription());
         excursionDTO.setExcursionDate(excursion.getExcursionDate());
         excursionDTO.setPrice(excursion.getPrice());
-        excursionDTO.setTrip(EntityToDto(excursion.getTrip()));
+        excursionDTO.setTrip(entityToDto(excursion.getTrip()));
         return excursionDTO;
     }
 }
