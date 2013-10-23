@@ -21,14 +21,20 @@ public class TripDAOImpl implements TripDAO {
     
     
     public TripDAOImpl(EntityManager em) {
-        if (em == null) throw new IllegalArgumentException("Entity Manager can not be null");
+        if (em == null) {
+            throw new IllegalArgumentException("Entity Manager can not be null");
+        }
         this.em = em;
     }
     
     
     public void createTrip(Trip trip) {
-        if (trip == null) throw new IllegalArgumentException("Trip can not be null");
-        if (trip.getId() != null) throw new IllegalArgumentException("Trip id has to bed null when new trip is created");
+        if (trip == null) {
+            throw new IllegalArgumentException("Trip can not be null");
+        }
+        if (trip.getId() != null) {
+            throw new IllegalArgumentException("Trip id has to bed null when new trip is created");
+        }
         validateTrip(trip);
         em.persist(trip);
         em.flush();
@@ -36,13 +42,19 @@ public class TripDAOImpl implements TripDAO {
     }
 
     public Trip getTrip(Long id) {
-        if (id == null) throw new IllegalArgumentException("Trip can not be null when getting trip");
+        if (id == null) {
+            throw new IllegalArgumentException("Trip can not be null when getting trip");
+        }
         return em.find(Trip.class, id);
     }
 
     public void updateTrip(Trip trip) {
-        if (trip == null) throw new IllegalArgumentException("Trip can not be null when updated");
-        if (trip.getId() == null) throw new IllegalArgumentException("Trip id can not be null when trip is updated");
+        if (trip == null) {
+            throw new IllegalArgumentException("Trip can not be null when updated");
+        }
+        if (trip.getId() == null) {
+            throw new IllegalArgumentException("Trip id can not be null when trip is updated");
+        }
         validateTrip(trip);
         em.merge(trip);
         em.flush();
@@ -50,8 +62,12 @@ public class TripDAOImpl implements TripDAO {
     }
 
     public void deleteTrip(Trip trip) {
-        if (trip == null) throw new IllegalArgumentException("Trip can not be null when updated");
-        if (trip.getId() == null) throw new IllegalArgumentException("Trip id can not be null when trip is updated");
+        if (trip == null) {
+            throw new IllegalArgumentException("Trip can not be null when updated");
+        }
+        if (trip.getId() == null) {
+            throw new IllegalArgumentException("Trip id can not be null when trip is updated");
+        }
         validateTrip(trip);
         em.remove(trip);
         em.flush();
@@ -80,8 +96,14 @@ public class TripDAOImpl implements TripDAO {
     }
     
     private void validateTrip(Trip trip) {
-        if (trip.getDateFrom() == null) throw new IllegalArgumentException("Trip date from can not be null");
-        if (trip.getDateTo() == null)  throw new IllegalArgumentException("Trip date to can not be null");
-        if (trip.getDestination() == null) throw new IllegalArgumentException("Trip destination can not be null");
+        if (trip.getDateFrom() == null) {
+            throw new IllegalArgumentException("Trip date from can not be null");
+        }
+        if (trip.getDateTo() == null) {
+            throw new IllegalArgumentException("Trip date to can not be null");
+        }
+        if (trip.getDestination() == null) {
+            throw new IllegalArgumentException("Trip destination can not be null");
+        }
     }
 }

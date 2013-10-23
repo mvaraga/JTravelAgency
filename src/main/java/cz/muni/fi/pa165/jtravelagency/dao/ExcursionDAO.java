@@ -16,7 +16,7 @@ public interface ExcursionDAO {
     /*
      * Creates new excursion
      */
-    void createExcurtion(Excursion excursion);
+    void createExcursion(Excursion excursion);
     
     /*
      * Gets excursion specified by its id

@@ -59,7 +59,7 @@ public class ExcursionDAOImplTest extends TestCase {
         Excursion excursion = newExcursion();
              
         em.getTransaction().begin();
-        instance.createExcurtion(excursion);
+        instance.createExcursion(excursion);
         Excursion result = instance.getExcursion(excursion.getId());
         em.getTransaction().commit();
         
@@ -85,7 +85,7 @@ public class ExcursionDAOImplTest extends TestCase {
         Excursion excursion = newExcursion();
              
         em.getTransaction().begin();
-        instance.createExcurtion(excursion);
+        instance.createExcursion(excursion);
         Excursion result = instance.getExcursion(excursion.getId());
         em.getTransaction().commit();
         
@@ -103,7 +103,7 @@ public class ExcursionDAOImplTest extends TestCase {
         DateTime date = new DateTime(2013, 6, 12, 12, 0);
         
         em.getTransaction().begin();
-        instance.createExcurtion(excursion);
+        instance.createExcursion(excursion);
         excursion.setDescription("new description");
         excursion.setExcursionDate(date);
         excursion.setPrice(BigDecimal.ONE.setScale(2));
@@ -124,7 +124,7 @@ public class ExcursionDAOImplTest extends TestCase {
         Excursion excursion = newExcursion();
 
         em.getTransaction().begin();
-        instance.createExcurtion(excursion);
+        instance.createExcursion(excursion);
         Excursion result = instance.getExcursion(excursion.getId());
         assertNotNull(result);
         instance.deleteExcursion(result);
@@ -148,9 +148,9 @@ public class ExcursionDAOImplTest extends TestCase {
         list.add(e3);
         
         em.getTransaction().begin();
-        instance.createExcurtion(e1);
-        instance.createExcurtion(e2);
-        instance.createExcurtion(e3);
+        instance.createExcursion(e1);
+        instance.createExcursion(e2);
+        instance.createExcursion(e3);
         List<Excursion> result = instance.getAllExcursions();
         em.getTransaction().commit();
         
@@ -175,7 +175,7 @@ public class ExcursionDAOImplTest extends TestCase {
         Trip trip = excursion.getTrip();
              
         em.getTransaction().begin();
-        instance.createExcurtion(excursion);
+        instance.createExcursion(excursion);
         Trip result = instance.getExcursion(excursion.getId()).getTrip();
         em.getTransaction().commit();
 

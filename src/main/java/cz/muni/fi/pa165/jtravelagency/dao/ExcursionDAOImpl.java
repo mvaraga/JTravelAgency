@@ -25,7 +25,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
         this.em = em;
     }
     
-    public void createExcurtion(Excursion excursion) {
+    public void createExcursion(Excursion excursion) {
         validateExcursion(excursion);
         if(excursion.getId() != null) {
             throw new IllegalArgumentException("Excursion's is null.");
