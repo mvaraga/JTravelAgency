@@ -94,11 +94,33 @@ public class DTOAndDAOMapper {
 
 
     public static Reservation dtoToEntity(ReservationDTO rDto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (rDto ==null) {return null;}
+        
+        Reservation reservation = new Reservation();
+        reservation.setId(rDto.getId());
+        reservation.setTrip(dtoToEntity(rDto.getTrip()));
+        ArrayList<Excursion> excursions=new ArrayList<Excursion>();
+        for (ExcursionDTO e : rDto.getExcursions()) {
+            excursions.add(DTOAndDAOMapper.dtoToEntity(e));
+        }
+        reservation.setExcursions(excursions);
+       reservation.setCustomer(dtoToEntity(rDto.getCustomer()));
+        
+        return reservation;
     }
 
     public static ReservationDTO entityToDto(Reservation r) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (r==null) {return null;}
+        ReservationDTO rDto=new ReservationDTO();
+        rDto.setCustomer(entityToDto(r.getCustomer()));
+        rDto.setId(r.getId());
+        rDto.setTrip(entityToDto(r.getTrip()));
+        ArrayList<ExcursionDTO> excursions=new ArrayList<ExcursionDTO>();
+        for(Excursion e: r.getExcursions()){
+            excursions.add(entityToDto(e));
+        }
+        rDto.setExcursions(excursions);
+        return rDto;
     }
     
     public static Excursion dtoToEntity(ExcursionDTO excursionDTO) {

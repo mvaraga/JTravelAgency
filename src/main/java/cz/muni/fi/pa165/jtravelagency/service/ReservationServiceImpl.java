@@ -39,20 +39,9 @@ public class ReservationServiceImpl implements ReservationService {
         return null;
     }
     
-    private static Reservation DTOreservationtoEntity(ReservationDTO reservationDTO){
-        if (reservationDTO ==null) {return null;}
-        
-        Reservation reservation = new Reservation();
-        reservation.setId(reservationDTO.getId());
-        //reservation.setTrip(reservationDTO.getTrip());
-        //reservation.setExcursions(reservationDTO.getExcursions());
-        
-        return null;
   
-    }
-    
-    private static ReservationDTO ReservationtoDTO(){
-        return null;
-    }
+
+  
+   
     
 }
