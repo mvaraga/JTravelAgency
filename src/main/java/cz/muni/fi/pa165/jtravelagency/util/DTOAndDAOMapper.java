@@ -14,6 +14,8 @@ import cz.muni.fi.pa165.jtravelagency.entity.Reservation;
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
 import java.util.ArrayList;
 import java.util.List;
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 
 /**
  *
@@ -95,7 +97,7 @@ public class DTOAndDAOMapper {
 
     public static Reservation dtoToEntity(ReservationDTO rDto) {
         if (rDto ==null) {return null;}
-        
+      /**
         Reservation reservation = new Reservation();
         reservation.setId(rDto.getId());
         reservation.setTrip(dtoToEntity(rDto.getTrip()));
@@ -107,10 +109,18 @@ public class DTOAndDAOMapper {
        reservation.setCustomer(dtoToEntity(rDto.getCustomer()));
         
         return reservation;
+       
+       */
+        
+        Mapper mapper = new DozerBeanMapper();
+        Reservation destObject =
+        mapper.map(rDto, Reservation.class);
+        return destObject;
     }
 
     public static ReservationDTO entityToDto(Reservation r) {
         if (r==null) {return null;}
+       /**
         ReservationDTO rDto=new ReservationDTO();
         rDto.setCustomer(entityToDto(r.getCustomer()));
         rDto.setId(r.getId());
@@ -121,6 +131,12 @@ public class DTOAndDAOMapper {
         }
         rDto.setExcursions(excursions);
         return rDto;
+       */
+        Mapper mapper = new DozerBeanMapper();
+        ReservationDTO destObject =
+        mapper.map(r, ReservationDTO.class);
+        return destObject;
+
     }
     
     public static Excursion dtoToEntity(ExcursionDTO excursionDTO) {
