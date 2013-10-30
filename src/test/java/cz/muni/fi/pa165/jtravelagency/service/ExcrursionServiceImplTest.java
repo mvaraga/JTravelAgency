@@ -19,8 +19,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.*;
-
-
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
@@ -38,7 +36,6 @@ public class ExcrursionServiceImplTest extends TestCase {
 //    public ExcrursionServiceImplTest(String testName) {
 //        super(testName);
 //    }
-
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -54,26 +51,26 @@ public class ExcrursionServiceImplTest extends TestCase {
      */
     @Test
     public void testCreate() {
-        System.out.println("create");
-        
         doThrow(new IllegalArgumentException()).when(dao).createExcursion(null);
         
         try {
             service.create(null);
             fail();
         } catch (IllegalArgumentException ex) {
-           
+            //OK
         }
-        
-        //verify(dao).createExcursion(null);
-        //verify(dao, never()).updateExcursion(null);
-        //ExcursionDTO excursionDto = newExcursionDto();       
+
+ 
+        ExcursionDTO excursionDto = newExcursionDto();
         //doNothing().when(dao).createExcursion(DTOAndDAOMapper.dtoToEntity(excursionDto));       
-        //Excursion excursion = newExcursion();
-        //service.create(excursionDto);
-        //verify(dao).createExcursion(excursion);
-        //verify(dao, never()).deleteExcursion(excursion);
-       // dao.createExcursion(excursion);
+        Excursion excursion = DTOAndDAOMapper.dtoToEntity(excursionDto);//newExcursion();
+        service.create(excursionDto);
+        verify(dao).createExcursion(excursion);
+
+        verify(dao, never()).deleteExcursion(excursion);
+        verify(dao, never()).updateExcursion(null);
+
+        // dao.createExcursion(excursion);
     }
 
     /**
@@ -94,24 +91,52 @@ public class ExcrursionServiceImplTest extends TestCase {
      * Test of update method, of class ExcrursionServiceImpl.
      */
     public void testUpdate() {
-        System.out.println("update");
-        ExcursionDTO excursionDTO = null;
-        ExcrursionServiceImpl instance = new ExcrursionServiceImpl();
-        instance.update(excursionDTO);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        doThrow(new IllegalArgumentException()).when(dao).updateExcursion(null);
+        
+        try{
+            service.update(null);
+            fail();
+        }catch(IllegalArgumentException ex){
+           //OK
+        }
+         
+        verify(dao,never()).createExcursion(null);
+        verify(dao,times(1)).updateExcursion(null);
+        verifyNoMoreInteractions(dao);
+                
+        ExcursionDTO excursionDto = newExcursionDto();
+        service.update(excursionDto);
+        Excursion excursion = DTOAndDAOMapper.dtoToEntity(excursionDto);
+        
+        verify(dao,times(1)).updateExcursion(excursion);
+        verify(dao,times(0)).createExcursion(excursion);
     }
 
     /**
      * Test of delete method, of class ExcrursionServiceImpl.
      */
     public void testDelete() {
-        System.out.println("delete");
-        ExcursionDTO excursionDTO = null;
-        ExcrursionServiceImpl instance = new ExcrursionServiceImpl();
-        instance.delete(excursionDTO);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        doThrow(new IllegalArgumentException()).when(dao).deleteExcursion(null);
+        
+        try{
+            service.delete(null);
+            fail();
+        }catch(IllegalArgumentException ex){
+            
+        }
+         
+        verify(dao,never()).createExcursion(null);
+        verify(dao,times(1)).deleteExcursion(null);
+        verify(dao,never()).updateExcursion(null);
+        verifyNoMoreInteractions(dao);
+                
+        ExcursionDTO excursionDto = newExcursionDto();
+        service.delete(excursionDto);
+        Excursion excursion = DTOAndDAOMapper.dtoToEntity(excursionDto);
+        
+        verify(dao,times(1)).deleteExcursion(excursion);
+        verify(dao,times(0)).createExcursion(excursion);
+        verify(dao,never()).updateExcursion(excursion);
     }
 
     /**
@@ -135,7 +160,7 @@ public class ExcrursionServiceImplTest extends TestCase {
         excursionDto.setTrip(new TripDTO());
         return excursionDto;
     }
-    
+
     private Excursion newExcursion() {
         Excursion excursion = new Excursion();
         excursion.setDescription("Description");
