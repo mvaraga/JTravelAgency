@@ -1,2 +1,5 @@
 2. CHECKPOINT
 *Mame v DTO objektech mit param/bezparam konstuktor + pouze get/get+set
+*Staticka metoda
+ dozer ?
+*Vazby primo v entitach nebo jen v DTO ?
