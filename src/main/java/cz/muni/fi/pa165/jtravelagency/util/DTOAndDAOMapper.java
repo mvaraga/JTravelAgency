@@ -21,6 +21,19 @@ import org.dozer.Mapper;
  */
 public class DTOAndDAOMapper {
 
+//    public static <T1, T2> T1 entityToDto(T2 srcObject, Class<T1> destClass) {
+//        if (srcObject == null) {
+//            return null;
+//        }
+//        Mapper mapper = new DozerBeanMapper();
+//        T1 destObject = mapper.map(srcObject, destClass);
+//        return destObject;
+//    }
+//
+//    public static <T1, T2> T1 dtoToEntity(T2 dto, Class<T1> destClass) {
+//        return entityToDto(dto, destClass);
+//    }
+
     public static TripDTO entityToDto(Trip trip) {
         if (trip == null) {
             return null;
