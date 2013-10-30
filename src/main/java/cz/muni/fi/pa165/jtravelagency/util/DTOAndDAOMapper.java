@@ -142,22 +142,38 @@ public class DTOAndDAOMapper {
     }
 
     public static Excursion dtoToEntity(ExcursionDTO excursionDTO) {
-        Excursion excursion = new Excursion();
-        excursion.setId(excursionDTO.getId());
-        excursion.setDescription(excursionDTO.getDescription());
-        excursion.setExcursionDate(excursionDTO.getExcursionDate());
-        excursion.setPrice(excursionDTO.getPrice());
-        excursion.setTrip(dtoToEntity(excursionDTO.getTrip()));
-        return excursion;
+        if (excursionDTO == null) {
+            return null;
+        }   
+        Mapper mapper = new DozerBeanMapper();
+        Excursion destObject = mapper.map(excursionDTO, Excursion.class);
+        return destObject;
+        
+        
+//        Excursion excursion = new Excursion();
+//        excursion.setId(excursionDTO.getId());
+//        excursion.setDescription(excursionDTO.getDescription());
+//        excursion.setExcursionDate(excursionDTO.getExcursionDate());
+//        excursion.setPrice(excursionDTO.getPrice());
+//        excursion.setTrip(dtoToEntity(excursionDTO.getTrip()));
+//        return excursion;
     }
 
     public static ExcursionDTO entityToDto(Excursion excursion) {
-        ExcursionDTO excursionDTO = new ExcursionDTO();
-        excursionDTO.setId(excursion.getId());
-        excursionDTO.setDescription(excursion.getDescription());
-        excursionDTO.setExcursionDate(excursion.getExcursionDate());
-        excursionDTO.setPrice(excursion.getPrice());
-        excursionDTO.setTrip(entityToDto(excursion.getTrip()));
-        return excursionDTO;
+        if (excursion == null) {
+            return null;
+        }   
+        Mapper mapper = new DozerBeanMapper();
+        ExcursionDTO destObject = mapper.map(excursion, ExcursionDTO.class);
+        return destObject;
+        
+//        ExcursionDTO excursionDTO = new ExcursionDTO();
+//        excursionDTO.setId(excursion.getId());
+//        excursionDTO.setDescription(excursion.getDescription());
+//        excursionDTO.setExcursionDate(excursion.getExcursionDate());
+//        excursionDTO.setPrice(excursion.getPrice());
+//        excursionDTO.setTrip(entityToDto(excursion.getTrip()));
+//        return excursionDTO;
     }
+    
 }
