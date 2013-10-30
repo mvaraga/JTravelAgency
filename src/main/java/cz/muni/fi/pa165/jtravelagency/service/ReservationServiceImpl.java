@@ -33,15 +33,33 @@ public class ReservationServiceImpl implements ReservationService {
     }
     
     public void create(ReservationDTO reservationDTO){
+        if (reservationDTO == null) {
+            throw new IllegalArgumentException("ReservationDTO is null.");
+        }
+        if (reservationDTO.getId() != null) {
+            throw new IllegalArgumentException("ReservationDTO's id is null.");
+        }
         Reservation reservation=DTOAndDAOMapper.dtoToEntity(reservationDTO);
         reservationDAO.createReservation(reservation);
     }
     public void delete(ReservationDTO  reservationDTO){
+        if (reservationDTO == null) {
+            throw new IllegalArgumentException("ReservationDTO is null.");
+        }
+        if (reservationDTO.getId() != null) {
+            throw new IllegalArgumentException("ReservationDTO's id is null.");
+        }
         Reservation reservation=DTOAndDAOMapper.dtoToEntity(reservationDTO);
         reservationDAO.deleteReservation(reservation);
     }
     
     public void update(ReservationDTO  reservationDTO){
+        if (reservationDTO == null) {
+            throw new IllegalArgumentException("ReservationDTO is null.");
+        }
+        if (reservationDTO.getId() != null) {
+            throw new IllegalArgumentException("ReservationDTO's id is null.");
+        }
         reservationDAO.updateReservation(DTOAndDAOMapper.dtoToEntity(reservationDTO));
     }
     public ReservationDTO  get(Long id){

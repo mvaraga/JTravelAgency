@@ -30,6 +30,9 @@ public class TripServiceImpl implements TripService {
     
     @Override
     public void create(TripDTO tripDTO) {
+        if (tripDTO == null) {
+            throw new IllegalArgumentException("TripDTO is null.");
+        }
         if (tripDTO.getId() != null) {
             throw new IllegalArgumentException("TripDTO's id is null.");
         }
@@ -50,6 +53,9 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public void update(TripDTO tripDTO) {
+        if (tripDTO == null) {
+            throw new IllegalArgumentException("TripDTO is null.");
+        }
         if (tripDTO.getId() == null) {
             throw new IllegalArgumentException("ID can not be null.");
         }
@@ -60,6 +66,9 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public void delete(TripDTO tripDTO) {
+        if (tripDTO == null) {
+            throw new IllegalArgumentException("TripDTO is null.");
+        }
         if (tripDTO.getId() == null) {
             throw new IllegalArgumentException("Id cannot be null.");
         }
@@ -80,6 +89,12 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public List<TripDTO> findAllByDateRange(LocalDate from, LocalDate to) {
+        if (from == null) {
+            throw new IllegalArgumentException("TripDTO's date from is null.");
+        }
+        if (to == null) {
+            throw new IllegalArgumentException("TripDTO's to from is null.");
+        }
         List<Trip> trips = tripDAO.findTripsByDateRange(from, to);
         List<TripDTO> tripDTOs = new ArrayList<TripDTO>();
         for(Trip t : trips) {
