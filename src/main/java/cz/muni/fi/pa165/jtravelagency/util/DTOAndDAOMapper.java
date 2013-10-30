@@ -20,7 +20,7 @@ import java.util.List;
 public class DTOAndDAOMapper {
 
     
-    private static TripDTO EntityTripToDTOTrip(Trip trip) {
+    public static TripDTO EntityToDto(Trip trip) {
         if (trip == null) {
             return null;
         }
@@ -36,7 +36,7 @@ public class DTOAndDAOMapper {
         return tripDTO;
     }
     
-    private static Trip DTOTripToEntityTrip(TripDTO tripDTO) {
+    public static Trip DtoToEntity(TripDTO tripDTO) {
         if (tripDTO == null) {
             return null;
         }
