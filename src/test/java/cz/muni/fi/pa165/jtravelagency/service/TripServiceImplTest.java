@@ -5,16 +5,32 @@
 package cz.muni.fi.pa165.jtravelagency.service;
 
 import cz.muni.fi.pa165.jtravelagency.dao.TripDAO;
+import cz.muni.fi.pa165.jtravelagency.dao.TripDAOImpl;
+import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
+import cz.muni.fi.pa165.jtravelagency.entity.Trip;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import junit.framework.TestCase;
 import org.joda.time.LocalDate;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  *
  * @author Radka
  */
+@RunWith(MockitoJUnitRunner.class)
 public class TripServiceImplTest extends TestCase {
+    
+    @InjectMocks
+    private TripServiceImpl tripService;
+    
+    @Mock
+    private TripDAOImpl tripDao;
     
     public TripServiceImplTest(String testName) {
         super(testName);
@@ -34,12 +50,8 @@ public class TripServiceImplTest extends TestCase {
      * Test of setTripDAO method, of class TripServiceImpl.
      */
     public void testSetTripDAO() {
-        System.out.println("setTripDAO");
-        TripDAO tripDAO = null;
-        TripServiceImpl instance = new TripServiceImpl();
-        instance.setTripDAO(tripDAO);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+           TripDTO tripDTO=newTripDTO();
+
     }
 
     /**
@@ -133,4 +145,19 @@ public class TripServiceImplTest extends TestCase {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+    
+        private TripDTO newTripDTO() {
+        TripDTO tripDTO = new TripDTO();
+        tripDTO.setDateFrom(new LocalDate(2013, 11, 23));
+        tripDTO.setDateTo(new LocalDate(2013, 1, 30));
+        tripDTO.setDestination("Spain");
+        tripDTO.setAvailableTrips(10);
+        tripDTO.setPrice(new BigDecimal(15200.25));
+        
+        //List<ExcursionDTO> excursions=new ArrayList<ExcursionDTO>();
+        //excursions.add(new ExcursionDTO());
+        //excursions.add(new ExcursionDTO());
+        return tripDTO;
+}
+
 }
