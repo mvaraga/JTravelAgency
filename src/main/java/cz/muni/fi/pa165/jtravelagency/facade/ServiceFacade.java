@@ -4,10 +4,113 @@
  */
 package cz.muni.fi.pa165.jtravelagency.facade;
 
+import cz.muni.fi.pa165.jtravelagency.dto.CustomerDTO;
+import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
+import cz.muni.fi.pa165.jtravelagency.dto.ReservationDTO;
+import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
+import java.util.List;
+import org.joda.time.LocalDate;
+
 /**
  *
  * @author jakub
  */
 public interface ServiceFacade {
     
+    
+    /*
+     * Create Methods
+     */
+    public void createCustomer(CustomerDTO cutomerDTO);
+    
+    public void createTrip(TripDTO tripDTO);
+    
+    public void createExcursion(ExcursionDTO excursionDTO);
+    
+    public void createReservation(ReservationDTO reservationDTO);
+    
+    
+    /*
+     * Get Methods
+     */
+    public CustomerDTO getCustomer(Long id);
+    
+    public TripDTO getTrip(Long id);
+    
+    public TripDTO getTripByExcursions(List<ExcursionDTO> excursionDTOs);
+    
+    public ExcursionDTO getExcursion(Long id);
+    
+    public ReservationDTO getReservation(Long id);
+    
+    public ReservationDTO getReservationByCustomer(CustomerDTO customerDTO);
+    
+    public ReservationDTO getReservationByTrip(TripDTO tripDTO);
+    
+    public ReservationDTO getReservationByExcursions(List<ExcursionDTO> excursionDTOs);
+
+    
+    /*
+     * Get All Methods
+     */
+    public List<CustomerDTO> getAllCustomers();
+    
+    public List<TripDTO> getAllTrips();
+    
+    public List<ExcursionDTO> getAllExcursions();
+    
+    public List<ReservationDTO> getAllReservations();
+    
+    
+    /*
+     * Update Methods
+     */
+    public void updateCustomer(CustomerDTO customerDTO);
+    
+    public void updateTrip(TripDTO tripDTO);
+    
+    public void updateExcursion(ExcursionDTO excursionDTO);
+    
+    public void updateReservation(ReservationDTO reservationDTO);
+    
+    
+    /*
+     * Delete Methods
+     */
+    public void deleteCustomer(CustomerDTO customerDTO);
+    
+    public void deleteTrip(TripDTO tripDTO);
+    
+    public void deleteExcursion(ExcursionDTO excursionDTO);
+    
+    public void deleteReservation(ReservationDTO reservationDTO);
+    
+    
+    /*
+     * 
+     */
+    public void setDeletedStatusToCustomer(CustomerDTO customerDTO);
+    
+    
+    /*
+     * 
+     */
+    public List<TripDTO> findTripsByDateRange(LocalDate from, LocalDate to);
+    
+    /*
+     * 
+     */
+    public List<TripDTO> findTripsByDestination(String destination);
+    
+    
+    /*
+     * 
+     */
+    public void addExcursionToTrip(ExcursionDTO excursionDTO, TripDTO tripDTO);
+    
+    
+    /*
+     * 
+     */
+    public ReservationDTO makeReservation(CustomerDTO customerDTO, TripDTO tripDTO, List<ExcursionDTO> excursionDTOs);
 }
