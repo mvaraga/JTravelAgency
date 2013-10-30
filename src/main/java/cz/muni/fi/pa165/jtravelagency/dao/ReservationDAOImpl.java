@@ -9,14 +9,20 @@ import cz.muni.fi.pa165.jtravelagency.entity.Reservation;
 import cz.muni.fi.pa165.jtravelagency.entity.Customer;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author radka
  */
+
+@Repository
 public class ReservationDAOImpl implements ReservationDAO {
 
+    @PersistenceContext(type= PersistenceContextType.EXTENDED)
     EntityManager em;
 
     public ReservationDAOImpl(EntityManager em) {

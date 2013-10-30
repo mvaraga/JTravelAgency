@@ -6,41 +6,59 @@ package cz.muni.fi.pa165.jtravelagency.service;
 
 import cz.muni.fi.pa165.jtravelagency.dao.CustomerDAO;
 import cz.muni.fi.pa165.jtravelagency.dto.CustomerDTO;
+import cz.muni.fi.pa165.jtravelagency.entity.Customer;
+import cz.muni.fi.pa165.jtravelagency.util.DTOAndDAOMapper;
+import static cz.muni.fi.pa165.jtravelagency.util.DTOAndDAOMapper.dtoToEntity;
+import static cz.muni.fi.pa165.jtravelagency.util.DTOAndDAOMapper.entityToDto;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author jakub
+ * @author mvaraga
  */
-public class CustomerServiceImpl implements CustomerService{
-    
+@Service
+@Transactional
+public class CustomerServiceImpl implements CustomerService {
+
     @Autowired
     private CustomerDAO customerDao;
 
-    public void create(CustomerDTO customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void create(CustomerDTO customerDto) {
+        Customer customer = DTOAndDAOMapper.dtoToEntity(customerDto);
+        customerDao.createCustomer(customer);
     }
 
     public CustomerDTO get(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Customer customer = customerDao.getCustomer(id);
+        CustomerDTO customerDto = DTOAndDAOMapper.entityToDto(customer);
+        return customerDto;
     }
 
-    public void update(CustomerDTO customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(CustomerDTO customerDto) {
+        Customer customer = DTOAndDAOMapper.dtoToEntity(customerDto);
+        customerDao.updateCustomer(customer);
     }
 
-    public void delete(CustomerDTO customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(CustomerDTO customerDto) {
+        Customer customer = DTOAndDAOMapper.dtoToEntity(customerDto);
+        customerDao.deleteCustomer(customer);
     }
 
     public List<CustomerDTO> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<CustomerDTO> list = new ArrayList<CustomerDTO>();
+        for (Customer customer : customerDao.getAllCustomers()) {
+            list.add(entityToDto(customer));
+        }
+        return list;
     }
 
-    public void setDeletedStatus(CustomerDTO customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setDeletedStatus(CustomerDTO customerDto) {
+        Customer customer = DTOAndDAOMapper.dtoToEntity(customerDto);
+        customerDao.setDeletedStatus(customer);
     }
-    
-    
+
 }

@@ -7,6 +7,7 @@ package cz.muni.fi.pa165.jtravelagency.service;
 import cz.muni.fi.pa165.jtravelagency.dao.ExcursionDAO;
 import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.jtravelagency.entity.Excursion;
+import cz.muni.fi.pa165.jtravelagency.util.DTOAndDAOMapper;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +23,14 @@ public class ExcrursionServiceImpl implements ExcrursionService{
     private ExcursionDAO excursionDAO;
     
     public void create(ExcursionDTO excursionDTO) {
+        validateExcursion(excursionDTO);
         if (excursionDTO.getId() != null) {
             throw new IllegalArgumentException("Excursion's id is null.");
         }
-        validateExcursion(excursionDTO);
-        Excursion excursion = ExcursionDTOToEntity(excursionDTO);
+        Excursion excursion = DTOAndDAOMapper.dtoToEntity(excursionDTO);
         excursionDAO.createExcursion(excursion);
         excursionDTO.setId(excursion.getId());
+        excursionDTO.getTrip().setId(excursion.getId());
     }
 
     public ExcursionDTO get(Long id) {
@@ -36,7 +38,7 @@ public class ExcrursionServiceImpl implements ExcrursionService{
             throw new IllegalArgumentException("Id cannot be null.");
         }
         Excursion excursion = excursionDAO.getExcursion(id);
-        return ExcursionDTOFromEntity(excursion);
+        return DTOAndDAOMapper.entityToDto(excursion);
     }
 
     public void update(ExcursionDTO excursionDTO) {
@@ -44,7 +46,7 @@ public class ExcrursionServiceImpl implements ExcrursionService{
         if(excursionDTO.getId() == null) {
             throw new IllegalArgumentException("Id cannot be null.");
         }
-        Excursion excursion = ExcursionDTOToEntity(excursionDTO);
+        Excursion excursion = DTOAndDAOMapper.dtoToEntity(excursionDTO);
         excursionDAO.updateExcursion(excursion);
     }
 
@@ -53,7 +55,7 @@ public class ExcrursionServiceImpl implements ExcrursionService{
         if(excursionDTO.getId() == null) {
             throw new IllegalArgumentException("Id cannot be null.");
         }
-        Excursion excursion = ExcursionDTOToEntity(excursionDTO);
+        Excursion excursion = DTOAndDAOMapper.dtoToEntity(excursionDTO);
         excursionDAO.deleteExcursion(excursion);
     }
 
@@ -61,7 +63,7 @@ public class ExcrursionServiceImpl implements ExcrursionService{
         List<Excursion> excursions = excursionDAO.getAllExcursions();
         List<ExcursionDTO> excursionDTOs = new ArrayList<ExcursionDTO>();
         for(Excursion e : excursions) {
-            excursionDTOs.add(ExcursionDTOFromEntity(e));
+            excursionDTOs.add(DTOAndDAOMapper.entityToDto(e));
         }
         return excursionDTOs;
     }
@@ -90,27 +92,5 @@ public class ExcrursionServiceImpl implements ExcrursionService{
             throw new IllegalArgumentException("Excursion's date cannot "
                     + "be null.");
         }
-    }
-    
-    private Excursion ExcursionDTOToEntity(ExcursionDTO excursionDTO) {
-        Excursion excursion = new Excursion();
-        excursion.setId(excursionDTO.getId());
-        excursion.setDescription(excursionDTO.getDescription());
-        excursion.setExcursionDate(excursionDTO.getExcursionDate());
-        excursion.setPrice(excursionDTO.getPrice());
-        //previezt z TripDTO na Trip
-        //excursion.setTrip(excursion.getTrip());
-        return excursion;
-    }
-    
-    private ExcursionDTO ExcursionDTOFromEntity(Excursion excursion) {
-        ExcursionDTO excursionDTO = new ExcursionDTO();
-        excursionDTO.setId(excursion.getId());
-        excursionDTO.setDescription(excursion.getDescription());
-        excursionDTO.setExcursionDate(excursion.getExcursionDate());
-        excursionDTO.setPrice(excursion.getPrice());
-        //previezt z Trip na TripDTO
-        //excursionDTO.setTrip(excursion.getTrip());
-        return excursionDTO;
     }
 }
