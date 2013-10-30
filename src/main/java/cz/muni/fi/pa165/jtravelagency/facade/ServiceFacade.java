@@ -108,9 +108,15 @@ public interface ServiceFacade {
      */
     public void addExcursionToTrip(ExcursionDTO excursionDTO, TripDTO tripDTO);
     
+    public void removeExcursionFromTrip(ExcursionDTO excursionDTO, TripDTO tripDTO);
+    
     
     /*
      * 
      */
     public ReservationDTO makeReservation(CustomerDTO customerDTO, TripDTO tripDTO, List<ExcursionDTO> excursionDTOs);
+    
+    public void addExcursionToReservation(ExcursionDTO excursionDTO, ReservationDTO reservationDTO);
+    
+    public void removeExcursionFromReservation(ExcursionDTO excursionDTO, ReservationDTO reservationDTO);
 }
