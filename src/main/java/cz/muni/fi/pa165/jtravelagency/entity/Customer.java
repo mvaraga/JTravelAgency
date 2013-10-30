@@ -128,7 +128,7 @@ public class Customer implements Serializable {
     @Override
     public String toString() {
         return "Customer{" + "id=" + id + ", firstName=" + firstName
-                + ", lastName=" + lastName + ", status=" + status
-                + ", count of reservations=" + reservations.size() + '}';
+                + ", lastName=" + lastName + ", status=" + status;
+               // + ", count of reservations=" + reservations.size() + '}';
     }
 }
