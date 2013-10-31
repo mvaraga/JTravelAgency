@@ -41,6 +41,15 @@ public class ReservationServiceImpl implements ReservationService {
         }
         Reservation reservation=DTOAndDAOMapper.dtoToEntity(reservationDTO);
         reservationDAO.createReservation(reservation);
+        reservationDTO.setId(reservation.getId());
+        
+        for(int i=0;i<reservationDTO.getExcursions().size();i++){
+            reservationDTO.getExcursions().get(i).setId(reservation.getExcursions().get(i).getId());
+        }
+        reservationDTO.getTrip().setId(reservation.getTrip().getId());
+        //ceknut to proti null pripadne
+        reservationDTO.getCustomer().setId(reservation.getCustomer().getId());
+        //CEKNUT KVOLI NULL-LU
     }
     public void delete(ReservationDTO  reservationDTO){
         if (reservationDTO == null) {
@@ -60,7 +69,11 @@ public class ReservationServiceImpl implements ReservationService {
         if (reservationDTO.getId() != null) {
             throw new IllegalArgumentException("ReservationDTO's id is null.");
         }
-        reservationDAO.updateReservation(DTOAndDAOMapper.dtoToEntity(reservationDTO));
+        
+        Reservation reservation=DTOAndDAOMapper.dtoToEntity(reservationDTO);
+        reservationDAO.updateReservation(reservation);
+        
+        reservationDTO=DTOAndDAOMapper.entityToDto(reservation);
     }
     public ReservationDTO  get(Long id){
         Reservation reservation=reservationDAO.getReservation(id);
@@ -95,6 +108,8 @@ public class ReservationServiceImpl implements ReservationService {
         }
         return reservationsDTO;
     }
+    
+
     
 
     

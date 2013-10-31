@@ -8,8 +8,6 @@ import cz.muni.fi.pa165.jtravelagency.dao.CustomerDAO;
 import cz.muni.fi.pa165.jtravelagency.dto.CustomerDTO;
 import cz.muni.fi.pa165.jtravelagency.entity.Customer;
 import cz.muni.fi.pa165.jtravelagency.util.DTOAndDAOMapper;
-import static cz.muni.fi.pa165.jtravelagency.util.DTOAndDAOMapper.dtoToEntity;
-import static cz.muni.fi.pa165.jtravelagency.util.DTOAndDAOMapper.entityToDto;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
     public void create(CustomerDTO customerDto) {
         Customer customer = DTOAndDAOMapper.dtoToEntity(customerDto);
         customerDao.createCustomer(customer);
+        customerDto.setId(customer.getId());
     }
 
     public CustomerDTO get(Long id) {
@@ -51,7 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
     public List<CustomerDTO> getAll() {
         List<CustomerDTO> list = new ArrayList<CustomerDTO>();
         for (Customer customer : customerDao.getAllCustomers()) {
-            list.add(entityToDto(customer));
+            list.add(DTOAndDAOMapper.entityToDto(customer));
         }
         return list;
     }
