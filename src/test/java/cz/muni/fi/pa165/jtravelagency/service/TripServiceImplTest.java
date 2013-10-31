@@ -9,7 +9,7 @@ import cz.muni.fi.pa165.jtravelagency.dao.TripDAOImpl;
 import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
-import cz.muni.fi.pa165.jtravelagency.util.DTOAndDAOMapper;
+import cz.muni.fi.pa165.jtravelagency.util.DTOAndEntityMapper;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +73,7 @@ public class TripServiceImplTest extends TestCase {
                 
         Trip trip = prepareTrip();
         
-        tripService.create(DTOAndDAOMapper.entityToDto(trip));
+        tripService.create(DTOAndEntityMapper.entityToDto(trip, TripDTO.class));
         
         verify(tripDao,times(1)).createTrip(trip);
         verify(tripDao,times(0)).updateTrip(trip);
@@ -113,9 +113,14 @@ public class TripServiceImplTest extends TestCase {
         verifyNoMoreInteractions(tripDao);
                 
         Trip trip = prepareTrip();
-        TripDTO tripDto=DTOAndDAOMapper.entityToDto(trip);
-        tripService.create(tripDto);
-        tripService.update(tripService.get(tripDto.getId()));
+     
+
+       // TripDTO tripDto=DTOAndDAOMapper.entityToDto(trip);
+        //tripService.create(tripDto);
+        //tripService.update(tripService.get(tripDto.getId()));
+    // tripService.update(DTOAndEntityMapper.entityToDto(trip, TripDTO.class));
+
+
         
         verify(tripDao,times(1)).updateTrip(trip);
         verify(tripDao,times(0)).createTrip(trip);
@@ -141,7 +146,7 @@ public class TripServiceImplTest extends TestCase {
         verifyNoMoreInteractions(tripDao);
                 
         Trip trip = prepareTrip();
-        tripService.delete(DTOAndDAOMapper.entityToDto(trip));
+        tripService.delete(DTOAndEntityMapper.entityToDto(trip, TripDTO.class));
         
         verify(tripDao,times(1)).deleteTrip(trip);
         verify(tripDao,times(0)).createTrip(trip);

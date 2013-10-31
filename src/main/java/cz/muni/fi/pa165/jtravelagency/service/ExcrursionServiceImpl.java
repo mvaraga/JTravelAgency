@@ -7,7 +7,7 @@ package cz.muni.fi.pa165.jtravelagency.service;
 import cz.muni.fi.pa165.jtravelagency.dao.ExcursionDAO;
 import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.jtravelagency.entity.Excursion;
-import cz.muni.fi.pa165.jtravelagency.util.DTOAndDAOMapper;
+import cz.muni.fi.pa165.jtravelagency.util.DTOAndEntityMapper;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class ExcrursionServiceImpl implements ExcrursionService{
         if (excursionDTO.getId() != null) {
             throw new IllegalArgumentException("Excursion's id is null.");
         }
-        Excursion excursion = DTOAndDAOMapper.dtoToEntity(excursionDTO);
+        Excursion excursion = DTOAndEntityMapper.dtoToEntity(excursionDTO, Excursion.class);
         excursionDAO.createExcursion(excursion);
         excursionDTO.setId(excursion.getId());
         excursionDTO.getTrip().setId(excursion.getId());
@@ -38,7 +38,7 @@ public class ExcrursionServiceImpl implements ExcrursionService{
             throw new IllegalArgumentException("Id cannot be null.");
         }
         Excursion excursion = excursionDAO.getExcursion(id);
-        return DTOAndDAOMapper.entityToDto(excursion);
+        return DTOAndEntityMapper.entityToDto(excursion, ExcursionDTO.class);
     }
 
     public void update(ExcursionDTO excursionDTO) {
@@ -46,7 +46,7 @@ public class ExcrursionServiceImpl implements ExcrursionService{
         if(excursionDTO.getId() == null) {
             throw new IllegalArgumentException("Id cannot be null.");
         }
-        Excursion excursion = DTOAndDAOMapper.dtoToEntity(excursionDTO);
+        Excursion excursion = DTOAndEntityMapper.dtoToEntity(excursionDTO, Excursion.class);
         excursionDAO.updateExcursion(excursion);
     }
 
@@ -55,7 +55,7 @@ public class ExcrursionServiceImpl implements ExcrursionService{
         if(excursionDTO.getId() == null) {
             throw new IllegalArgumentException("Id cannot be null.");
         }
-        Excursion excursion = DTOAndDAOMapper.dtoToEntity(excursionDTO);
+        Excursion excursion = DTOAndEntityMapper.dtoToEntity(excursionDTO, Excursion.class);
         excursionDAO.deleteExcursion(excursion);
     }
 
@@ -63,7 +63,7 @@ public class ExcrursionServiceImpl implements ExcrursionService{
         List<Excursion> excursions = excursionDAO.getAllExcursions();
         List<ExcursionDTO> excursionDTOs = new ArrayList<ExcursionDTO>();
         for(Excursion e : excursions) {
-            excursionDTOs.add(DTOAndDAOMapper.entityToDto(e));
+            excursionDTOs.add(DTOAndEntityMapper.entityToDto(e, ExcursionDTO.class));
         }
         return excursionDTOs;
     }

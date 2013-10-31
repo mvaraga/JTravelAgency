@@ -10,6 +10,7 @@ import cz.muni.fi.pa165.jtravelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
 import java.util.List;
 import org.joda.time.LocalDate;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -17,7 +18,7 @@ import org.joda.time.LocalDate;
  * @author
  */
 
-
+@Transactional
 public class ServiceFacadeImpl implements ServiceFacade {
 
     public void createCustomer(CustomerDTO cutomerDTO) {
@@ -133,6 +134,18 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     public ReservationDTO makeReservation(CustomerDTO customerDTO, TripDTO tripDTO, List<ExcursionDTO> excursionDTOs) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void addExcursionToReservation(ExcursionDTO excursionDTO, ReservationDTO reservationDTO) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void removeExcursionFromReservation(ExcursionDTO excursionDTO, ReservationDTO reservationDTO) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void removeExcursionFromTrip(ExcursionDTO excursionDTO, TripDTO tripDTO) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -14,7 +14,7 @@ import cz.muni.fi.pa165.jtravelagency.entity.Customer;
 import cz.muni.fi.pa165.jtravelagency.entity.Excursion;
 import cz.muni.fi.pa165.jtravelagency.entity.Reservation;
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
-import cz.muni.fi.pa165.jtravelagency.util.DTOAndDAOMapper;
+import cz.muni.fi.pa165.jtravelagency.util.DTOAndEntityMapper;
 import java.util.ArrayList;
 import java.util.List;
 import junit.framework.TestCase;
@@ -72,44 +72,86 @@ public class ReservationServiceImplTest extends TestCase {
         
         verify(reservationDAO,never()).createReservation(null);
         
-        ReservationDTO reservationDTO = newReservationDTO();
+        ReservationDTO reservationDTO = newReservationDTO();        
         Reservation reservation = newReservation();
         service.create(reservationDTO);
+        
         verify(reservationDAO).createReservation(reservation);
         
         //doNothing().when(reservationDAO).createReservation(any(Reservation.class));
-        //service.create(DTOAndDAOMapper.entityToDto(reservation));
+        //service.create(DTOAndEntityMapper.entityToDto(reservation));
         //verify(reservationDAO,times(0)).createReservation(reservation);
         
     }
-
+    
+    /**
+     * Test of wrong create method - catching IllegalArgumentException, of class
+     * ReservationServiceImpl.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateException() {
+        ReservationDTO reservationDTO = newReservationDTO();    
+        reservationDTO.setId(1l);
+        try {
+            service.create(reservationDTO);
+            fail();
+        }
+        finally {
+            verify(reservationDAO,never()).createReservation(null);
+        }
+    }
+    
     /**
      * Test of delete method, of class ReservationServiceImpl.
-     *
+     */
+    @Test
     public void testDelete() {
-        System.out.println("delete");
-        ReservationDTO reservationDTO = null;
-        ReservationServiceImpl instance = new ReservationServiceImpl();
-        instance.delete(reservationDTO);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try{
+            service.delete(null);
+            fail();
+        }   catch(IllegalArgumentException ex){
+            // OK
+        }
+        
+        verify(reservationDAO,never()).deleteReservation(null);
+        
+        ReservationDTO reservationDTO = newReservationDTO();
+        Reservation reservation = newReservation();
+        service.create(reservationDTO);
+        
+        verify(reservationDAO,times(0)).deleteReservation(reservation);
+        
+        service.delete(reservationDTO);
+  
+        verify(reservationDAO,times(1)).createReservation(reservation);
+        verify(reservationDAO,times(1)).deleteReservation(reservation);
     }
 
     /**
      * Test of update method, of class ReservationServiceImpl.
-     *
+     */
+    @Test
     public void testUpdate() {
-        System.out.println("update");
-        ReservationDTO reservationDTO = null;
-        ReservationServiceImpl instance = new ReservationServiceImpl();
-        instance.update(reservationDTO);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try{
+            service.update(null);
+            fail();
+        }catch(IllegalArgumentException ex){
+            // OK
+        }
+         
+        ReservationDTO reservationDTO = newReservationDTO();
+        reservationDTO.setTrip(new TripDTO());
+        service.update(reservationDTO);
+        
+        verify(reservationDAO,never()).createReservation(null);
+        //verify(reservationDAO,times(1)).updateReservation(reservationDTO);
+        
     }
 
     /**
      * Test of get method, of class ReservationServiceImpl.
      *
+    @Test
     public void testGet() {
         System.out.println("get");
         Long id = null;
@@ -124,6 +166,7 @@ public class ReservationServiceImplTest extends TestCase {
     /**
      * Test of getAll method, of class ReservationServiceImpl.
      *
+    @Test
     public void testGetAll() {
         System.out.println("getAll");
         ReservationServiceImpl instance = new ReservationServiceImpl();
@@ -137,6 +180,7 @@ public class ReservationServiceImplTest extends TestCase {
     /**
      * Test of getByTrip method, of class ReservationServiceImpl.
      *
+    @Test
     public void testGetByTrip() {
         System.out.println("getByTrip");
         TripDTO trip = null;
@@ -151,6 +195,7 @@ public class ReservationServiceImplTest extends TestCase {
     /**
      * Test of getByCustomer method, of class ReservationServiceImpl.
      *
+    @Test
     public void testGetByCustomer() {
         System.out.println("getByCustomer");
         CustomerDTO customer = null;
