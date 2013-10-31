@@ -37,17 +37,17 @@ public interface ServiceFacade {
     
     public TripDTO getTrip(Long id);
     
-    public TripDTO getExcursionsByTrip(TripDTO trip);
-    
+   // public List<ExcursionDTO> getExcursionsByTrip(TripDTO trip);
+    //treba pridat do servisnej
     public ExcursionDTO getExcursion(Long id);
     
     public ReservationDTO getReservation(Long id);
     
-    public ReservationDTO getReservationByCustomer(CustomerDTO customerDTO);
+    public List<ReservationDTO> getReservationByCustomer(CustomerDTO customerDTO);
     
-    public ReservationDTO getReservationByTrip(TripDTO tripDTO);
+    public List<ReservationDTO> getReservationByTrip(TripDTO tripDTO);
     
-    public ReservationDTO getReservationByExcursions(List<ExcursionDTO> excursionDTOs);
+  
 
     
     /*
