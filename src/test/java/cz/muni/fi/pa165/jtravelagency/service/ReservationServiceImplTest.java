@@ -5,7 +5,6 @@
 package cz.muni.fi.pa165.jtravelagency.service;
 
 import cz.muni.fi.pa165.jtravelagency.dao.ReservationDAO;
-import cz.muni.fi.pa165.jtravelagency.dao.ReservationDAOImpl;
 import cz.muni.fi.pa165.jtravelagency.dto.CustomerDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.ReservationDTO;
@@ -132,10 +131,10 @@ public class ReservationServiceImplTest extends TestCase {
      */
     @Test
     public void testUpdate() {
-        try{
+        try {
             service.update(null);
             fail();
-        }catch(IllegalArgumentException ex){
+        } catch(IllegalArgumentException ex){
             // OK
         }
          
@@ -144,23 +143,24 @@ public class ReservationServiceImplTest extends TestCase {
         service.update(reservationDTO);
         
         verify(reservationDAO,never()).createReservation(null);
-        //verify(reservationDAO,times(1)).updateReservation(reservationDTO);
-        
+        verify(reservationDAO,times(1)).updateReservation(DTOAndEntityMapper.dtoToEntity(reservationDTO, Reservation.class));
     }
 
     /**
      * Test of get method, of class ReservationServiceImpl.
-     *
+     */
     @Test
     public void testGet() {
-        System.out.println("get");
-        Long id = null;
-        ReservationServiceImpl instance = new ReservationServiceImpl();
-        ReservationDTO expResult = null;
-        ReservationDTO result = instance.get(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try {
+            service.get(null);
+            fail();
+        } catch(IllegalArgumentException ex){
+            // OK
+        }
+        
+        verify(service,never()).create(null);
+        verify(service,never()).update(null);
+        
     }
 
     /**
