@@ -12,12 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 /**
  *
  * @author jakub
  */
+@Service
 public class TripServiceImpl implements TripService {
     
     
@@ -27,6 +29,7 @@ public class TripServiceImpl implements TripService {
     public void setTripDAO(TripDAO tripDAO) {
         this.tripDAO = tripDAO;
     }
+    
     
     @Override
     public void create(TripDTO tripDTO) {
