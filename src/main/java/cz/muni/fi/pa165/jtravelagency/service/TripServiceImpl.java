@@ -7,7 +7,7 @@ package cz.muni.fi.pa165.jtravelagency.service;
 import cz.muni.fi.pa165.jtravelagency.dao.TripDAO;
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
-import cz.muni.fi.pa165.jtravelagency.util.DTOAndDAOMapper;
+import cz.muni.fi.pa165.jtravelagency.util.DTOAndEntityMapper;
 import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.LocalDate;
@@ -37,7 +37,7 @@ public class TripServiceImpl implements TripService {
             throw new IllegalArgumentException("TripDTO's id is null.");
         }
         validateTripDTO(tripDTO);
-        Trip trip = DTOAndDAOMapper.dtoToEntity(tripDTO);
+        Trip trip = DTOAndEntityMapper.dtoToEntity(tripDTO, Trip.class);
         tripDAO.createTrip(trip);
         tripDTO.setId(trip.getId());
     }
@@ -48,7 +48,7 @@ public class TripServiceImpl implements TripService {
             throw new IllegalArgumentException("ID can not be null.");
         }
         Trip trip = tripDAO.getTrip(id);
-        return DTOAndDAOMapper.entityToDto(trip);
+        return DTOAndEntityMapper.entityToDto(trip, TripDTO.class);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class TripServiceImpl implements TripService {
             throw new IllegalArgumentException("ID can not be null.");
         }
         validateTripDTO(tripDTO);
-        Trip trip = DTOAndDAOMapper.dtoToEntity(tripDTO);
+        Trip trip = DTOAndEntityMapper.dtoToEntity(tripDTO, Trip.class);
         tripDAO.updateTrip(trip);
     }
 
@@ -73,7 +73,7 @@ public class TripServiceImpl implements TripService {
             throw new IllegalArgumentException("Id cannot be null.");
         }
         validateTripDTO(tripDTO);
-        Trip trip = DTOAndDAOMapper.dtoToEntity(tripDTO);
+        Trip trip = DTOAndEntityMapper.dtoToEntity(tripDTO, Trip.class);
         tripDAO.deleteTrip(trip);
     }
 
@@ -82,7 +82,7 @@ public class TripServiceImpl implements TripService {
         List<Trip> trips = tripDAO.getAllTrips();
         List<TripDTO> tripDTOs = new ArrayList<TripDTO>();
         for(Trip t : trips) {
-            tripDTOs.add(DTOAndDAOMapper.entityToDto(t));
+            tripDTOs.add(DTOAndEntityMapper.entityToDto(t, TripDTO.class));
         }
         return tripDTOs;
     }
@@ -98,7 +98,7 @@ public class TripServiceImpl implements TripService {
         List<Trip> trips = tripDAO.findTripsByDateRange(from, to);
         List<TripDTO> tripDTOs = new ArrayList<TripDTO>();
         for(Trip t : trips) {
-            tripDTOs.add(DTOAndDAOMapper.entityToDto(t));
+            tripDTOs.add(DTOAndEntityMapper.entityToDto(t, TripDTO.class));
         }
         return tripDTOs;
     }
@@ -108,7 +108,7 @@ public class TripServiceImpl implements TripService {
         List<Trip> trips = tripDAO.findTripsByDestination(destination);
         List<TripDTO> tripDTOs = new ArrayList<TripDTO>();
         for(Trip t : trips) {
-            tripDTOs.add(DTOAndDAOMapper.entityToDto(t));
+            tripDTOs.add(DTOAndEntityMapper.entityToDto(t, TripDTO.class));
         }
         return tripDTOs;
     }

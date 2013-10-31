@@ -8,8 +8,10 @@ import cz.muni.fi.pa165.jtravelagency.dao.ReservationDAO;
 import cz.muni.fi.pa165.jtravelagency.dto.CustomerDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
+import cz.muni.fi.pa165.jtravelagency.entity.Customer;
 import cz.muni.fi.pa165.jtravelagency.entity.Reservation;
-import cz.muni.fi.pa165.jtravelagency.util.DTOAndDAOMapper;
+import cz.muni.fi.pa165.jtravelagency.entity.Trip;
+import cz.muni.fi.pa165.jtravelagency.util.DTOAndEntityMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +41,7 @@ public class ReservationServiceImpl implements ReservationService {
         if (reservationDTO.getId() != null) {
             throw new IllegalArgumentException("ReservationDTO's id is null.");
         }
-        Reservation reservation=DTOAndDAOMapper.dtoToEntity(reservationDTO);
+        Reservation reservation=DTOAndEntityMapper.dtoToEntity(reservationDTO, Reservation.class);
         reservationDAO.createReservation(reservation);
         reservationDTO.setId(reservation.getId());
         
@@ -58,7 +60,7 @@ public class ReservationServiceImpl implements ReservationService {
         if (reservationDTO.getId() != null) {
             throw new IllegalArgumentException("ReservationDTO's id is null.");
         }
-        Reservation reservation=DTOAndDAOMapper.dtoToEntity(reservationDTO);
+        Reservation reservation=DTOAndEntityMapper.dtoToEntity(reservationDTO, Reservation.class);
         reservationDAO.deleteReservation(reservation);
     }
     
@@ -70,41 +72,41 @@ public class ReservationServiceImpl implements ReservationService {
             throw new IllegalArgumentException("ReservationDTO's id is null.");
         }
         
-        Reservation reservation=DTOAndDAOMapper.dtoToEntity(reservationDTO);
+        Reservation reservation=DTOAndEntityMapper.dtoToEntity(reservationDTO, Reservation.class);
         reservationDAO.updateReservation(reservation);
         
-        reservationDTO=DTOAndDAOMapper.entityToDto(reservation);
+        reservationDTO=DTOAndEntityMapper.entityToDto(reservation, ReservationDTO.class);
     }
     public ReservationDTO  get(Long id){
         Reservation reservation=reservationDAO.getReservation(id);
-        return DTOAndDAOMapper.entityToDto(reservation);
+        return DTOAndEntityMapper.entityToDto(reservation, ReservationDTO.class);
     }
     public List<ReservationDTO> getAll(){
         List<Reservation> reservations=new ArrayList<Reservation>();
         reservations=reservationDAO.getAllReservations();
         List<ReservationDTO> reservationsDTO=new ArrayList<ReservationDTO>();
         for(Reservation r: reservations){
-            reservationsDTO.add(DTOAndDAOMapper.entityToDto(r));
+            reservationsDTO.add(DTOAndEntityMapper.entityToDto(r, ReservationDTO.class));
         }
         return reservationsDTO;
     }
     
     public List<ReservationDTO> getByTrip(TripDTO trip){
         List<Reservation> reservations=new ArrayList<Reservation>();
-        reservations=reservationDAO.getReservationByTrip(DTOAndDAOMapper.dtoToEntity(trip));
+        reservations=reservationDAO.getReservationByTrip(DTOAndEntityMapper.dtoToEntity(trip, Trip.class));
         List<ReservationDTO> reservationsDTO=new ArrayList<ReservationDTO>();
         for(Reservation r: reservations){
-            reservationsDTO.add(DTOAndDAOMapper.entityToDto(r));
+            reservationsDTO.add(DTOAndEntityMapper.entityToDto(r, ReservationDTO.class));
         }
         return reservationsDTO;
     }
     
     public List<ReservationDTO> getByCustomer(CustomerDTO customer){
         List<Reservation> reservations=new ArrayList<Reservation>();
-        reservations=reservationDAO.getReservationByCustomer(DTOAndDAOMapper.dtoToEntity(customer));
+        reservations=reservationDAO.getReservationByCustomer(DTOAndEntityMapper.dtoToEntity(customer, Customer.class));
         List<ReservationDTO> reservationsDTO=new ArrayList<ReservationDTO>();
         for(Reservation r: reservations) {
-            reservationsDTO.add(DTOAndDAOMapper.entityToDto(r));
+            reservationsDTO.add(DTOAndEntityMapper.entityToDto(r, ReservationDTO.class));
         }
         return reservationsDTO;
     }
