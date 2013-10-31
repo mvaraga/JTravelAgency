@@ -26,14 +26,14 @@ import org.mockito.runners.MockitoJUnitRunner;
  * @author mvaraga
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ExcrursionServiceImplTest extends TestCase {
+public class ExcursionServiceImplTest extends TestCase {
 
     @InjectMocks
     private ExcrursionServiceImpl service;
     @Mock
     private ExcursionDAOImpl dao;
 
-//    public ExcrursionServiceImplTest(String testName) {
+//    public ExcursionServiceImplTest(String testName) {
 //        super(testName);
 //    }
     @Override
