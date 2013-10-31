@@ -129,15 +129,23 @@ public class ReservationServiceImplTest extends TestCase {
 
     /**
      * Test of update method, of class ReservationServiceImpl.
-     *
+     */
     @Test
     public void testUpdate() {
-        System.out.println("update");
-        ReservationDTO reservationDTO = null;
-        ReservationServiceImpl instance = new ReservationServiceImpl();
-        instance.update(reservationDTO);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try{
+            service.update(null);
+            fail();
+        }catch(IllegalArgumentException ex){
+            // OK
+        }
+         
+        ReservationDTO reservationDTO = newReservationDTO();
+        reservationDTO.setTrip(new TripDTO());
+        service.update(reservationDTO);
+        
+        verify(reservationDAO,never()).createReservation(null);
+        //verify(reservationDAO,times(1)).updateReservation(reservationDTO);
+        
     }
 
     /**
