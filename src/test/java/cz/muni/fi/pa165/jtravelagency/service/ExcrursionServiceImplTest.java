@@ -9,7 +9,7 @@ import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
 import cz.muni.fi.pa165.jtravelagency.entity.Excursion;
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
-import cz.muni.fi.pa165.jtravelagency.util.DTOAndDAOMapper;
+import cz.muni.fi.pa165.jtravelagency.util.DTOAndEntityMapper;
 import java.math.BigDecimal;
 import java.util.List;
 import junit.framework.TestCase;
@@ -62,8 +62,8 @@ public class ExcrursionServiceImplTest extends TestCase {
 
  
         ExcursionDTO excursionDto = newExcursionDto();
-        //doNothing().when(dao).createExcursion(DTOAndDAOMapper.dtoToEntity(excursionDto));       
-        Excursion excursion = DTOAndDAOMapper.dtoToEntity(excursionDto);//newExcursion();
+        //doNothing().when(dao).createExcursion(DTOAndEntityMapper.dtoToEntity(excursionDto));       
+        Excursion excursion = DTOAndEntityMapper.dtoToEntity(excursionDto, Excursion.class);//newExcursion();
         service.create(excursionDto);
         verify(dao).createExcursion(excursion);
 
@@ -106,7 +106,7 @@ public class ExcrursionServiceImplTest extends TestCase {
                 
         ExcursionDTO excursionDto = newExcursionDto();
         service.update(excursionDto);
-        Excursion excursion = DTOAndDAOMapper.dtoToEntity(excursionDto);
+        Excursion excursion = DTOAndEntityMapper.dtoToEntity(excursionDto, Excursion.class);
         
         verify(dao,times(1)).updateExcursion(excursion);
         verify(dao,times(0)).createExcursion(excursion);
@@ -132,7 +132,7 @@ public class ExcrursionServiceImplTest extends TestCase {
                 
         ExcursionDTO excursionDto = newExcursionDto();
         service.delete(excursionDto);
-        Excursion excursion = DTOAndDAOMapper.dtoToEntity(excursionDto);
+        Excursion excursion = DTOAndEntityMapper.dtoToEntity(excursionDto, Excursion.class);
         
         verify(dao,times(1)).deleteExcursion(excursion);
         verify(dao,times(0)).createExcursion(excursion);

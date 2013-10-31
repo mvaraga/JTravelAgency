@@ -14,7 +14,7 @@ import cz.muni.fi.pa165.jtravelagency.entity.Customer;
 import cz.muni.fi.pa165.jtravelagency.entity.Excursion;
 import cz.muni.fi.pa165.jtravelagency.entity.Reservation;
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
-import cz.muni.fi.pa165.jtravelagency.util.DTOAndDAOMapper;
+import cz.muni.fi.pa165.jtravelagency.util.DTOAndEntityMapper;
 import java.util.ArrayList;
 import java.util.List;
 import junit.framework.TestCase;
@@ -78,7 +78,7 @@ public class ReservationServiceImplTest extends TestCase {
         verify(reservationDAO).createReservation(reservation);
         
         //doNothing().when(reservationDAO).createReservation(any(Reservation.class));
-        //service.create(DTOAndDAOMapper.entityToDto(reservation));
+        //service.create(DTOAndEntityMapper.entityToDto(reservation));
         //verify(reservationDAO,times(0)).createReservation(reservation);
         
     }
