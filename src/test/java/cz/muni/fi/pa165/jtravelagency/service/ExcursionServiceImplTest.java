@@ -12,6 +12,8 @@ import cz.muni.fi.pa165.jtravelagency.util.DTOAndEntityMapper;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
 import junit.framework.TestCase;
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -26,7 +28,7 @@ import org.mockito.runners.MockitoJUnitRunner;
  * @author mvaraga
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ExcrursionServiceImplTest extends TestCase {
+public class ExcursionServiceImplTest extends TestCase {
 
     @InjectMocks
     private ExcrursionServiceImpl service;
