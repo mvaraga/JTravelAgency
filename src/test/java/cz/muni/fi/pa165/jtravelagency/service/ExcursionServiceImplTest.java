@@ -29,7 +29,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class ExcursionServiceImplTest extends TestCase {
 
     @InjectMocks
-    private ExcrursionServiceImpl service;
+    private ExcursionServiceImpl service;
     @Mock
     private ExcursionDAOImpl dao;
 
@@ -47,7 +47,7 @@ public class ExcursionServiceImplTest extends TestCase {
     }
 
     /**
-     * Test of create method, of class ExcrursionServiceImpl.
+     * Test of create method, of class ExcursionServiceImpl.
      */
     @Test
     public void testCreate() {
@@ -74,12 +74,12 @@ public class ExcursionServiceImplTest extends TestCase {
     }
 
     /**
-     * Test of get method, of class ExcrursionServiceImpl.
+     * Test of get method, of class ExcursionServiceImpl.
      */
     public void testGet() {
         System.out.println("get");
         Long id = null;
-        ExcrursionServiceImpl instance = new ExcrursionServiceImpl();
+        ExcursionServiceImpl instance = new ExcursionServiceImpl();
         ExcursionDTO expResult = null;
         ExcursionDTO result = instance.get(id);
         assertEquals(expResult, result);
@@ -88,7 +88,7 @@ public class ExcursionServiceImplTest extends TestCase {
     }
 
     /**
-     * Test of update method, of class ExcrursionServiceImpl.
+     * Test of update method, of class ExcursionServiceImpl.
      */
     public void testUpdate() {
         doThrow(new IllegalArgumentException()).when(dao).updateExcursion(null);
@@ -113,7 +113,7 @@ public class ExcursionServiceImplTest extends TestCase {
     }
 
     /**
-     * Test of delete method, of class ExcrursionServiceImpl.
+     * Test of delete method, of class ExcursionServiceImpl.
      */
     public void testDelete() {
         doThrow(new IllegalArgumentException()).when(dao).deleteExcursion(null);
@@ -140,11 +140,11 @@ public class ExcursionServiceImplTest extends TestCase {
     }
 
     /**
-     * Test of getAll method, of class ExcrursionServiceImpl.
+     * Test of getAll method, of class ExcursionServiceImpl.
      */
     public void testGetAll() {
         System.out.println("getAll");
-        ExcrursionServiceImpl instance = new ExcrursionServiceImpl();
+        ExcursionServiceImpl instance = new ExcursionServiceImpl();
         List expResult = null;
         List result = instance.getAll();
         assertEquals(expResult, result);
