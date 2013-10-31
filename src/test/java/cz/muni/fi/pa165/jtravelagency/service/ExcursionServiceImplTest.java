@@ -35,9 +35,6 @@ public class ExcursionServiceImplTest extends TestCase {
     @Mock
     private ExcursionDAOImpl dao;
 
-//    public ExcrursionServiceImplTest(String testName) {
-//        super(testName);
-//    }
     @Override
     protected void setUp() throws Exception {
         super.setUp();
