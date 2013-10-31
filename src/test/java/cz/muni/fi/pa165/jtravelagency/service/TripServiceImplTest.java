@@ -113,14 +113,7 @@ public class TripServiceImplTest extends TestCase {
         verifyNoMoreInteractions(tripDao);
                 
         Trip trip = prepareTrip();
-     
-
-       // TripDTO tripDto=DTOAndDAOMapper.entityToDto(trip);
-        //tripService.create(tripDto);
-        //tripService.update(tripService.get(tripDto.getId()));
-    // tripService.update(DTOAndEntityMapper.entityToDto(trip, TripDTO.class));
-
-
+        tripService.update(DTOAndEntityMapper.entityToDto(trip, TripDTO.class));
         
         verify(tripDao,times(1)).updateTrip(trip);
         verify(tripDao,times(0)).createTrip(trip);
