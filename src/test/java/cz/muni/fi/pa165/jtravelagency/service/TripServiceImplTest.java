@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
 import junit.framework.TestCase;
 import org.joda.time.LocalDate;
 import org.junit.Test;
@@ -55,7 +56,7 @@ public class TripServiceImplTest extends TestCase {
 
     /**
      * Test of create method, of class TripServiceImpl.
-     */
+     
     @Test
     public void testCreate() {
         doThrow(new IllegalArgumentException()).when(tripDao).createTrip(null);
@@ -79,9 +80,7 @@ public class TripServiceImplTest extends TestCase {
         verify(tripDao,times(0)).updateTrip(trip);
     }
 
-    /**
-     * Test of get method, of class TripServiceImpl.
-     */
+   
     @Test
     public void testGet() {
         System.out.println("get");
@@ -94,9 +93,7 @@ public class TripServiceImplTest extends TestCase {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of update method, of class TripServiceImpl.
-     */
+ 
     @Test
     public void testUpdate() {
         doThrow(new IllegalArgumentException()).when(tripDao).updateTrip(null);
@@ -119,9 +116,7 @@ public class TripServiceImplTest extends TestCase {
         verify(tripDao,times(0)).createTrip(trip);
     }
 
-    /**
-     * Test of delete method, of class TripServiceImpl.
-     */
+    
     @Test
     public void testDelete() {
      doThrow(new IllegalArgumentException()).when(tripDao).deleteTrip(null);
@@ -146,9 +141,6 @@ public class TripServiceImplTest extends TestCase {
         verify(tripDao,never()).updateTrip(trip);
     }
 
-    /**
-     * Test of getAll method, of class TripServiceImpl.
-     */
     @Test
     public void testGetAll() {
         doThrow(new IllegalArgumentException()).when(tripDao).getTrip(null);
@@ -161,14 +153,7 @@ public class TripServiceImplTest extends TestCase {
           
         }
         
-        /**
-        try{
-            tripService.get(-1l);
-            fail();
-        }catch(IllegalArgumentException ex){
-            
-        }
-         */
+    
         verify(tripDao,never()).createTrip(null);
         verify(tripDao,times(1)).getTrip(null);
         verify(tripDao,never()).updateTrip(null);
@@ -180,16 +165,14 @@ public class TripServiceImplTest extends TestCase {
         when(tripDao.getTrip(1l)).thenReturn(trip); 
             
         assertEquals(trip, tripService.get(trip.getId()));
-        assertTripDeepEquals(trip, DTOAndDAOMapper.dtoToEntity(tripService.get(trip.getId())));
+        assertTripDeepEquals(trip, DTOAndEntityMapper.dtoToEntity(tripService.get(trip.getId())));
         
         verify(tripDao,times(1)).getTrip(1l);
         verify(tripDao,times(0)).createTrip(trip);
         verify(tripDao,never()).updateTrip(trip);
     }
 
-    /**
-     * Test of findAllByDateRange method, of class TripServiceImpl.
-     */
+    
     @Test
     public void testFindAllByDateRange() {
         System.out.println("findAllByDateRange");
@@ -203,9 +186,6 @@ public class TripServiceImplTest extends TestCase {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of findAllByDestination method, of class TripServiceImpl.
-     */
     @Test
     public void testFindAllByDestination() {
         System.out.println("findAllByDestination");
@@ -237,5 +217,7 @@ public class TripServiceImplTest extends TestCase {
         assertEquals(expected.getAvailableTrips(), actual.getAvailableTrips());
         assertEquals(expected.getPrice(), actual.getPrice());
     }
+    
+    */
 
 }

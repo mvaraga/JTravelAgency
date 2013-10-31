@@ -8,8 +8,13 @@ import cz.muni.fi.pa165.jtravelagency.dto.CustomerDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
+import cz.muni.fi.pa165.jtravelagency.service.CustomerService;
+import cz.muni.fi.pa165.jtravelagency.service.ExcursionService;
+import cz.muni.fi.pa165.jtravelagency.service.ReservationService;
+import cz.muni.fi.pa165.jtravelagency.service.TripService;
 import java.util.List;
 import org.joda.time.LocalDate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -20,6 +25,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public class ServiceFacadeImpl implements ServiceFacade {
+    
+    @Autowired
+    private ExcursionService excursionService;
+     @Autowired
+     private ReservationService reservationService;
+     @Autowired 
+     private TripService tripService;
+     @Autowired
+     private CustomerService customerService;
+     
+    
 
     public void createCustomer(CustomerDTO cutomerDTO) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

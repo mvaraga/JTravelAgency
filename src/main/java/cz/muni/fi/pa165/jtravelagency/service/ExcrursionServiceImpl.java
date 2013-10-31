@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Peter Petrinec
  */
-public class ExcrursionServiceImpl implements ExcrursionService{
+public class ExcrursionServiceImpl implements ExcursionService{
     
     @Autowired
     private ExcursionDAO excursionDAO;

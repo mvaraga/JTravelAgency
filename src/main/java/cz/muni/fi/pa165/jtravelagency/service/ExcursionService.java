@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Peter Petrinec
  */
-public interface ExcrursionService {
+public interface ExcursionService {
     
     /**
      * 
