@@ -204,6 +204,10 @@ public class ServiceFacadeImpl implements ServiceFacade {
     public void removeExcursionFromTrip(ExcursionDTO excursionDTO, TripDTO tripDTO) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public void createReservation(ReservationDTO reservationDTO) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     

@@ -37,7 +37,7 @@ public interface ServiceFacade {
     
     public TripDTO getTrip(Long id);
     
-    public TripDTO getTripByExcursions(List<ExcursionDTO> excursionDTOs);
+    public TripDTO getExcursionsByTrip(TripDTO trip);
     
     public ExcursionDTO getExcursion(Long id);
     

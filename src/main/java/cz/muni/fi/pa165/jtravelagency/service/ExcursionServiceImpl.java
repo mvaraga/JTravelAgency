@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service("excursionService")
 @Transactional
-public class ExcursionServiceImpl implements ExcrursionService{
+public class ExcursionServiceImpl implements ExcursionService{
     
     @Autowired
     private ExcursionDAO excursionDAO;
