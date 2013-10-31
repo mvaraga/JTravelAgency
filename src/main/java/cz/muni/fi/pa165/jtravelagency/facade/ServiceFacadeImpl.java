@@ -12,6 +12,7 @@ import cz.muni.fi.pa165.jtravelagency.service.CustomerService;
 import cz.muni.fi.pa165.jtravelagency.service.ExcursionService;
 import cz.muni.fi.pa165.jtravelagency.service.ReservationService;
 import cz.muni.fi.pa165.jtravelagency.service.TripService;
+import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,28 +29,43 @@ public class ServiceFacadeImpl implements ServiceFacade {
     
     @Autowired
     private ExcursionService excursionService;
-     @Autowired
+    
+         @Autowired
      private ReservationService reservationService;
      @Autowired 
      private TripService tripService;
      @Autowired
      private CustomerService customerService;
+
+    public void setExcursionService(ExcursionService excursionService) {
+        this.excursionService = excursionService;
+    }
+
+    public void setReservationService(ReservationService reservationService) {
+        this.reservationService = reservationService;
+    }
+
+    public void setTripService(TripService tripService) {
+        this.tripService = tripService;
+    }
+
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
      
     
 
-    public void createCustomer(CustomerDTO cutomerDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void createCustomer(CustomerDTO customerDTO) {
+        if((customerDTO==null)||(customerDTO.getId()!=null)) {throw new IllegalArgumentException();}
+        customerService.create(customerDTO);
     }
 
     public void createTrip(TripDTO tripDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     public void createExcursion(ExcursionDTO excursionDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void createReservation(ReservationDTO reservationDTO) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -61,7 +77,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public TripDTO getTripByExcursions(List<ExcursionDTO> excursionDTOs) {
+    public TripDTO getExcursionsByTrip(TripDTO trip) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -70,7 +86,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     public ReservationDTO getReservation(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 
     public ReservationDTO getReservationByCustomer(CustomerDTO customerDTO) {
@@ -150,11 +166,35 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     public ReservationDTO makeReservation(CustomerDTO customerDTO, TripDTO tripDTO, List<ExcursionDTO> excursionDTOs) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        if ((customerDTO==null) || (customerDTO.getId()==null)) {throw new IllegalArgumentException();}
+         if ((tripDTO==null) || (tripDTO.getId()==null)) {throw new IllegalArgumentException();}
+          if (excursionDTOs==null) {throw new IllegalArgumentException();}
+          
+          for(int i=0;i<excursionDTOs.size();i++) {
+             if (excursionDTOs.get(i).getId()==null) {throw new IllegalArgumentException();}
+          }
+          
+        
+        ReservationDTO reservationDTO=new ReservationDTO();
+        reservationDTO.setCustomer(customerDTO);
+        reservationDTO.setTrip(tripDTO);
+        reservationDTO.setExcursions(excursionDTOs);
+        
+        reservationService.create(reservationDTO);
+        
+        return reservationDTO;
     }
 
     public void addExcursionToReservation(ExcursionDTO excursionDTO, ReservationDTO reservationDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if ((excursionDTO==null)||(reservationDTO==null)) {throw new IllegalArgumentException();}
+        if ((excursionDTO.getId()==null)||(reservationDTO.getId()==null)) {throw new IllegalArgumentException();}
+        
+        List<ExcursionDTO> excursionDTOs=new ArrayList<ExcursionDTO>();
+        excursionDTOs=reservationDTO.getExcursions();
+        excursionDTOs.add(excursionDTO);
+        reservationDTO.setExcursions(excursionDTOs);
+        reservationService.update(reservationDTO);
     }
 
     public void removeExcursionFromReservation(ExcursionDTO excursionDTO, ReservationDTO reservationDTO) {
