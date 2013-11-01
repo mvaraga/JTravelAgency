@@ -73,6 +73,7 @@ public class CustomerServiceImpl implements CustomerService {
     public void setDeletedStatus(CustomerDTO customerDto) {
         Customer customer = DTOAndEntityMapper.dtoToEntity(customerDto, Customer.class);
         customerDao.setDeletedStatus(customer);
+        customerDto.setStatus(customer.getStatus());
     }
 
     private void validateCustomer(CustomerDTO customerDto) {

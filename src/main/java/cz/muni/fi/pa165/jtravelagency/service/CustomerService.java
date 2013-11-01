@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author jakub
+ * @author mvaraga
  */
 public interface CustomerService {
     
@@ -25,7 +25,7 @@ public interface CustomerService {
     /*
      * Updates customer
      * 
-     * @param customer Customer to 
+     * @param customer Customer to delete
      */
     void update(CustomerDTO customer);
     
@@ -43,7 +43,7 @@ public interface CustomerService {
     
     /*
      * Set status to deleted
-     * @param
+     * @param customer customer to set status
      */
     void setDeletedStatus(CustomerDTO customer);
     

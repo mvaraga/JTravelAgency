@@ -30,12 +30,12 @@ public class ServiceFacadeImpl implements ServiceFacade {
     @Autowired
     private ExcursionService excursionService;
     
-         @Autowired
-     private ReservationService reservationService;
-     @Autowired 
-     private TripService tripService;
-     @Autowired
-     private CustomerService customerService;
+    @Autowired
+    private ReservationService reservationService;
+    @Autowired
+    private TripService tripService;
+    @Autowired
+    private CustomerService customerService;
 
     public void setExcursionService(ExcursionService excursionService) {
         this.excursionService = excursionService;
@@ -56,26 +56,31 @@ public class ServiceFacadeImpl implements ServiceFacade {
      
     
 
+    @Override
     public void createCustomer(CustomerDTO customerDTO) {
         if((customerDTO==null)||(customerDTO.getId()!=null)) {throw new IllegalArgumentException();}
         customerService.create(customerDTO);
     }
 
+    @Override
     public void createTrip(TripDTO tripDTO) {
         if((tripDTO==null)||(tripDTO.getId()!=null)) {throw new IllegalArgumentException();}
         tripService.create(tripDTO);
     }
 
+    @Override
     public void createExcursion(ExcursionDTO excursionDTO) {
         if((excursionDTO==null)||(excursionDTO.getId()!=null)) {throw new IllegalArgumentException();}
         excursionService.create(excursionDTO);
     }
 
+    @Override
     public CustomerDTO getCustomer(Long id) {
         if(id==null) {throw new IllegalArgumentException();}
         return customerService.get(id);
     }
 
+    @Override
     public TripDTO getTrip(Long id) {
         if (id==null) {throw new IllegalArgumentException();}
         return tripService.get(id);
@@ -87,21 +92,25 @@ public class ServiceFacadeImpl implements ServiceFacade {
         return excursionService.
     }
 */
+    @Override
     public ExcursionDTO getExcursion(Long id) {
         if (id==null) {throw new IllegalArgumentException();}
         return excursionService.get(id);
     }
 
+    @Override
     public ReservationDTO getReservation(Long id) {
         if (id==null) {throw new IllegalArgumentException();}
         return reservationService.get(id);
     }
 
+    @Override
     public List<ReservationDTO> getReservationByCustomer(CustomerDTO customerDTO) {
         if ((customerDTO==null)||(customerDTO.getId()==null)) {throw new IllegalArgumentException();}
         return reservationService.getByCustomer(customerDTO);
     }
 
+    @Override
     public List<ReservationDTO> getReservationByTrip(TripDTO tripDTO) {
         if ((tripDTO==null)||(tripDTO.getId()==null)) {throw  new IllegalArgumentException();}
         return reservationService.getByTrip(tripDTO);
@@ -109,70 +118,86 @@ public class ServiceFacadeImpl implements ServiceFacade {
 
    
 
+    @Override
     public List<CustomerDTO> getAllCustomers() {
         return customerService.getAll();
     }
 
+    @Override
     public List<TripDTO> getAllTrips() {
         return tripService.getAll();
     }
 
+    @Override
     public List<ExcursionDTO> getAllExcursions() {
        return excursionService.getAll();
     }
 
+    @Override
     public List<ReservationDTO> getAllReservations() {
         return reservationService.getAll();
     }
 
+    @Override
     public void updateCustomer(CustomerDTO customerDTO) {
         if ((customerDTO==null)||(customerDTO.getId()==null)) {throw new IllegalArgumentException();}
        customerService.update(customerDTO);
     }
 
+    @Override
     public void updateTrip(TripDTO tripDTO) {
         if ((tripDTO==null)||(tripDTO.getId()==null)) {throw new IllegalArgumentException();}
         tripService.update(tripDTO);
     }
 
+    @Override
     public void updateExcursion(ExcursionDTO excursionDTO) {
         if ((excursionDTO==null)||(excursionDTO.getId()==null)) {throw new IllegalArgumentException();}
        excursionService.update(excursionDTO);
     }
 
+    @Override
     public void updateReservation(ReservationDTO reservationDTO) {
         if ((reservationDTO==null)||(reservationDTO.getId()==null)) {throw new IllegalArgumentException();}
         reservationService.update(reservationDTO);
     }
 
+    @Override
     public void deleteCustomer(CustomerDTO customerDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        customerService.delete(customerDTO);
     }
 
+    @Override
     public void deleteTrip(TripDTO tripDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        tripService.delete(tripDTO);
     }
 
+    @Override
     public void deleteExcursion(ExcursionDTO excursionDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        excursionService.delete(excursionDTO);
     }
 
+    @Override
     public void deleteReservation(ReservationDTO reservationDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        reservationService.delete(reservationDTO);
     }
 
+    @Override
     public void setDeletedStatusToCustomer(CustomerDTO customerDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        customerService.setDeletedStatus(customerDTO);
     }
 
+    @Override
     public List<TripDTO> findTripsByDateRange(LocalDate from, LocalDate to) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return tripService.findAllByDateRange(from, to);
     }
 
+    @Override
     public List<TripDTO> findTripsByDestination(String destination) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return tripService.findAllByDestination(destination);
     }
 
+    @Override
     public void addExcursionToTrip(ExcursionDTO excursionDTO, TripDTO tripDTO) {
         if ((excursionDTO==null)||(excursionDTO.getId()==null)) {throw new IllegalArgumentException();}
         if ((tripDTO==null)||(tripDTO.getId()==null)) {throw new IllegalArgumentException();}
@@ -185,6 +210,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
         tripService.update(tripDTO);
     }
 
+    @Override
     public ReservationDTO makeReservation(CustomerDTO customerDTO, TripDTO tripDTO, List<ExcursionDTO> excursionDTOs) {
         
         if ((customerDTO==null) || (customerDTO.getId()==null)) {throw new IllegalArgumentException();}
@@ -206,6 +232,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
         return reservationDTO;
     }
 
+    @Override
     public void addExcursionToReservation(ExcursionDTO excursionDTO, ReservationDTO reservationDTO) {
         if ((excursionDTO==null)||(reservationDTO==null)) {throw new IllegalArgumentException();}
         if ((excursionDTO.getId()==null)||(reservationDTO.getId()==null)) {throw new IllegalArgumentException();}
@@ -217,18 +244,19 @@ public class ServiceFacadeImpl implements ServiceFacade {
         reservationService.update(reservationDTO);
     }
 
+    @Override
     public void removeExcursionFromReservation(ExcursionDTO excursionDTO, ReservationDTO reservationDTO) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public void removeExcursionFromTrip(ExcursionDTO excursionDTO, TripDTO tripDTO) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public void createReservation(ReservationDTO reservationDTO) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
-    
+
 }
