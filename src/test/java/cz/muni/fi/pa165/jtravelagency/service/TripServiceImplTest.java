@@ -32,10 +32,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class TripServiceImplTest extends TestCase {
     
     @InjectMocks
-    private TripServiceImpl tripService;
+    private TripServiceImpl service;
     
     @Mock
-    private TripDAOImpl tripDao;
+    private TripDAOImpl dao;
     
   
     
@@ -49,154 +49,145 @@ public class TripServiceImplTest extends TestCase {
         super.tearDown();
     }
 
-    /**
-     * Test of setTripDAO method, of class TripServiceImpl.
-     */
-   
 
-    /**
-     * Test of create method, of class TripServiceImpl.
-     
     @Test
     public void testCreate() {
-        doThrow(new IllegalArgumentException()).when(tripDao).createTrip(null);
-        
-        try{
-            tripService.create(null);
+        doThrow(new IllegalArgumentException()).when(dao).createTrip(null);
+
+        try {
+            service.create(null);
             fail();
-        }catch(IllegalArgumentException ex){
-            
+        } catch (IllegalArgumentException ex) {
+            //OK
         }
-         
-        //verify(tripDao).createTrip(null);
-        verify(tripDao,never()).updateTrip(null);
-        verifyNoMoreInteractions(tripDao);
-                
-        Trip trip = prepareTrip();
         
-        tripService.create(DTOAndEntityMapper.entityToDto(trip, TripDTO.class));
-        
-        verify(tripDao,times(1)).createTrip(trip);
-        verify(tripDao,times(0)).updateTrip(trip);
+        Trip trip =prepareTrip();
+        TripDTO tripDTO = DTOAndEntityMapper.entityToDto(trip, TripDTO.class);
+        service.create(tripDTO);
+
+        verify(dao).createTrip(trip);
+        verify(dao, times(0)).getTrip(any(Long.class));
+        verify(dao, times(0)).updateTrip(any(Trip.class));
+        verify(dao, times(0)).deleteTrip(any(Trip.class));
+        verify(dao, times(0)).getAllTrips();
     }
 
    
     @Test
     public void testGet() {
-        System.out.println("get");
-        Long id = null;
-        TripServiceImpl instance = new TripServiceImpl();
-        TripDTO expResult = null;
-        TripDTO result = instance.get(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
- 
-    @Test
-    public void testUpdate() {
-        doThrow(new IllegalArgumentException()).when(tripDao).updateTrip(null);
         
-        try{
-            tripService.update(null);
-            fail();
-        }catch(IllegalArgumentException ex){
-           
-        }
-         
-        verify(tripDao,never()).createTrip(null);
-        //verify(tripDao,times(1)).updateTrip(null);
-        verifyNoMoreInteractions(tripDao);
-                
-        Trip trip = prepareTrip();
-        tripService.update(DTOAndEntityMapper.entityToDto(trip, TripDTO.class));
-        
-        verify(tripDao,times(1)).updateTrip(trip);
-        verify(tripDao,times(0)).createTrip(trip);
-    }
-
-    
-    @Test
-    public void testDelete() {
-     doThrow(new IllegalArgumentException()).when(tripDao).deleteTrip(null);
-        
-        try{
-            tripService.delete(null);
-            fail();
-        }catch(IllegalArgumentException ex){
-            
-        }
-         
-        verify(tripDao,never()).createTrip(null);
-        verify(tripDao,times(1)).deleteTrip(null);
-        verify(tripDao,never()).updateTrip(null);
-        verifyNoMoreInteractions(tripDao);
-                
-        Trip trip = prepareTrip();
-        tripService.delete(DTOAndEntityMapper.entityToDto(trip, TripDTO.class));
-        
-        verify(tripDao,times(1)).deleteTrip(trip);
-        verify(tripDao,times(0)).createTrip(trip);
-        verify(tripDao,never()).updateTrip(trip);
-    }
-
-    @Test
-    public void testGetAll() {
-        doThrow(new IllegalArgumentException()).when(tripDao).getTrip(null);
-        //doThrow(new IllegalArgumentException()).when(tripDao).getTrip(-1l);
-        
-        try{
-            tripService.get(null);
+                try{
+            service.get(null);
             fail();
         }catch(IllegalArgumentException ex){
           
         }
         
-    
-        verify(tripDao,never()).createTrip(null);
-        verify(tripDao,times(1)).getTrip(null);
-        verify(tripDao,never()).updateTrip(null);
-        //verify(tripDao,times(1)).getTrip(-1l);
+        Trip trip=prepareTrip();
+        
+        TripDTO expected =DTOAndEntityMapper.entityToDto(trip, TripDTO.class);
+        expected.setId(1l);
+        //asi by sa to malo este do databazy poslat 
+        when(dao.getTrip(1l)).thenReturn(DTOAndEntityMapper.dtoToEntity(expected, Trip.class));
+        TripDTO returned = service.get(1l);
+
+        verify(dao).getTrip(1l);
+        verify(dao, times(0)).createTrip(any(Trip.class));
+        verify(dao, times(0)).updateTrip(any(Trip.class));
+        verify(dao, times(0)).deleteTrip(any(Trip.class));
+        verify(dao, times(0)).getAllTrips();
+
+       assertTripDeepEquals(expected, returned);
+       
+    }
+
+ 
+    @Test
+    public void testUpdate() {
+        
                 
+        try{
+            service.update(null);
+            fail();
+        }catch(IllegalArgumentException ex){
+           
+        }
+        
         Trip trip = prepareTrip();
-        trip.setId(1l);
+        TripDTO tripDTO=DTOAndEntityMapper.entityToDto(trip, TripDTO.class);
+        tripDTO.setId(1l);
+        service.update(tripDTO);
+
+        verify(dao).updateTrip(any(Trip.class));
+        verifyNoMoreInteractions(dao);
+    }
+
+    
+    @Test
+    public void testDelete() {
         
-        when(tripDao.getTrip(1l)).thenReturn(trip); 
+                try{
+            service.delete(null);
+            fail();
+        }catch(IllegalArgumentException ex){
             
-        assertEquals(trip, tripService.get(trip.getId()));
-        assertTripDeepEquals(trip, DTOAndEntityMapper.dtoToEntity(tripService.get(trip.getId())));
+        }
+        Trip trip = prepareTrip();
+        TripDTO tripDTO=DTOAndEntityMapper.entityToDto(trip, TripDTO.class);
+        tripDTO.setId(1l);
+        service.delete(tripDTO);
+
+        verify(dao).deleteTrip(any(Trip.class));
+        verifyNoMoreInteractions(dao);
+    }
+
+    @Test
+    public void testGetAll() {
+        List<Trip> expected = new ArrayList<Trip>();
+        expected.add(prepareTrip());
+        when(dao.getAllTrips()).thenReturn(expected);
+        List<TripDTO> returned = service.getAll();
         
-        verify(tripDao,times(1)).getTrip(1l);
-        verify(tripDao,times(0)).createTrip(trip);
-        verify(tripDao,never()).updateTrip(trip);
+        verify(dao).getAllTrips();
+        verifyNoMoreInteractions(dao);
+        
+       for(int i=0;i<expected.size();i++){
+       assertTripDeepEquals(DTOAndEntityMapper.entityToDto(expected.get(i), TripDTO.class), returned.get(i));
+       }
     }
 
     
     @Test
     public void testFindAllByDateRange() {
-        System.out.println("findAllByDateRange");
-        LocalDate from = null;
-        LocalDate to = null;
-        TripServiceImpl instance = new TripServiceImpl();
-        List expResult = null;
-        List result = instance.findAllByDateRange(from, to);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+                List<Trip> expected = new ArrayList<Trip>();
+        expected.add(prepareTrip());
+        when(dao.getAllTrips()).thenReturn(expected);
+        List<TripDTO> returned = service.getAll();
+        
+        verify(dao).getAllTrips();
+        verifyNoMoreInteractions(dao);
+        
+       for(int i=0;i<expected.size();i++){
+       assertTripDeepEquals(DTOAndEntityMapper.entityToDto(expected.get(i), TripDTO.class), returned.get(i));
+    }
+    
     }
 
     @Test
     public void testFindAllByDestination() {
-        System.out.println("findAllByDestination");
-        String destination = "";
-        TripServiceImpl instance = new TripServiceImpl();
-        List expResult = null;
-        List result = instance.findAllByDestination(destination);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+
+                List<Trip> expected = new ArrayList<Trip>();
+        expected.add(prepareTrip());
+        when(dao.getAllTrips()).thenReturn(expected);
+        List<TripDTO> returned = service.getAll();
+        
+        verify(dao).getAllTrips();
+        verifyNoMoreInteractions(dao);
+        
+       for(int i=0;i<expected.size();i++){
+       assertTripDeepEquals(DTOAndEntityMapper.entityToDto(expected.get(i), TripDTO.class), returned.get(i));
+    }}
     
         private Trip prepareTrip() {
         Trip preparedTrip = new Trip();
@@ -209,7 +200,7 @@ public class TripServiceImplTest extends TestCase {
         return preparedTrip;
     }
     
-    private static void assertTripDeepEquals(Trip expected, Trip actual) {
+    private static void assertTripDeepEquals(TripDTO expected, TripDTO actual) {
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getDateFrom(), actual.getDateFrom());
         assertEquals(expected.getDateTo(), actual.getDateTo());
@@ -217,7 +208,6 @@ public class TripServiceImplTest extends TestCase {
         assertEquals(expected.getAvailableTrips(), actual.getAvailableTrips());
         assertEquals(expected.getPrice(), actual.getPrice());
     }
-    
-    */
+   
 
 }
