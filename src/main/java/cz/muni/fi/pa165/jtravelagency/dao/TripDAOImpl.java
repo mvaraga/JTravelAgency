@@ -9,17 +9,20 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import org.joda.time.LocalDate;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Jakub Marecek (404364)
  */
-
+@Repository
 public class TripDAOImpl implements TripDAO {
 
     private EntityManager em;
-    
-    
+
+    public TripDAOImpl() {
+    }
+     
     public TripDAOImpl(EntityManager em) {
         if (em == null) {
             throw new IllegalArgumentException("Entity Manager can not be null");

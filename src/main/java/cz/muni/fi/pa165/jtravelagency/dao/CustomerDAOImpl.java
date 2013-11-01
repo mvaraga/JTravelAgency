@@ -8,14 +8,23 @@ import cz.muni.fi.pa165.jtravelagency.CustomerStatus;
 import cz.muni.fi.pa165.jtravelagency.entity.Customer;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import org.springframework.stereotype.Repository;
+
 
 /**
  *
  * @author Marian Varaga
  */
+@Repository
 public class CustomerDAOImpl implements CustomerDAO {
+    
+    @PersistenceContext
     private EntityManager em;
+
+    public CustomerDAOImpl() {
+    }
     
     public CustomerDAOImpl(EntityManager em) {
         if(em==null)

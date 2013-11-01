@@ -25,6 +25,9 @@ public class ReservationDAOImpl implements ReservationDAO {
     @PersistenceContext(type= PersistenceContextType.EXTENDED)
     EntityManager em;
 
+    public ReservationDAOImpl() {
+    }
+
     public ReservationDAOImpl(EntityManager em) {
         if (em == null) {
             throw new IllegalArgumentException("Entity manager cannot be null");

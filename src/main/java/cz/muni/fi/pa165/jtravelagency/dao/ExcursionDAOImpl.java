@@ -10,14 +10,19 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Peter Petrinec
  */
+@Repository
 public class ExcursionDAOImpl implements ExcursionDAO {
     private EntityManager em;
 
+    public ExcursionDAOImpl() {
+    }
+    
     public ExcursionDAOImpl(EntityManager em) {
         if(em == null) {
             throw new IllegalArgumentException("Entity manager cannot be null");
