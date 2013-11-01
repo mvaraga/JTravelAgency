@@ -122,18 +122,18 @@ public class CustomerServiceImplTest extends TestCase {
         
         assertDeepEquals(EntityToDTOList(expected), returned);
     }
-//
-//    /**
-//     * Test of setDeletedStatus method, of class CustomerServiceImpl.
-//     */
-//    public void testSetDeletedStatus() {
-//        System.out.println("setDeletedStatus");
-//        CustomerDTO customer = null;
-//        CustomerServiceImpl instance = new CustomerServiceImpl();
-//        instance.setDeletedStatus(customer);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+
+    /**
+     * Test of setDeletedStatus method, of class CustomerServiceImpl.
+     */
+    @Test
+    public void testSetDeletedStatus() {
+        CustomerDTO customerDTO = newCustomerDTO();
+        customerService.setDeletedStatus(customerDTO);
+        
+        verify(customerDAO).setDeletedStatus(DTOAndEntityMapper.dtoToEntity(customerDTO, Customer.class));
+        verifyNoMoreInteractions(customerDAO);
+    }
 
     private CustomerDTO newCustomerDTO() {
         CustomerDTO customer = new CustomerDTO();
