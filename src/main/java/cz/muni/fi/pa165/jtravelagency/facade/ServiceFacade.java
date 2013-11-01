@@ -27,7 +27,6 @@ public interface ServiceFacade {
     
     public void createExcursion(ExcursionDTO excursionDTO);
     
-    public void createReservation(ReservationDTO reservationDTO);
     
     
     /*
@@ -108,8 +107,6 @@ public interface ServiceFacade {
      */
     public void addExcursionToTrip(ExcursionDTO excursionDTO, TripDTO tripDTO);
     
-    public void removeExcursionFromTrip(ExcursionDTO excursionDTO, TripDTO tripDTO);
-    
     
     /*
      * 
@@ -118,5 +115,4 @@ public interface ServiceFacade {
     
     public void addExcursionToReservation(ExcursionDTO excursionDTO, ReservationDTO reservationDTO);
     
-    public void removeExcursionFromReservation(ExcursionDTO excursionDTO, ReservationDTO reservationDTO);
 }
