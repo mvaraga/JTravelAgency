@@ -158,8 +158,8 @@ public class ReservationServiceImplTest extends TestCase {
             // OK
         }
         
-        verify(service,never()).create(null);
-        verify(service,never()).update(null);
+        verify(reservationDAO,never()).createReservation(null);
+        verify(reservationDAO,never()).updateReservation(null);
         
     }
 

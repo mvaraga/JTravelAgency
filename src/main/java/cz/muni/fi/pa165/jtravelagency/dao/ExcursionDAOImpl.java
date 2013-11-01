@@ -9,6 +9,7 @@ import cz.muni.fi.pa165.jtravelagency.entity.Trip;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +19,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class ExcursionDAOImpl implements ExcursionDAO {
+    
+    @PersistenceContext
     private EntityManager em;
 
     public ExcursionDAOImpl() {
