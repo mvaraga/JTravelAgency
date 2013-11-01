@@ -27,16 +27,20 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ServiceFacadeImpl implements ServiceFacade {
     
+    
     @Autowired
     private ExcursionService excursionService;
     
     @Autowired
     private ReservationService reservationService;
+    
     @Autowired
     private TripService tripService;
+    
     @Autowired
     private CustomerService customerService;
 
+    
     public void setExcursionService(ExcursionService excursionService) {
         this.excursionService = excursionService;
     }
@@ -52,8 +56,6 @@ public class ServiceFacadeImpl implements ServiceFacade {
     public void setCustomerService(CustomerService customerService) {
         this.customerService = customerService;
     }
-
-     
     
 
     @Override
