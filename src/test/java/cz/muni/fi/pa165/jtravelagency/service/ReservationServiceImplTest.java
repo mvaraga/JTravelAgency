@@ -39,13 +39,6 @@ public class ReservationServiceImplTest extends TestCase {
     private ReservationDAO reservationDAO;
     
     
-    /*public ReservationServiceImplTest(String testName) {
-        super(testName);
-        service = new ReservationServiceImpl();
-        reservationDAO = mock(ReservationDAOImpl.class);
-        service.setReservationDAO(reservationDAO);
-    }*/
-    
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -161,51 +154,135 @@ public class ReservationServiceImplTest extends TestCase {
         verify(reservationDAO,never()).createReservation(null);
         verify(reservationDAO,never()).updateReservation(null);
         
+        ReservationDTO reservationDTO = new ReservationDTO();
+        reservationDTO.setId(1l);
+
+        when(reservationDAO.getReservation(1l)).thenReturn(DTOAndEntityMapper.dtoToEntity(reservationDTO, Reservation.class));
+        assertEquals(reservationDTO, service.get(reservationDTO.getId()));
+
+        verify(reservationDAO, times(1)).getReservation(1l);
+        verify(reservationDAO, times(0)).createReservation(DTOAndEntityMapper.dtoToEntity(reservationDTO, Reservation.class));
+        verify(reservationDAO, never()).updateReservation(DTOAndEntityMapper.dtoToEntity(reservationDTO, Reservation.class));
     }
 
     /**
      * Test of getAll method, of class ReservationServiceImpl.
-     *
+     */
     @Test
     public void testGetAll() {
-        System.out.println("getAll");
-        ReservationServiceImpl instance = new ReservationServiceImpl();
-        List expResult = null;
-        List result = instance.getAll();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        when(reservationDAO.getAllReservations()).thenReturn(new ArrayList<Reservation>());
+        ArrayList<ReservationDTO> dtoList = new ArrayList<ReservationDTO>();
+        assertEquals(new ArrayList<Reservation>(), reservationDAO.getAllReservations());
+
+        verify(reservationDAO, times(1)).getAllReservations();
+        
+        ReservationDTO resevationDTO1 = new ReservationDTO();
+        ReservationDTO resevationDTO2 = new ReservationDTO();
+        ReservationDTO resevationDTO3 = new ReservationDTO();
+
+        resevationDTO1.setId(1l);
+        resevationDTO2.setId(2l);
+        resevationDTO3.setId(3l);
+
+        dtoList.add(resevationDTO1);
+        dtoList.add(resevationDTO2);
+        dtoList.add(resevationDTO3);
+
+        List<Reservation> entityList = new ArrayList<Reservation>();
+        entityList.add(DTOAndEntityMapper.dtoToEntity(resevationDTO1, Reservation.class));
+        entityList.add(DTOAndEntityMapper.dtoToEntity(resevationDTO2, Reservation.class));
+        entityList.add(DTOAndEntityMapper.dtoToEntity(resevationDTO3, Reservation.class));
+
+        when(reservationDAO.getAllReservations()).thenReturn(entityList);
+        assertEquals(dtoList, service.getAll());
+        verify(reservationDAO, times(2)).getAllReservations();
     }
 
     /**
      * Test of getByTrip method, of class ReservationServiceImpl.
-     *
+     */
     @Test
     public void testGetByTrip() {
-        System.out.println("getByTrip");
-        TripDTO trip = null;
-        ReservationServiceImpl instance = new ReservationServiceImpl();
-        List expResult = null;
-        List result = instance.getByTrip(trip);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try {
+            service.getByTrip(null);
+            fail();
+        } catch(IllegalArgumentException ex){
+            // OK
+        }
+        
+        Trip trip = new Trip();
+        trip.setId(1l);
+        
+        when(reservationDAO.getReservationByTrip(trip)).thenReturn(new ArrayList<Reservation>());
+        ArrayList<ReservationDTO> dtoList = new ArrayList<ReservationDTO>();
+        assertEquals(new ArrayList<Reservation>(), reservationDAO.getReservationByTrip(trip));
+
+        verify(reservationDAO, times(1)).getReservationByTrip(trip);
+        
+        ReservationDTO resevationDTO1 = new ReservationDTO();
+        ReservationDTO resevationDTO2 = new ReservationDTO();
+        ReservationDTO resevationDTO3 = new ReservationDTO();
+
+        resevationDTO1.setId(1l);
+        resevationDTO2.setId(2l);
+        resevationDTO3.setId(3l);
+
+        dtoList.add(resevationDTO1);
+        dtoList.add(resevationDTO2);
+        dtoList.add(resevationDTO3);
+
+        List<Reservation> entityList = new ArrayList<Reservation>();
+        entityList.add(DTOAndEntityMapper.dtoToEntity(resevationDTO1, Reservation.class));
+        entityList.add(DTOAndEntityMapper.dtoToEntity(resevationDTO2, Reservation.class));
+        entityList.add(DTOAndEntityMapper.dtoToEntity(resevationDTO3, Reservation.class));
+        
+        when(reservationDAO.getReservationByTrip(trip)).thenReturn(entityList);
+        assertEquals(dtoList, service.getByTrip(DTOAndEntityMapper.entityToDto(trip, TripDTO.class)));
+        verify(reservationDAO, times(2)).getReservationByTrip(trip);
     }
 
     /**
      * Test of getByCustomer method, of class ReservationServiceImpl.
-     *
+     */
     @Test
     public void testGetByCustomer() {
-        System.out.println("getByCustomer");
-        CustomerDTO customer = null;
-        ReservationServiceImpl instance = new ReservationServiceImpl();
-        List expResult = null;
-        List result = instance.getByCustomer(customer);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
+        try {
+            service.getByCustomer(null);
+            fail();
+        } catch(IllegalArgumentException ex){
+            // OK
+        }
+        
+        Customer customer = new Customer();
+        customer.setId(1l);
+        
+        when(reservationDAO.getReservationByCustomer(customer)).thenReturn(new ArrayList<Reservation>());
+        ArrayList<ReservationDTO> dtoList = new ArrayList<ReservationDTO>();
+        assertEquals(new ArrayList<Reservation>(), reservationDAO.getReservationByCustomer(customer));
+
+        verify(reservationDAO, times(1)).getReservationByCustomer(customer);
+        
+        ReservationDTO resevationDTO1 = new ReservationDTO();
+        ReservationDTO resevationDTO2 = new ReservationDTO();
+        ReservationDTO resevationDTO3 = new ReservationDTO();
+
+        resevationDTO1.setId(1l);
+        resevationDTO2.setId(2l);
+        resevationDTO3.setId(3l);
+
+        dtoList.add(resevationDTO1);
+        dtoList.add(resevationDTO2);
+        dtoList.add(resevationDTO3);
+
+        List<Reservation> entityList = new ArrayList<Reservation>();
+        entityList.add(DTOAndEntityMapper.dtoToEntity(resevationDTO1, Reservation.class));
+        entityList.add(DTOAndEntityMapper.dtoToEntity(resevationDTO2, Reservation.class));
+        entityList.add(DTOAndEntityMapper.dtoToEntity(resevationDTO3, Reservation.class));
+        
+        when(reservationDAO.getReservationByCustomer(customer)).thenReturn(entityList);
+        assertEquals(dtoList, service.getByCustomer(DTOAndEntityMapper.entityToDto(customer, CustomerDTO.class)));
+        verify(reservationDAO, times(2)).getReservationByCustomer(customer);
+    }
     
     private ReservationDTO newReservationDTO() {
         ReservationDTO reservationDTO = new ReservationDTO();

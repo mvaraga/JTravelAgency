@@ -8,6 +8,7 @@ import cz.muni.fi.pa165.jtravelagency.entity.Customer;
 import cz.muni.fi.pa165.jtravelagency.entity.Excursion;
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -106,12 +107,14 @@ public class ReservationDTO {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final cz.muni.fi.pa165.jtravelagency.entity.Reservation other = (cz.muni.fi.pa165.jtravelagency.entity.Reservation) obj;
-        if (this.id != other.getId() && (this.id == null || !this.id.equals(other.getId()))) {
+        final ReservationDTO other = (ReservationDTO) obj;
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
+
+
 }
     
 

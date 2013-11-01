@@ -94,9 +94,12 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationsDTO;
     }
     
-    public List<ReservationDTO> getByTrip(TripDTO trip){
+    public List<ReservationDTO> getByTrip(TripDTO tripDTO){
+        if (tripDTO == null) {
+            throw new IllegalArgumentException("Trip can not be null.");
+        }
         List<Reservation> reservations=new ArrayList<Reservation>();
-        reservations=reservationDAO.getReservationByTrip(DTOAndEntityMapper.dtoToEntity(trip, Trip.class));
+        reservations=reservationDAO.getReservationByTrip(DTOAndEntityMapper.dtoToEntity(tripDTO, Trip.class));
         List<ReservationDTO> reservationsDTO=new ArrayList<ReservationDTO>();
         for(Reservation r: reservations){
             reservationsDTO.add(DTOAndEntityMapper.entityToDto(r, ReservationDTO.class));
@@ -104,9 +107,12 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationsDTO;
     }
     
-    public List<ReservationDTO> getByCustomer(CustomerDTO customer){
+    public List<ReservationDTO> getByCustomer(CustomerDTO customerDTO){
+        if (customerDTO == null) {
+            throw new IllegalArgumentException("Customer can not be null.");
+        }
         List<Reservation> reservations=new ArrayList<Reservation>();
-        reservations=reservationDAO.getReservationByCustomer(DTOAndEntityMapper.dtoToEntity(customer, Customer.class));
+        reservations=reservationDAO.getReservationByCustomer(DTOAndEntityMapper.dtoToEntity(customerDTO, Customer.class));
         List<ReservationDTO> reservationsDTO=new ArrayList<ReservationDTO>();
         for(Reservation r: reservations) {
             reservationsDTO.add(DTOAndEntityMapper.entityToDto(r, ReservationDTO.class));
