@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ExcursionDAOImpl implements ExcursionDAO {
     
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
     public ExcursionDAOImpl() {

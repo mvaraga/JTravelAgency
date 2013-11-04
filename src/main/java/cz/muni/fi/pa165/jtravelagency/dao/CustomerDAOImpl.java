@@ -9,6 +9,7 @@ import cz.muni.fi.pa165.jtravelagency.entity.Customer;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
     
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
     public CustomerDAOImpl() {

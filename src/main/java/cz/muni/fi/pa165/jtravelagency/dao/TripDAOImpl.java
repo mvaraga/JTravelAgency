@@ -8,6 +8,7 @@ import cz.muni.fi.pa165.jtravelagency.entity.Trip;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 import org.joda.time.LocalDate;
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class TripDAOImpl implements TripDAO {
 
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
     public TripDAOImpl() {
