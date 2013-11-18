@@ -1,2 +1,6 @@
 /target/
 /derby.log
+/JTravelAgency-backend/target/
+/JTravelAgency-api/target/
+/JTravelAgency-web/target/
+
