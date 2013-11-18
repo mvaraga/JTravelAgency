@@ -9,6 +9,6 @@
     <modules>
         <module>JTravelAgency-backend</module>
         <module>JTravelAgency-api</module>
-    <module>JTravelAgency-web</module>
+        <module>JTravelAgency-web</module>
   </modules>
 </project>
