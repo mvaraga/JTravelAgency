@@ -12,7 +12,8 @@
     <context-param>
         <description>config file for Spring</description>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/spring-context.xml</param-value>
+        <param-value>classpath:applicationContext.xml
+            /WEB-INF/spring-context.xml</param-value>
     </context-param>
 
     <!-- JSTL -->
@@ -31,7 +32,7 @@
         <init-param>
             <description>where Stripes searches for ActionBeans</description>
             <param-name>ActionResolver.Packages</param-name>
-            <param-value>cz.muni.fi.pa165.books</param-value>
+            <param-value>cz.muni.fi.pa165.jtravelagency.web</param-value>
         </init-param>
         <init-param>
             <description>locales and encodings in the app</description>
