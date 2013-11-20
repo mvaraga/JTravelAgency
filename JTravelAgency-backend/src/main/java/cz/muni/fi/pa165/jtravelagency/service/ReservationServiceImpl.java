@@ -58,7 +58,7 @@ public class ReservationServiceImpl implements ReservationService {
         if (reservationDTO == null) {
             throw new IllegalArgumentException("ReservationDTO is null.");
         }
-        if (reservationDTO.getId() != null) {
+        if (reservationDTO.getId() == null) {
             throw new IllegalArgumentException("ReservationDTO's id is null.");
         }
         Reservation reservation=DTOAndEntityMapper.dtoToEntity(reservationDTO, Reservation.class);

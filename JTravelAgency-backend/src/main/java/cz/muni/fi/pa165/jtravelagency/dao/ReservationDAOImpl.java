@@ -67,9 +67,10 @@ public class ReservationDAOImpl implements ReservationDAO {
         if (reservation.getId() == null) {
             throw new IllegalArgumentException("ID of reservation is null");
         }
-        em.remove(reservation);
-        em.flush();
-        em.detach(reservation);
+        Reservation reservationToDelete = em.find(Reservation.class, reservation.getId());
+        em.remove(reservationToDelete);
+      //  em.flush();
+       // em.detach(reservation);
     }
 
     public List<Reservation> getAllReservations() {

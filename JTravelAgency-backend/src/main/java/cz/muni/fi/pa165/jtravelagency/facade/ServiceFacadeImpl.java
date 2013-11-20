@@ -107,7 +107,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
-    public List<ReservationDTO> getReservationByCustomer(CustomerDTO customerDTO) {
+    public List<ReservationDTO> getReservationsByCustomer(CustomerDTO customerDTO) {
         if ((customerDTO==null)||(customerDTO.getId()==null)) {throw new IllegalArgumentException();}
         return reservationService.getByCustomer(customerDTO);
     }

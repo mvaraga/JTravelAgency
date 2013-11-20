@@ -16,6 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  *
@@ -40,6 +42,7 @@ public class Customer implements Serializable {
     private CustomerStatus status;
     
     @OneToMany(mappedBy = "customer")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Reservation> reservations;
 
     public Customer() {

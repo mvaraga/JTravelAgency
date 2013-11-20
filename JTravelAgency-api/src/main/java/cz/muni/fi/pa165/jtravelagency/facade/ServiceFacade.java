@@ -42,7 +42,7 @@ public interface ServiceFacade {
     
     public ReservationDTO getReservation(Long id);
     
-    public List<ReservationDTO> getReservationByCustomer(CustomerDTO customerDTO);
+    public List<ReservationDTO> getReservationsByCustomer(CustomerDTO customerDTO);
     
     public List<ReservationDTO> getReservationByTrip(TripDTO tripDTO);
     
