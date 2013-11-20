@@ -33,6 +33,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         this.em = em;
     }
 
+    @Override
     public void createCustomer(Customer customer) {
         if(customer == null) {
             throw new IllegalArgumentException("Customer cannot be null");
@@ -45,6 +46,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         em.persist(customer);
     }
     
+    @Override
     public Customer getCustomer(Long id) {
         if(id==null) {
             throw new IllegalArgumentException("Id cannot be null");
@@ -52,6 +54,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         return em.find(Customer.class, id);
     }
 
+    @Override
     public void updateCustomer(Customer customer) {
         if(customer==null){
             throw new IllegalArgumentException("Customer cannot be null");
@@ -67,6 +70,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         em.detach(customer);
     }
 
+    @Override
     public void deleteCustomer(Customer customer) {
         if(customer==null){
             throw new IllegalArgumentException("Customer cannot be null");
@@ -77,11 +81,13 @@ public class CustomerDAOImpl implements CustomerDAO {
         
         validateCustomer(customer);
         
-        em.remove(customer);
+        Customer customerToDelete = em.find(Customer.class, customer.getId());
+        em.remove(customerToDelete);
         em.flush();
         //em.detach(em);
     }
 
+    @Override
     public List<Customer> getAllCustomers() {
         TypedQuery<Customer> query = em.createNamedQuery(
                 "findAllCustomers", Customer.class);
@@ -89,6 +95,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     // todo defenzivne???
+    @Override
     public void setDeletedStatus(Customer customer) {
 //        Customer c = getCustomer(customer.getId());
 //        c.setStatus(CustomerStatus.DELETED);

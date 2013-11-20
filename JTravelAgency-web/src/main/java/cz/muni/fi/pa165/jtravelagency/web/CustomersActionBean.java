@@ -13,6 +13,7 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.LocalizableMessage;
 import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
@@ -24,6 +25,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author xvaraga
  */
+@UrlBinding("/customers/{$event}/{customer.id}")
 public class CustomersActionBean extends BaseActionBean implements ValidationErrorHandler {
 final static Logger log = LoggerFactory.getLogger(CustomersActionBean.class);
 

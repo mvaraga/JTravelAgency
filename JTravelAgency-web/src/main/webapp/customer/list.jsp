@@ -3,7 +3,7 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
-<s:layout-render name="/layout.jsp" titlekey="book.list.title">
+<s:layout-render name="/layout.jsp" titlekey="customer.list.title">
     <s:layout-component name="body">
         <s:useActionBean beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomersActionBean" var="actionBean"/>
 
@@ -41,9 +41,9 @@
         </table>
 
         <s:form beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomersActionBean">
-            <fieldset><legend><f:message key="customer.list.newbook"/></legend>
+            <fieldset><legend><f:message key="customer.list.newcustomer"/></legend>
                 <%@include file="form.jsp"%>
-                <s:submit name="add">Vytvořit noveho zakaznika</s:submit>
+                <s:submit name="add"><f:message key="customer.list.newcustomer"/></s:submit>
             </fieldset>
         </s:form>
     </s:layout-component>
