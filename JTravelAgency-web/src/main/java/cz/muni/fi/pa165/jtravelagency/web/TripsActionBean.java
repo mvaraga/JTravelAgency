@@ -4,10 +4,8 @@
  */
 package cz.muni.fi.pa165.jtravelagency.web;
 
-import cz.muni.fi.pa165.jtravelagency.dto.CustomerDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
 import cz.muni.fi.pa165.jtravelagency.facade.ServiceFacade;
-import static cz.muni.fi.pa165.jtravelagency.web.CustomersActionBean.log;
 import java.util.List;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -15,8 +13,11 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.LocalizableMessage;
 import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.slf4j.Logger;
@@ -26,9 +27,10 @@ import org.slf4j.LoggerFactory;
  *
  * @author jakub
  */
+@UrlBinding("/trips/{$event}/{trip.id}")
 public class TripsActionBean extends BaseActionBean implements ValidationErrorHandler {
 
-    final static Logger log = LoggerFactory.getLogger(CustomersActionBean.class);
+    final static Logger log = LoggerFactory.getLogger(TripsActionBean.class);
 
     @SpringBean //Spring can inject even to private and protected fields
     protected ServiceFacade facade;
@@ -47,13 +49,13 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
         return trips;
     }
 
-    //--- part for adding a book ----
-
-//    @ValidateNestedProperties(value = {
-//            @Validate(on = {"add", "save"}, field = "author", required = true),
-//            @Validate(on = {"add", "save"}, field = "title", required = true),
-//            @Validate(on = {"add", "save"}, field = "year", required = true, minvalue = 800)
-//    })
+    //--- part for adding a trip ----
+    @ValidateNestedProperties(value = {
+            @Validate(on = {"add", "save"}, field = "destination", required = true),
+            @Validate(on = {"add", "save"}, field = "date_from", required = true),
+            @Validate(on = {"add", "save"}, field = "date_to", required = true),
+            @Validate(on = {"add", "save"}, field = "available_trips", required = true)
+    })
     private TripDTO trip;
 
     public Resolution add() {
@@ -91,7 +93,6 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
     }
 
     //--- part for editing a book ----
-
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save"})
     public void loadTripFromDatabase() {
         String ids = getContext().getRequest().getParameter("trip.id");
@@ -100,12 +101,12 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
     }
 
     public Resolution edit() {
-        log.debug("edit() customer={}", trip);
+        log.debug("edit() trip={}", trip);
         return new ForwardResolution("/trip/edit.jsp");
     }
 
     public Resolution save() {
-        log.debug("save() customer={}", trip);
+        log.debug("save() trip={}", trip);
         facade.updateTrip(trip);
         return new RedirectResolution(this.getClass(), "list");
     }

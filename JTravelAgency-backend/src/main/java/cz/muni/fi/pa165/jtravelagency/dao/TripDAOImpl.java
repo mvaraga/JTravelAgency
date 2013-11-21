@@ -74,10 +74,12 @@ public class TripDAOImpl implements TripDAO {
         if (trip.getId() == null) {
             throw new IllegalArgumentException("Trip id can not be null when trip is updated");
         }
-        validateTrip(trip);
-        em.remove(trip);
-        em.flush();
-        em.detach(trip);        
+        
+        Trip tripToDelete = em.find(Trip.class, trip);
+        validateTrip(tripToDelete);
+        em.remove(tripToDelete);
+        //em.flush();
+        //em.detach(trip);        
     }
 
     public List<Trip> getAllTrips() {

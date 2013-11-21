@@ -1,17 +1,24 @@
-<%-- 
-    Document   : edit
-    Created on : Nov 19, 2013, 9:32:29 PM
-    Author     : Peter
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Form</h1>
-    </body>
-</html>
+<%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
+<s:errors/>
+<table>
+    <tr>
+        <th><s:label for="b1" name="trip.destination"/></th>
+        <td><s:text id="b1" name="trip.destination"/></td>
+    </tr>
+    <tr>
+        <th><s:label for="b2" name="trip.date_from"/></th>
+        <td><s:text id="b2" name="trip.date_from"/></td>
+    </tr>
+    <tr>
+        <th><s:label for="b2" name="trip.date_to"/></th>
+        <td><s:text id="b2" name="trip.date_to"/></td>
+    </tr>
+    <tr>
+        <th><s:label for="b3" name="trip.price"/></th>
+        <td><s:text id="b3" name="trip.price"/></td>
+    </tr>
+    <tr>
+        <th><s:label for="b4" name="trip.available_trips"/></th>
+        <td><s:text id="b4" name="trip.availableTrips"/></td>
+    </tr>
+</table>
