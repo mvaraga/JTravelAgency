@@ -52,6 +52,25 @@ public class ReservationsActionBean extends BaseActionBean {
     private List<ReservationDTO> reservations;
     private List<CustomerDTO> customers;
     private List<TripDTO> trips;
+    
+    private Long customerId;
+    private Long tripId;
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public Long getTripId() {
+        return tripId;
+    }
+
+    public void setTripId(Long tripId) {
+        this.tripId = tripId;
+    }
 
     public ServiceFacade getFacade() {
         return facade;
@@ -129,7 +148,7 @@ public class ReservationsActionBean extends BaseActionBean {
 
     public Resolution add() {
         log.debug("add() reservation={}", reservation);
-        facade.makeReservation(customer, trip, excursions );
+        facade.makeReservation(facade.getCustomer(customerId), facade.getTrip(tripId), excursions );
         //getContext().getMessages().add(new LocalizableMessage("reservation.add.message",escapeHTML(customer.getFirstName()),escapeHTML(customer.getLastName())));
         return new RedirectResolution(this.getClass(), "list");
     }
@@ -166,6 +185,9 @@ public class ReservationsActionBean extends BaseActionBean {
         String ids = getContext().getRequest().getParameter("reservation.id");
         if (ids == null) return;
         reservation = facade.getReservation(Long.parseLong(ids));
+        customers = facade.getAllCustomers();
+        customerId = reservation.getCustomer().getId();
+        tripId=reservation.getTrip().getId();
     }
 
     public Resolution edit() {
