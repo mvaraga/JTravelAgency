@@ -52,9 +52,9 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
     //--- part for adding a trip ----
     @ValidateNestedProperties(value = {
             @Validate(on = {"add", "save"}, field = "destination", required = true),
-            @Validate(on = {"add", "save"}, field = "date_from", required = true),
-            @Validate(on = {"add", "save"}, field = "date_to", required = true),
-            @Validate(on = {"add", "save"}, field = "available_trips", required = true)
+            @Validate(on = {"add", "save"}, field = "dateFrom", required = true),
+            @Validate(on = {"add", "save"}, field = "dateTo", required = true),
+            @Validate(on = {"add", "save"}, field = "availableTrips", required = true)
     })
     private TripDTO trip;
 
@@ -108,6 +108,11 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
     public Resolution save() {
         log.debug("save() trip={}", trip);
         facade.updateTrip(trip);
+        return new RedirectResolution(this.getClass(), "list");
+    }
+    
+    //--- part for canceling a trip ----
+    public Resolution cancel() {
         return new RedirectResolution(this.getClass(), "list");
     }
     
