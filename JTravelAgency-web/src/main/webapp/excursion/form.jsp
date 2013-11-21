@@ -3,8 +3,8 @@
 <s:errors/>
 <table>
     <tr>
-        <th><s:label for="e1" name="excursion.excursionDate"/></th>
-        <td><s:text formatType="datetime" formatPattern="yyyy-MM-dd" id="e1" name="date"/></td>
+        <th><s:label for="datepicker" name="excursion.excursionDate"/></th>
+        <td><s:text formatType="datetime" id="datepicker" name="date"/></td>
     </tr>
     <tr>
         <th><s:label for="e2" name="excursion.description"/></th>
@@ -12,7 +12,7 @@
     </tr>
     <tr>
         <th><s:label for="e3" name="excursion.price"/></th>
-        <td><s:text id="e3" name="excursion.price"/></td>
+        <td><s:text id="e3" name="excursion.price" formatType="number" formatPattern=".##"/></td>
     </tr>
     <tr>
         <th><s:label for="e4" name="excursion.trip"/></th>
