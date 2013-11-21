@@ -34,6 +34,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
         this.em = em;
     }
     
+    @Override
     public void createExcursion(Excursion excursion) {
         validateExcursion(excursion);
         if(excursion.getId() != null) {
@@ -44,6 +45,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
         em.detach(excursion);
     }
 
+    @Override
     public Excursion getExcursion(Long id) {
         if(id == null) {
             throw new IllegalArgumentException("Id cannot be null.");
@@ -51,6 +53,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
         return em.find(Excursion.class, id);
     }
 
+    @Override
     public void updateExcursion(Excursion excursion) {
         validateExcursion(excursion);
         if(excursion.getId() == null) {
@@ -61,21 +64,25 @@ public class ExcursionDAOImpl implements ExcursionDAO {
         em.detach(excursion);
     }
 
+    @Override
     public void deleteExcursion(Excursion excursion) {
         validateExcursion(excursion);
         if(excursion.getId() == null) {
             throw new IllegalArgumentException("Id cannot be null.");
         }
-        em.remove(excursion);
+        Excursion excursionToDelete = em.find(Excursion.class, excursion.getId());
+        em.remove(excursionToDelete);
         em.flush();
-        em.detach(excursion);
+        //em.detach(excursion);
     }
 
+    @Override
     public List<Excursion> getAllExcursions() {
         Query query = em.createNamedQuery("getAllExcursions");
         return query.getResultList();
     }
     
+    @Override
     public Trip getTrip(Excursion excursion) {
         return excursion.getTrip();
     }
@@ -102,6 +109,14 @@ public class ExcursionDAOImpl implements ExcursionDAO {
         }
         if(excursion.getExcursionDate() == null) {
             throw new IllegalArgumentException("Excursion's date cannot "
+                    + "be null.");
+        }
+        if(excursion.getTrip() == null) {
+            throw new IllegalArgumentException("Excursion's trip cannot "
+                    + "be null.");
+        }
+        if(excursion.getTrip().getId() == null) {
+            throw new IllegalArgumentException("Excursion's trip's id cannot "
                     + "be null.");
         }
     }

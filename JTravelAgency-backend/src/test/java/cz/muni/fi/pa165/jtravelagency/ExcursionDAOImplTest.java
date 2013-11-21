@@ -4,6 +4,8 @@
  */
 package cz.muni.fi.pa165.jtravelagency;
 
+import cz.muni.fi.pa165.jtravelagency.dao.TripDAO;
+import cz.muni.fi.pa165.jtravelagency.dao.TripDAOImpl;
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
 import cz.muni.fi.pa165.jtravelagency.entity.Excursion;
 import java.math.BigDecimal;
@@ -29,7 +31,9 @@ public class ExcursionDAOImplTest extends TestCase {
     
     private EntityManagerFactory emf;
     private EntityManager em;
+    private EntityManager em2;
     private cz.muni.fi.pa165.jtravelagency.dao.ExcursionDAO instance;
+    private TripDAO tripDAO;
 
     public ExcursionDAOImplTest(String testName) {
         super(testName);
@@ -39,13 +43,15 @@ public class ExcursionDAOImplTest extends TestCase {
     protected void setUp() throws Exception {
         emf = Persistence.createEntityManagerFactory("TestPU");
         em = emf.createEntityManager();
+        em2 = emf.createEntityManager();
         instance = new cz.muni.fi.pa165.jtravelagency.dao.ExcursionDAOImpl(em);
-
+        tripDAO = new TripDAOImpl(em2);
     }
     
     @Override
     protected void tearDown() throws Exception {
         //super.tearDown();
+        em2.close();
         em.close();
         emf.close();
         instance = null;
@@ -56,25 +62,21 @@ public class ExcursionDAOImplTest extends TestCase {
      */
     public void testCreateExcurtion() {
         System.out.println("createExcurtion");
+        
+        Trip trip = prepareTrip();
         Excursion excursion = newExcursion();
-             
+        excursion.setTrip(trip);
+        
+        em2.getTransaction().begin();
+        tripDAO.createTrip(trip);
+        em2.getTransaction().commit();
+        
         em.getTransaction().begin();
         instance.createExcursion(excursion);
         Excursion result = instance.getExcursion(excursion.getId());
         em.getTransaction().commit();
         
         assertDeepEquals(excursion, result);
-    }
-
-    private Excursion newExcursion() {
-        DateTime date = new DateTime(2013, 5, 12, 12, 0);
-        Excursion excursion = new Excursion();
-        excursion.setDescription("description");
-        excursion.setExcursionDate(date);
-        excursion.setPrice(BigDecimal.ZERO.setScale(2));
-        Trip trip = prepareTrip();
-        excursion.setTrip(trip);
-        return excursion;
     }
 
     /**
@@ -82,7 +84,14 @@ public class ExcursionDAOImplTest extends TestCase {
      */
     public void testGetExcursion() {
         System.out.println("getExcursion");
+        
+        Trip trip = prepareTrip();
         Excursion excursion = newExcursion();
+        excursion.setTrip(trip);
+        
+        em2.getTransaction().begin();
+        tripDAO.createTrip(trip);
+        em2.getTransaction().commit();
              
         em.getTransaction().begin();
         instance.createExcursion(excursion);
@@ -91,15 +100,32 @@ public class ExcursionDAOImplTest extends TestCase {
         
         assertDeepEquals(excursion, result);
     }
+    
+    /**
+     * Test of getExcursion method, of class ExcursionDAOImpl.
+     */
+    public void testGetExcursionWrongInput(){
+        try {
+        instance.getExcursion(null);
+            fail();
+        } catch (IllegalArgumentException ex) {
+        }
+    }
 
     /**
      * Test of updateExcursion method, of class ExcursionDAOImpl.
      */
     public void testUpdateExcursion() {
         System.out.println("updateExcursion");
+        
+        Trip trip = prepareTrip();
         Excursion excursion = newExcursion();
-        Trip trip = new Trip();
         excursion.setTrip(trip);
+        
+        em2.getTransaction().begin();
+        tripDAO.createTrip(trip);
+        em2.getTransaction().commit();
+        
         DateTime date = new DateTime(2013, 6, 12, 12, 0);
         
         em.getTransaction().begin();
@@ -107,7 +133,6 @@ public class ExcursionDAOImplTest extends TestCase {
         excursion.setDescription("new description");
         excursion.setExcursionDate(date);
         excursion.setPrice(BigDecimal.ONE.setScale(2));
-        excursion.setTrip(trip);
         
         instance.updateExcursion(excursion);
         Excursion result = instance.getExcursion(excursion.getId());
@@ -121,7 +146,14 @@ public class ExcursionDAOImplTest extends TestCase {
      */
     public void testDeleteExcursion() {
         System.out.println("deleteExcursion");
+        
+        Trip trip = prepareTrip();
         Excursion excursion = newExcursion();
+        excursion.setTrip(trip);
+        
+        em2.getTransaction().begin();
+        tripDAO.createTrip(trip);
+        em2.getTransaction().commit();
 
         em.getTransaction().begin();
         instance.createExcursion(excursion);
@@ -139,9 +171,20 @@ public class ExcursionDAOImplTest extends TestCase {
      */
     public void testGetAllExcursions() {
         System.out.println("getAllExcursions");
+         
+        Trip trip = prepareTrip();
+        
+        em2.getTransaction().begin();
+        tripDAO.createTrip(trip);
+        em2.getTransaction().commit();
+        
         Excursion e1 = newExcursion();
         Excursion e2 = newExcursion();
         Excursion e3 = newExcursion();
+        e1.setTrip(trip);
+        e2.setTrip(trip);
+        e3.setTrip(trip);
+        
         List<Excursion> list = new ArrayList<Excursion>();
         list.add(e1);
         list.add(e2);
@@ -153,7 +196,7 @@ public class ExcursionDAOImplTest extends TestCase {
         instance.createExcursion(e3);
         List<Excursion> result = instance.getAllExcursions();
         em.getTransaction().commit();
-        
+       
         assertTrue(result.contains(e1));
         assertTrue(result.contains(e2));
         assertTrue(result.contains(e3));
@@ -171,12 +214,18 @@ public class ExcursionDAOImplTest extends TestCase {
     public void testGetTrip() {
         System.out.println("getTrip");
         
+        Trip trip = prepareTrip();
+        
+        em2.getTransaction().begin();
+        tripDAO.createTrip(trip);
+        em2.getTransaction().commit();
+        
         Excursion excursion = newExcursion();
-        Trip trip = excursion.getTrip();
+        excursion.setTrip(trip);
              
         em.getTransaction().begin();
         instance.createExcursion(excursion);
-        Trip result = instance.getExcursion(excursion.getId()).getTrip();
+        Trip result = instance.getTrip(excursion);
         em.getTransaction().commit();
 
         assertEquals(trip, result);
@@ -191,22 +240,25 @@ public class ExcursionDAOImplTest extends TestCase {
         assertEquals(first.getExcursionDate(), second.getExcursionDate());
     }
     
-    public void testGetExcursionWrongInput(){
- 
-        try {
-        instance.getExcursion(null);
-            fail();
-        } catch (IllegalArgumentException ex) {
-        }
+    
+    private Excursion newExcursion() {
+        DateTime date = new DateTime(2013, 5, 12, 12, 0);
+        Excursion excursion = new Excursion();
+        excursion.setDescription("description");
+        excursion.setExcursionDate(date);
+        excursion.setPrice(BigDecimal.ZERO.setScale(2));
+        Trip trip = prepareTrip();
+        excursion.setTrip(trip);
+        return excursion;
     }
     
-        private Trip prepareTrip() {
+    private Trip prepareTrip() {
         Trip preparedTrip = new Trip();
-            preparedTrip.setDateFrom(new LocalDate(2013, 11, 23));
-            preparedTrip.setDateTo(new LocalDate(2013, 1, 30));
-            preparedTrip.setDestination("Spain");
-            preparedTrip.setAvailableTrips(10);
-            preparedTrip.setPrice(new BigDecimal(15200.25));
-            return preparedTrip;
+        preparedTrip.setDateFrom(new LocalDate(2013, 11, 23));
+        preparedTrip.setDateTo(new LocalDate(2013, 1, 30));
+        preparedTrip.setDestination("Spain");
+        preparedTrip.setAvailableTrips(10);
+        preparedTrip.setPrice(new BigDecimal(15200.25));
+        return preparedTrip;
     }
 }

@@ -3,23 +3,23 @@
 <s:errors/>
 <table>
     <tr>
-        <th><s:label for="b1" name="book.author"/></th>
-        <td><s:text id="b1" name="book.author"/></td>
+        <th><s:label for="e1" name="excursion.excursionDate"/></th>
+        <td><s:text formatType="datetime" formatPattern="yyyy-MM-dd" id="e1" name="date"/></td>
     </tr>
     <tr>
-        <th><s:label for="b2" name="book.title"/></th>
-        <td><s:text id="b2" name="book.title"/></td>
+        <th><s:label for="e2" name="excursion.description"/></th>
+        <td><s:text id="e2" name="excursion.description"/></td>
     </tr>
     <tr>
-        <th><s:label for="b3" name="book.paperback"/></th>
-        <td><s:checkbox id="b3" name="book.paperback"/></td>
+        <th><s:label for="e3" name="excursion.price"/></th>
+        <td><s:text id="e3" name="excursion.price"/></td>
     </tr>
     <tr>
-        <th><s:label for="b4" name="book.color"/></th>
-        <td><s:select id="b4" name="book.color"><s:options-enumeration enum="cz.muni.fi.pa165.books.Book.Color"/></s:select></td>
-    </tr>
-    <tr>
-        <th><s:label for="b5" name="book.year"/></th>
-        <td><s:text id="b5" name="book.year" size="4"/></td>
+        <th><s:label for="e4" name="excursion.trip"/></th>
+        <td>
+            <s:select name="tripId">
+                <s:options-collection id="e4" collection="${actionBean.trips}" value="id" label="destination"/>
+            </s:select>
+        </td>
     </tr>
 </table>

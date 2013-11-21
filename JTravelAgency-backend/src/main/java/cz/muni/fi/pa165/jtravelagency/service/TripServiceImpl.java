@@ -51,7 +51,7 @@ public class TripServiceImpl implements TripService {
             throw new IllegalArgumentException("ID can not be null.");
         }
         Trip trip = tripDAO.getTrip(id);
-        return DTOAndEntityMapper.entityToDto(trip, TripDTO.class);
+        return DTOAndEntityMapper.entityToDto(trip);
     }
 
     @Override

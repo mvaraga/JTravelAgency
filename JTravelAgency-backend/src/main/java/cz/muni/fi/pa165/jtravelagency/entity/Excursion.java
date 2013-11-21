@@ -42,7 +42,7 @@ public class Excursion implements Serializable {
     
     private BigDecimal price;
     
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     private Trip trip;
 
     public Trip getTrip() {
