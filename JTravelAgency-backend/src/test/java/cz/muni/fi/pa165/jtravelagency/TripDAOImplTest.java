@@ -186,7 +186,7 @@ public class TripDAOImplTest extends TestCase {
 
     /**
      * Test of deleteTrip method, of class TripDAO.
-     *
+     */
     public void testDeleteTrip() {
         em.getTransaction().begin();
         Trip trip = prepareTrip();
@@ -196,7 +196,7 @@ public class TripDAOImplTest extends TestCase {
         tripDAOImpl.deleteTrip(trip);
         em.getTransaction().commit();
         assertNull(tripDAOImpl.getTrip(tripId));
-    }*/
+    }
     
     /**
      * Test of getAllTrips method, of class TripDAO.

@@ -43,8 +43,6 @@ public class TripDAOImpl implements TripDAO {
         }
         validateTrip(trip);
         em.persist(trip);
-        em.flush();
-        em.detach(trip);
     }
 
     public Trip getTrip(Long id) {
@@ -75,10 +73,11 @@ public class TripDAOImpl implements TripDAO {
             throw new IllegalArgumentException("Trip id can not be null when trip is updated");
         }
         
-        Trip tripToDelete = em.find(Trip.class, trip);
-        validateTrip(tripToDelete);
+        validateTrip(trip);
+        
+        Trip tripToDelete = em.find(Trip.class, trip.getId());
         em.remove(tripToDelete);
-        //em.flush();
+        em.flush();
         //em.detach(trip);        
     }
 
