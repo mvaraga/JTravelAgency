@@ -50,7 +50,7 @@ public class ExcursionServiceImpl implements ExcursionService{
         if(excursionDTO.getId() == null) {
             throw new IllegalArgumentException("Id cannot be null.");
         }
-        Excursion excursion = DTOAndEntityMapper.dtoToEntity(excursionDTO, Excursion.class);
+        Excursion excursion = DTOAndEntityMapper.dtoToEntity(excursionDTO);
         excursionDAO.updateExcursion(excursion);
     }
 
