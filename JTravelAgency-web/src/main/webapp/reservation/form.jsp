@@ -6,7 +6,7 @@
         <th><s:label for="r1" name="reservation.customer"/></th>
         <td>
             <s:select name="customerId">
-                <s:options-collection id="r1" collection="${actionBean.customer}" value="id" label="lastName"/>
+                <s:options-collection id="r1" collection="${actionBean.customers}" value="id" label="lastName"/>
             </s:select>
         </td>
     </tr>

@@ -36,13 +36,22 @@ public class ReservationsActionBean extends BaseActionBean {
     @SpringBean
     private ServiceFacade facade;
 
+    public List<TripDTO> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(List<TripDTO> trips) {
+        this.trips = trips;
+    }
+
     
     private ReservationDTO reservation;
     private CustomerDTO customer;
     private TripDTO trip;
-    private List<ExcursionDTO> excursions=new ArrayList<ExcursionDTO>();
-    private List<ReservationDTO> reservations=new ArrayList<ReservationDTO>();
-    private List<CustomerDTO> customers=new ArrayList<CustomerDTO>();
+    private List<ExcursionDTO> excursions;
+    private List<ReservationDTO> reservations;
+    private List<CustomerDTO> customers;
+    private List<TripDTO> trips;
 
     public ServiceFacade getFacade() {
         return facade;
@@ -97,15 +106,15 @@ public class ReservationsActionBean extends BaseActionBean {
      @DefaultHandler
     public Resolution list() {
         log.debug("list()");
+        customers=facade.getAllCustomers();
         reservations = facade.getAllReservations();
+        trips=facade.getAllTrips();
+        
+        excursions=facade.getAllExcursions();
         return new ForwardResolution("/reservation/list.jsp");
     }
      
-         public Resolution excursionsList() {
-        log.debug("excursionsList");
-        excursions = facade.getAllExcursions();
-        return new ForwardResolution("/");
-    }
+
 
     
 
