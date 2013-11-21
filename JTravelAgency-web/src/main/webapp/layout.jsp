@@ -14,7 +14,7 @@
             <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css" />
             <script>
             $(function() {
-              $("#datepicker").datetimepicker();
+              $("#datepicker").datetimepicker({ dateFormat: "dd.mm.yy" });
             });
             </script>
             <s:layout-component name="header"/>

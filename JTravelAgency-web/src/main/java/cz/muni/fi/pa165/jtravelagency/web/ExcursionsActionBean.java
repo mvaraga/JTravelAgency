@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 public class ExcursionsActionBean extends BaseActionBean implements ValidationErrorHandler {
     
     final static Logger log = LoggerFactory.getLogger(ExcursionsActionBean.class);
+    final static String pattern = "dd.MM.yyyy HH:mm";
     
     @SpringBean
     protected ServiceFacade facade;
@@ -62,17 +63,17 @@ public class ExcursionsActionBean extends BaseActionBean implements ValidationEr
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"add", "save"}, field = "description", required = true),
-            @Validate(on = {"add", "save"}, field = "price", required = true, minvalue = 0, mask = "\\d+\\.?\\d+"),
+            @Validate(on = {"add", "save"}, field = "price", required = true, minvalue = 0, mask = "(\\d+|\\d+\\.\\d{1,2})"),
     })
     private ExcursionDTO excursion;
-    @Validate(on = {"add", "save"}, required = true)
+    @Validate(on = {"add", "save"}, required = true, mask = "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2}) ([0-1]\\d|2[0-3]):[0-5]\\d")
     private String date;
     @Validate(on = {"add", "save"}, required = true)
     private Long tripId; 
     
     public Resolution add() {
         log.debug("add() excursion={}", excursion);
-        excursion.setExcursionDate(DateTime.parse(date, DateTimeFormat.forPattern("dd/MM/yyyy HH:mm")));
+        excursion.setExcursionDate(DateTime.parse(date, DateTimeFormat.forPattern(pattern)));
         excursion.setTrip(facade.getTrip(tripId));
         facade.createExcursion(excursion);
         getContext().getMessages().add(new LocalizableMessage("excursion.add.message",escapeHTML(excursion.getDescription())));
@@ -130,7 +131,7 @@ public class ExcursionsActionBean extends BaseActionBean implements ValidationEr
         String ids = getContext().getRequest().getParameter("excursion.id");
         if (ids == null) return;
         excursion = facade.getExcursion(Long.parseLong(ids));
-        date = excursion.getExcursionDate().toString();
+        date = excursion.getExcursionDate().toString(DateTimeFormat.forPattern(pattern));
         trips = facade.getAllTrips();
         tripId = excursion.getTrip().getId();
     }
@@ -142,7 +143,7 @@ public class ExcursionsActionBean extends BaseActionBean implements ValidationEr
 
     public Resolution save() {
         log.debug("save() excursion={}", excursion);
-        excursion.setExcursionDate(DateTime.parse(date));
+        excursion.setExcursionDate(DateTime.parse(date, DateTimeFormat.forPattern(pattern)));
         excursion.setTrip(facade.getTrip(tripId));
         facade.updateExcursion(excursion);
         return new RedirectResolution(this.getClass(), "list");

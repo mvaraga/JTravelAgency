@@ -30,7 +30,7 @@
                     <td><c:out value="${trip.availableTrips}"/></td>
                     <td>
                      <s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.TripsActionBean" event="edit">
-                         <s:param name="Trip.id" value="${trip.id}"/>edit</s:link>
+                         <s:param name="trip.id" value="${trip.id}"/>edit</s:link>
                     </td>
                     <td>
                         <s:form beanclass="cz.muni.fi.pa165.jtravelagency.web.TripsActionBean">
