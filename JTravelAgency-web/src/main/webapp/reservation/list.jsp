@@ -18,11 +18,13 @@
                 <th></th>
                 <th></th>
             </tr>
-            <c:forEach items="${actionBean.reservation}" var="reservation">
+            <c:forEach items="${actionBean.reservations}" var="reservation">
                 <tr>
                     <td>${reservation.id}</td>
                     <td><c:out value="${reservation.customer.lastName}"/></td>
                     <td><c:out value="${reservation.trip.destination}"/></td>
+                    <td></td>
+
 
                     <td>
                      <s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean" event="edit"><s:param name="reservation.id" value="${reservation.id}"/>edit</s:link>

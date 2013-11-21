@@ -125,8 +125,9 @@ public class ReservationsActionBean extends BaseActionBean {
      @DefaultHandler
     public Resolution list() {
         log.debug("list()");
-        customers=facade.getAllCustomers();
         reservations = facade.getAllReservations();
+        customers=facade.getAllCustomers();
+        
         trips=facade.getAllTrips();
         
         excursions=facade.getAllExcursions();
@@ -134,28 +135,21 @@ public class ReservationsActionBean extends BaseActionBean {
     }
      
 
-
-    
-
-    //--- part for adding a book ----
-
-//    @ValidateNestedProperties(value = {
-//            @Validate(on = {"add", "save"}, field = "author", required = true),
-//            @Validate(on = {"add", "save"}, field = "title", required = true),
-//            @Validate(on = {"add", "save"}, field = "year", required = true, minvalue = 800)
-//    })
    
 
     public Resolution add() {
         log.debug("add() reservation={}", reservation);
         facade.makeReservation(facade.getCustomer(customerId), facade.getTrip(tripId), excursions );
-        //getContext().getMessages().add(new LocalizableMessage("reservation.add.message",escapeHTML(customer.getFirstName()),escapeHTML(customer.getLastName())));
+        getContext().getMessages().add(new LocalizableMessage("reservation.add.message"));
         return new RedirectResolution(this.getClass(), "list");
     }
 
     
     public Resolution handleValidationErrors(ValidationErrors errors) throws Exception {
- 
+        reservations=facade.getAllReservations();
+        customers=facade.getAllCustomers();
+        trips=facade.getAllTrips();
+        excursions=facade.getAllExcursions();
         return null;
     }
 
@@ -170,11 +164,11 @@ public class ReservationsActionBean extends BaseActionBean {
     //--- part for deleting a book ----
 
     public Resolution delete() {
-        log.debug("delete({})", customer.getId());
+        log.debug("delete({})", reservation.getId());
         //only id is filled by the form
-        customer = facade.getCustomer(customer.getId());
-        facade.deleteCustomer(customer);
-        getContext().getMessages().add(new LocalizableMessage("customer.delete.message",escapeHTML(customer.getFirstName()),escapeHTML(customer.getLastName())));
+        reservation = facade.getReservation(reservation.getId());
+        facade.deleteReservation(reservation);
+        getContext().getMessages().add(new LocalizableMessage("reservation.delete.message"));
         return new RedirectResolution(this.getClass(), "list");
     }
 
@@ -187,16 +181,21 @@ public class ReservationsActionBean extends BaseActionBean {
         reservation = facade.getReservation(Long.parseLong(ids));
         customers = facade.getAllCustomers();
         customerId = reservation.getCustomer().getId();
+        trips=facade.getAllTrips();
         tripId=reservation.getTrip().getId();
+        excursions=facade.getAllExcursions();
     }
 
     public Resolution edit() {
         log.debug("edit() reservation={}", reservation);
-        return new ForwardResolution("/customer/edit.jsp");
+        return new ForwardResolution("/reservation/edit.jsp");
     }
 
     public Resolution save() {
         log.debug("save() reservation={}", reservation);
+
+        reservation.setCustomer(facade.getCustomer(customerId));
+        reservation.setTrip(facade.getTrip(tripId));
         facade.updateReservation(reservation);
         return new RedirectResolution(this.getClass(), "list");
     }

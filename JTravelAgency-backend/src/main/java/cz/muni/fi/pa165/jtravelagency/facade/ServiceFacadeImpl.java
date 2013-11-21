@@ -217,15 +217,15 @@ public class ServiceFacadeImpl implements ServiceFacade {
         
         if ((customerDTO==null) || (customerDTO.getId()==null)) {throw new IllegalArgumentException();}
         if ((tripDTO==null) || (tripDTO.getId()==null)) {throw new IllegalArgumentException();}
-        if (excursionDTOs != null) {
+       // if (excursionDTOs != null) {
 
-            for (int i = 0; i < excursionDTOs.size(); i++) {
-                if (excursionDTOs.get(i).getId() == null) {
-                    throw new IllegalArgumentException();
-                }
-            }
+         //   for (int i = 0; i < excursionDTOs.size(); i++) {
+           //     if (excursionDTOs.get(i).getId() == null) {
+             //       throw new IllegalArgumentException();
+               // }
+            //}
 
-        }
+        //}
         ReservationDTO reservationDTO=new ReservationDTO();
         reservationDTO.setCustomer(customerDTO);
         reservationDTO.setTrip(tripDTO);
