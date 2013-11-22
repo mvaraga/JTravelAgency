@@ -10,7 +10,7 @@ import cz.muni.fi.pa165.jtravelagency.entity.Trip;
 import cz.muni.fi.pa165.jtravelagency.util.DTOAndEntityMapper;
 import java.util.ArrayList;
 import java.util.List;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -95,7 +95,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public List<TripDTO> findAllByDateRange(LocalDate from, LocalDate to) {
+    public List<TripDTO> findAllByDateRange(DateTime from, DateTime to) {
         if (from == null) {
             throw new IllegalArgumentException("TripDTO's date from can not be null.");
         }

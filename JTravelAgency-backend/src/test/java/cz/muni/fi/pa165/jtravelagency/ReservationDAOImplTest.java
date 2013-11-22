@@ -22,6 +22,7 @@ import javax.persistence.Persistence;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import junit.framework.TestCase;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 /**
@@ -333,8 +334,8 @@ public class ReservationDAOImplTest extends TestCase {
     
     private Trip prepareTrip() {
         Trip preparedTrip = new Trip();
-        preparedTrip.setDateFrom(new LocalDate(2013, 11, 23));
-        preparedTrip.setDateTo(new LocalDate(2013, 1, 30));
+        preparedTrip.setDateFrom(new DateTime(2013, 11, 23, 10, 00));
+        preparedTrip.setDateTo(new DateTime(2013, 1, 30, 10, 00));
         preparedTrip.setDestination("Spain");
         preparedTrip.setAvailableTrips(10);
         preparedTrip.setPrice(new BigDecimal(15200.25));

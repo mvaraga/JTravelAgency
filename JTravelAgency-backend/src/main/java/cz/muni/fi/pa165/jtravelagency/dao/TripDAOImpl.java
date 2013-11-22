@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -34,6 +34,7 @@ public class TripDAOImpl implements TripDAO {
     }
     
     
+    @Override
     public void createTrip(Trip trip) {
         if (trip == null) {
             throw new IllegalArgumentException("Trip can not be null");
@@ -52,6 +53,7 @@ public class TripDAOImpl implements TripDAO {
         return em.find(Trip.class, id);
     }
 
+    @Override
     public void updateTrip(Trip trip) {
         if (trip == null) {
             throw new IllegalArgumentException("Trip can not be null when updated");
@@ -65,6 +67,7 @@ public class TripDAOImpl implements TripDAO {
         em.detach(trip);
     }
 
+    @Override
     public void deleteTrip(Trip trip) {
         if (trip == null) {
             throw new IllegalArgumentException("Trip can not be null when updated");
@@ -81,13 +84,15 @@ public class TripDAOImpl implements TripDAO {
         //em.detach(trip);        
     }
 
+    @Override
     public List<Trip> getAllTrips() {
         TypedQuery<Trip> query = em.createNamedQuery(
                 "getAllTrips", Trip.class);
         return (List<Trip>) query.getResultList();
     }
 
-    public List<Trip> findTripsByDateRange(LocalDate from, LocalDate to) {
+    @Override
+    public List<Trip> findTripsByDateRange(DateTime from, DateTime to) {
         TypedQuery<Trip> query = em.createNamedQuery(
                 "findTripsByDateRange", Trip.class);        
         query.setParameter("from", from);
@@ -95,6 +100,7 @@ public class TripDAOImpl implements TripDAO {
         return (List<Trip>) query.getResultList();
     }
 
+    @Override
     public List<Trip> findTripsByDestination(String destination) {
         TypedQuery<Trip> query = em.createNamedQuery(
                 "findTripsByDestination", Trip.class);        

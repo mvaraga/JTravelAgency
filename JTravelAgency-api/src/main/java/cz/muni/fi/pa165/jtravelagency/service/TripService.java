@@ -6,7 +6,7 @@ package cz.muni.fi.pa165.jtravelagency.service;
 
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
 import java.util.List;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -54,7 +54,7 @@ public interface TripService {
      * @param to
      * @return 
      */
-    public List<TripDTO> findAllByDateRange(LocalDate from, LocalDate to);
+    public List<TripDTO> findAllByDateRange(DateTime from, DateTime to);
     
     /**
      * 

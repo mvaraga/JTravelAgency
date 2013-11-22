@@ -20,6 +20,7 @@ import cz.muni.fi.pa165.jtravelagency.util.DTOAndEntityMapper;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -82,8 +83,8 @@ public class App {
 
     private static Trip prepareTrip() {
         Trip preparedTrip = new Trip();
-        preparedTrip.setDateFrom(new LocalDate(2013, 11, 23));
-        preparedTrip.setDateTo(new LocalDate(2013, 1, 30));
+        //preparedTrip.setDateFrom(new DateTime(2013, 11, 23));
+        //preparedTrip.setDateTo(new DateTime(2013, 1, 30));
         preparedTrip.setDestination("Spain");
         preparedTrip.setAvailableTrips(10);
         preparedTrip.setPrice(new BigDecimal(15200.25));

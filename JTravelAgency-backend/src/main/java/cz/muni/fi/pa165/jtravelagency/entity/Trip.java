@@ -19,7 +19,7 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
 
 
 
@@ -45,13 +45,13 @@ public class Trip implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     @Column(name="date_from")
-    private LocalDate dateFrom;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime dateFrom;
     
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     @Column(name="date_to")
-    private LocalDate dateTo;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime dateTo;
        
     private String destination;
     
@@ -85,14 +85,14 @@ public class Trip implements Serializable {
     /**
      * @return the dateTo
      */
-    public LocalDate getDateTo() {
+    public DateTime getDateTo() {
         return dateTo;
     }
 
     /**
      * @param dateTo the dateTo to set
      */
-    public void setDateTo(LocalDate dateTo) {
+    public void setDateTo(DateTime dateTo) {
         this.dateTo = dateTo;
     }
     
@@ -114,14 +114,14 @@ public class Trip implements Serializable {
     /**
      * @return the dateFrom
      */
-    public LocalDate getDateFrom() {
+    public DateTime getDateFrom() {
         return dateFrom;
     }
 
     /**
      * @param dateFrom the dateFrom to set
      */
-    public void setDateFrom(LocalDate dateFrom) {
+    public void setDateFrom(DateTime dateFrom) {
         this.dateFrom = dateFrom;
     }
 

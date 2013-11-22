@@ -9,7 +9,7 @@ import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
 import java.util.List;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -94,7 +94,7 @@ public interface ServiceFacade {
     /*
      * 
      */
-    public List<TripDTO> findTripsByDateRange(LocalDate from, LocalDate to);
+    public List<TripDTO> findTripsByDateRange(DateTime from, DateTime to);
     
     /*
      * 

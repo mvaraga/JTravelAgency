@@ -6,7 +6,7 @@ package cz.muni.fi.pa165.jtravelagency.dao;
 
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
 import java.util.List;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -55,7 +55,7 @@ public interface TripDAO {
      * @param to
      * @return 
      */
-    public List<Trip> findTripsByDateRange(LocalDate from, LocalDate to);
+    public List<Trip> findTripsByDateRange(DateTime from, DateTime to);
     
     /**
      * 

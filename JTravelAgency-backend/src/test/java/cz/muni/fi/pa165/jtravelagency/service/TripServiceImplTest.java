@@ -14,6 +14,7 @@ import java.util.List;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 import junit.framework.TestCase;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -189,8 +190,8 @@ public class TripServiceImplTest extends TestCase {
     
         private Trip prepareTrip() {
         Trip preparedTrip = new Trip();
-        preparedTrip.setDateFrom(new LocalDate(2013, 11, 23));
-        preparedTrip.setDateTo(new LocalDate(2013, 1, 30));
+        preparedTrip.setDateFrom(new DateTime(2013, 11, 23, 10, 00));
+        preparedTrip.setDateTo(new DateTime(2013, 1, 30, 10, 00));
         preparedTrip.setDestination("Spain");
         preparedTrip.setAvailableTrips(10);
         preparedTrip.setPrice(new BigDecimal(15200.25));

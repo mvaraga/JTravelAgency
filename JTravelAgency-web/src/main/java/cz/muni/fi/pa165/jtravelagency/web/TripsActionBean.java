@@ -20,22 +20,26 @@ import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author jakub
+ * @author Jakub Marecek
  */
 @UrlBinding("/trips/{$event}/{trip.id}")
 public class TripsActionBean extends BaseActionBean implements ValidationErrorHandler {
 
     final static Logger log = LoggerFactory.getLogger(TripsActionBean.class);
-
+    
+    final static String pattern = "dd.MM.yyyy HH:mm";
+    
     @SpringBean //Spring can inject even to private and protected fields
     protected ServiceFacade facade;
 
-    //--- part for showing a list of books ----
+    //--- part for showing a list of trips ----
     private List<TripDTO> trips;
 
     @DefaultHandler
@@ -52,14 +56,18 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
     //--- part for adding a trip ----
     @ValidateNestedProperties(value = {
             @Validate(on = {"add", "save"}, field = "destination", required = true),
-            @Validate(on = {"add", "save"}, field = "dateFrom", required = true),
-            @Validate(on = {"add", "save"}, field = "dateTo", required = true),
             @Validate(on = {"add", "save"}, field = "availableTrips", required = true)
     })
     private TripDTO trip;
+    @Validate(on = {"add", "save"}, required = true, mask = "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2}) ([0-1]\\d|2[0-3]):[0-5]\\d")
+    private String dateFrom;
+    @Validate(on = {"add", "save"}, required = true, mask = "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2}) ([0-1]\\d|2[0-3]):[0-5]\\d")
+    private String dateTo;    
 
     public Resolution add() {
         log.debug("add() trip={}", trip);
+        trip.setDateFrom(DateTime.parse(dateFrom, DateTimeFormat.forPattern(pattern)));
+        trip.setDateTo(DateTime.parse(dateTo, DateTimeFormat.forPattern(pattern)));        
         facade.createTrip(trip);
         getContext().getMessages().add(new LocalizableMessage("trip.add.message",escapeHTML(trip.getDestination())));
         return new RedirectResolution(this.getClass(), "list");
@@ -80,8 +88,24 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
     public void setTrip(TripDTO trip) {
         this.trip = trip;
     }
+    
+    public String getDateFrom() {
+        return dateFrom;
+    }
 
-    //--- part for deleting a book ----
+    public void setDateFrom(String dateFrom) {
+        this.dateFrom = dateFrom;
+    }
+
+    public String getDateTo() {
+        return dateTo;
+    }
+
+    public void setDateTo(String dateTo) {
+        this.dateTo = dateTo;
+    }
+    
+    //--- part for deleting a trip ----
 
     public Resolution delete() {
         log.debug("delete({})", trip.getId());
@@ -92,12 +116,14 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
         return new RedirectResolution(this.getClass(), "list");
     }
 
-    //--- part for editing a book ----
+    //--- part for editing a trip ----
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save"})
     public void loadTripFromDatabase() {
         String ids = getContext().getRequest().getParameter("trip.id");
         if (ids == null) return;
-        trip = facade.getTrip(Long.parseLong(ids));
+        trip = facade.getTrip(Long.parseLong(ids));        
+        dateFrom = trip.getDateFrom().toString(DateTimeFormat.forPattern(pattern));
+        dateTo = trip.getDateTo().toString(DateTimeFormat.forPattern(pattern));
     }
 
     public Resolution edit() {

@@ -6,7 +6,7 @@ package cz.muni.fi.pa165.jtravelagency.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -17,9 +17,9 @@ public class TripDTO {
     
     private Long id;
     
-    private LocalDate dateFrom;
+    private DateTime dateFrom;
     
-    private LocalDate dateTo;
+    private DateTime dateTo;
        
     private String destination;
     
@@ -51,14 +51,14 @@ public class TripDTO {
     /**
      * @return the dateTo
      */
-    public LocalDate getDateTo() {
+    public DateTime getDateTo() {
         return dateTo;
     }
 
     /**
      * @param dateTo the dateTo to set
      */
-    public void setDateTo(LocalDate dateTo) {
+    public void setDateTo(DateTime dateTo) {
         this.dateTo = dateTo;
     }
     
@@ -80,14 +80,14 @@ public class TripDTO {
     /**
      * @return the dateFrom
      */
-    public LocalDate getDateFrom() {
+    public DateTime getDateFrom() {
         return dateFrom;
     }
 
     /**
      * @param dateFrom the dateFrom to set
      */
-    public void setDateFrom(LocalDate dateFrom) {
+    public void setDateFrom(DateTime dateFrom) {
         this.dateFrom = dateFrom;
     }
 

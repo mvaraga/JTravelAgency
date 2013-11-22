@@ -7,19 +7,19 @@
         <td><s:text id="b1" name="trip.destination"/></td>
     </tr>
     <tr>
-        <th><s:label for="b2" name="trip.dateFrom"/></th>
-        <td><s:text formatType="datetime" formatPattern="yyyy-MM-dd" id="b2" name="trip.dateFrom"/></td>
+        <th><s:label for="datepicker" name="trip.date_from"/></th>
+        <td><s:text formatType="datetime" id="datepicker" name="dateFrom"/></td>
     </tr>
     <tr>
-        <th><s:label for="b3" name="trip.dateTo"/></th>
-        <td><s:text formatType="datetime" formatPattern="yyyy-MM-dd" id="b3" name="trip.dateTo"/></td>
+        <th><s:label for="datepicker" name="trip.date_to"/></th>
+        <td><s:text formatType="datetime" id="datepicker" name="dateTo"/></td>
     </tr>
     <tr>
         <th><s:label for="b4" name="trip.price"/></th>
         <td><s:text id="b4" name="trip.price"/></td>
     </tr>
     <tr>
-        <th><s:label for="b5" name="trip.availableTrips"/></th>
+        <th><s:label for="b5" name="trip.available_trips"/></th>
         <td><s:text id="b5" name="trip.availableTrips"/></td>
     </tr>
 </table>

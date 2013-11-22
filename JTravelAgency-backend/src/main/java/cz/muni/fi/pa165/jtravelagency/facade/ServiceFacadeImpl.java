@@ -14,7 +14,7 @@ import cz.muni.fi.pa165.jtravelagency.service.ReservationService;
 import cz.muni.fi.pa165.jtravelagency.service.TripService;
 import java.util.ArrayList;
 import java.util.List;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -190,7 +190,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
-    public List<TripDTO> findTripsByDateRange(LocalDate from, LocalDate to) {
+    public List<TripDTO> findTripsByDateRange(DateTime from, DateTime to) {
         return tripService.findAllByDateRange(from, to);
     }
 
