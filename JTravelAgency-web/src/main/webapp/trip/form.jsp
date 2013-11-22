@@ -11,8 +11,8 @@
         <td><s:text formatType="datetime" id="datepicker" name="dateFrom"/></td>
     </tr>
     <tr>
-        <th><s:label for="datepicker" name="trip.date_to"/></th>
-        <td><s:text formatType="datetime" id="datepicker" name="dateTo"/></td>
+        <th><s:label for="datepicker2" name="trip.date_to"/></th>
+        <td><s:text formatType="datetime" id="datepicker2" name="dateTo"/></td>
     </tr>
     <tr>
         <th><s:label for="b4" name="trip.price"/></th>

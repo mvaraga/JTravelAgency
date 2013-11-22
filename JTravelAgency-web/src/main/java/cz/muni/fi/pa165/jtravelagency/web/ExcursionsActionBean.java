@@ -148,4 +148,8 @@ public class ExcursionsActionBean extends BaseActionBean implements ValidationEr
         facade.updateExcursion(excursion);
         return new RedirectResolution(this.getClass(), "list");
     }
+    
+    public Resolution cancel() {
+        return new RedirectResolution(this.getClass(), "list");
+    }
 }

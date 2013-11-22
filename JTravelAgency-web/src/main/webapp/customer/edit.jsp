@@ -11,6 +11,7 @@
             <fieldset><legend><f:message key="customer.edit.edit"/></legend>
                 <%@include file="form.jsp"%>
                 <s:submit name="save"><f:message key="customer.edit.save"/></s:submit>
+                <s:submit name="cancel"><f:message key="customer.edit.cancel"/></s:submit>                
             </fieldset>
         </s:form>
 

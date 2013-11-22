@@ -107,6 +107,10 @@ final static Logger log = LoggerFactory.getLogger(CustomersActionBean.class);
         facade.updateCustomer(customer);
         return new RedirectResolution(this.getClass(), "list");
     }
+    
+    public Resolution cancel() {
+        return new RedirectResolution(this.getClass(), "list");
+    }
 }
 
     

@@ -139,8 +139,9 @@ public class ReservationsActionBean extends BaseActionBean {
 
     public Resolution add() {
         log.debug("add() reservation={}", reservation);
-        facade.makeReservation(facade.getCustomer(customerId), facade.getTrip(tripId), excursions );
-        getContext().getMessages().add(new LocalizableMessage("reservation.add.message"));
+        reservation = facade.makeReservation(facade.getCustomer(customerId), facade.getTrip(tripId), excursions );
+        //getContext().getMessages().add(new LocalizableMessage("reservation.add.message"));
+        getContext().getMessages().add(new LocalizableMessage("reservation.add.message",escapeHTML(reservation.getId().toString())));
         return new RedirectResolution(this.getClass(), "list");
     }
 
@@ -161,14 +162,15 @@ public class ReservationsActionBean extends BaseActionBean {
         this.customer = customer;
     }
 
-    //--- part for deleting a book ----
+    //--- part for deleting a reservation ----
 
     public Resolution delete() {
         log.debug("delete({})", reservation.getId());
         //only id is filled by the form
         reservation = facade.getReservation(reservation.getId());
         facade.deleteReservation(reservation);
-        getContext().getMessages().add(new LocalizableMessage("reservation.delete.message"));
+        //getContext().getMessages().add(new LocalizableMessage("reservation.delete.message"));
+        getContext().getMessages().add(new LocalizableMessage("reservation.delete.message",escapeHTML(reservation.getId().toString())));
         return new RedirectResolution(this.getClass(), "list");
     }
 
@@ -197,6 +199,10 @@ public class ReservationsActionBean extends BaseActionBean {
         reservation.setCustomer(facade.getCustomer(customerId));
         reservation.setTrip(facade.getTrip(tripId));
         facade.updateReservation(reservation);
+        return new RedirectResolution(this.getClass(), "list");
+    }
+    
+    public Resolution cancel() {
         return new RedirectResolution(this.getClass(), "list");
     }
 }
