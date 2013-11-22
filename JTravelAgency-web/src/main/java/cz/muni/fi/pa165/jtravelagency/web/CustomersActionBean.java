@@ -16,6 +16,8 @@ import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.slf4j.Logger;
@@ -46,13 +48,10 @@ final static Logger log = LoggerFactory.getLogger(CustomersActionBean.class);
         return customers;
     }
 
-    //--- part for adding a book ----
-
-//    @ValidateNestedProperties(value = {
-//            @Validate(on = {"add", "save"}, field = "author", required = true),
-//            @Validate(on = {"add", "save"}, field = "title", required = true),
-//            @Validate(on = {"add", "save"}, field = "year", required = true, minvalue = 800)
-//    })
+    @ValidateNestedProperties(value = {
+            @Validate(on = {"add", "save"}, field = "firstName", required = true),
+            @Validate(on = {"add", "save"}, field = "lastName", required = true)
+    })
     private CustomerDTO customer;
 
     public Resolution add() {
