@@ -9,6 +9,7 @@ import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
 import cz.muni.fi.pa165.jtravelagency.facade.ServiceFacade;
+import static cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean.log;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -52,6 +53,17 @@ public class ReservationsActionBean extends BaseActionBean {
     private List<ReservationDTO> reservations;
     private List<CustomerDTO> customers;
     private List<TripDTO> trips;
+    private List<Long> excursionsIds=new ArrayList<Long>();
+
+    public List<Long> getExcursionsIds() {
+        return excursionsIds;
+    }
+
+    public void setExcursionsIds(List<Long> excursionsIds) {
+        this.excursionsIds = excursionsIds;
+    }
+
+    
     
     private Long customerId;
     private Long tripId;
@@ -186,6 +198,10 @@ public class ReservationsActionBean extends BaseActionBean {
         trips=facade.getAllTrips();
         tripId=reservation.getTrip().getId();
         excursions=facade.getAllExcursions();
+        for(int i=0;i<excursionsIds.size();i++){
+            excursionsIds.add((reservation.getExcursions()).get(i).getId());
+        }
+        
     }
 
     public Resolution edit() {

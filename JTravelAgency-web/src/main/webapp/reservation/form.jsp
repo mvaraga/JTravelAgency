@@ -25,8 +25,10 @@
    <tr>
        <th><s:label for="r3" name="reservation.excursions"/></th>
        <td>
-               <s:select name="excursionId">
+               <s:select name="excursionsIds" multiple="true">
                 <s:options-collection id="r3" collection="${actionBean.excursions}" value="id" label="description"/>
+                   
+                
             </s:select>          
        </td>
    </tr>

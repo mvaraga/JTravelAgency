@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -21,14 +22,21 @@
             <c:forEach items="${actionBean.reservations}" var="reservation">
                 <tr>
                     <td>${reservation.id}</td>
-                    <td><c:out value="${reservation.customer.lastName}"/></td>
-                    <td><c:out value="${reservation.trip.destination}"/></td>
-                    <td></td>
-
-
                     <td>
-                     <s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean" event="edit"><s:param name="reservation.id" value="${reservation.id}"/>edit</s:link>
+                        <c:out value="${reservation.customer.firstName}"/>
+                <c:out value="${reservation.customer.lastName}"/>
                     </td>
+                    <td><c:out value="${reservation.trip.destination}"/></td>
+                    <td>
+                        <c:forEach items="${actionBean.excursions}" var="excursion">
+                    <c:out value="${excursion.description}"/>
+                        </c:forEach>
+                    </td>
+
+
+                   <!-- <td>
+                     <s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean" event="edit"><s:param name="reservation.id" value="${reservation.id}"/>edit</s:link>
+                    </td> -->
                     <td>
                         <s:form beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean">
                             <s:hidden name="reservation.id" value="${reservation.id}"/>
