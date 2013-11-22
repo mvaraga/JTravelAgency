@@ -22,6 +22,10 @@
     
     <context:component-scan base-package="cz.muni.fi.pa165.jtravelagency.dao"/>
     <context:component-scan base-package="cz.muni.fi.pa165.jtravelagency.service"/>
+    
+    <jdbc:initialize-database data-source="dataSource">
+        <jdbc:script location="classpath:init.sql"/>
+    </jdbc:initialize-database>  
         
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
     
@@ -30,7 +34,7 @@
         <property name="url" value="jdbc:derby://localhost:1527/pa165" />
         <property name="username" value="pa165" />
         <property name="password" value="pa165" />
-<!--        <property name="hibernate.hbm2ddl.auto" value="update"/>-->
+        <!--        <property name="hibernate.hbm2ddl.auto" value="update"/>-->
     </bean>   
     
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
