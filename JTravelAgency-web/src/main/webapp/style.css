@@ -80,6 +80,16 @@ html>body #navigation li a {
     margin-left: 130px;
 }
 
+#welcome {
+    margin-left: 50px;
+    font-family: Verdana, Tahoma, Arial, sans-serif;
+}
+
+#contact {
+    margin-left: 50px;
+}
+
+
 /* css for timepicker */
 #ui-datepicker-div { font-size:11px; }
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
