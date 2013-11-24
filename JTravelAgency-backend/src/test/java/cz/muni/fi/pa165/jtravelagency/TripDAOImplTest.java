@@ -1,7 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cz.muni.fi.pa165.jtravelagency;
 
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
@@ -16,10 +14,7 @@ import junit.framework.TestCase;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
-/**
- *
- * @author Jakub Marecek (404364)
- */
+
 public class TripDAOImplTest extends TestCase {
     
     private EntityManagerFactory emf;
@@ -48,9 +43,7 @@ public class TripDAOImplTest extends TestCase {
     }
 
     
-    /**
-     * Test of createTrip method, of class TripDAO.
-     */
+  
     public void testCreateTrip() {
         Trip trip = prepareTrip();
         em.getTransaction().begin();
@@ -61,9 +54,7 @@ public class TripDAOImplTest extends TestCase {
         assertTripDeepEquals(trip, result);
     }
     
-    /**
-     * Test of createTrip method with wrong attributes, of class TripDAO.
-     */
+   
     public void testCreateTripWithWrongAttributes() {
         // fail with null
         try {
@@ -114,9 +105,7 @@ public class TripDAOImplTest extends TestCase {
         }
     }
 
-    /**
-     * Test of getTrip method, of class TripDAO.
-     */
+    
     public void testGetTrip() {
         assertNull(tripDAOImpl.getTrip(Long.MIN_VALUE));
         em.getTransaction().begin();
@@ -129,9 +118,7 @@ public class TripDAOImplTest extends TestCase {
         assertTripDeepEquals(trip, result);
     }
 
-    /**
-     * Test of updateTrip method, of class TripDAO.
-     */
+   
     public void testUpdateTrip() {
             em.getTransaction().begin();
             Trip trip = prepareTrip();
@@ -185,9 +172,7 @@ public class TripDAOImplTest extends TestCase {
             assertTripDeepEquals(trip, result);
     }
 
-    /**
-     * Test of deleteTrip method, of class TripDAO.
-     */
+  
     public void testDeleteTrip() {
         em.getTransaction().begin();
         Trip trip = prepareTrip();
@@ -199,9 +184,7 @@ public class TripDAOImplTest extends TestCase {
         assertNull(tripDAOImpl.getTrip(tripId));
     }
     
-    /**
-     * Test of getAllTrips method, of class TripDAO.
-     */
+  
     public void testGetAllTrips() {
         em.getTransaction().begin();
         Trip trip1 = prepareTrip();
@@ -212,9 +195,7 @@ public class TripDAOImplTest extends TestCase {
         assertEquals(2, tripDAOImpl.getAllTrips().size());
     }
 
-    /**
-     * Test of findTripsByDateRange method, of class TripDAO.
-     */
+    
     public void testFindTripsByDateRange() {
         em.getTransaction().begin();
         Trip trip1 = prepareTrip();
@@ -237,9 +218,7 @@ public class TripDAOImplTest extends TestCase {
         //assertEquals(0, trips.size());
     }
 
-    /**
-     * Test of findTripsByDestination method, of class TripDAO.
-     */
+   
     public void testFindTripsByDestination() {
         em.getTransaction().begin();
         Trip trip1 = prepareTrip();
@@ -281,3 +260,5 @@ public class TripDAOImplTest extends TestCase {
         assertEquals(expected.getPrice(), actual.getPrice());
     }
 }
+* 
+* */

@@ -4,10 +4,16 @@
  */
 package cz.muni.fi.pa165.jtravelagency.util;
 
+import cz.muni.fi.pa165.jtravelagency.dto.CustomerDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
+import cz.muni.fi.pa165.jtravelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
+import cz.muni.fi.pa165.jtravelagency.entity.Customer;
 import cz.muni.fi.pa165.jtravelagency.entity.Excursion;
+import cz.muni.fi.pa165.jtravelagency.entity.Reservation;
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
+import java.util.ArrayList;
+import java.util.List;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 
@@ -91,5 +97,39 @@ public class DTOAndEntityMapper {
         //trip.setExcursions(tripDTO.getExcursions());
         trip.setPrice(tripDTO.getPrice());
         return trip;
+    }
+    
+        public static Reservation dtoToEntity(ReservationDTO reservationDTO) {
+         if (reservationDTO == null) {
+             return null;
+         }   
+         Reservation reservation = new Reservation();
+         reservation.setId(reservationDTO.getId());
+         reservation.setCustomer(dtoToEntity(reservationDTO.getCustomer(), Customer.class));
+         reservation.setTrip(dtoToEntity(reservationDTO.getTrip()));
+         List<Excursion> exc=new ArrayList<Excursion>();
+         for(int i=0;i<reservationDTO.getExcursions().size();i++){
+             exc.add(dtoToEntity(reservationDTO.getExcursions().get(i)));
+         }
+         reservation.setExcursions(exc);
+         
+         return reservation;
+     }
+        
+            public static ReservationDTO entityToDto(Reservation reservation) {
+        if (reservation == null) {
+            return null;
+        }
+        ReservationDTO reservationDTO = new ReservationDTO();
+
+        reservationDTO.setId(reservation.getId());
+        reservationDTO.setCustomer(entityToDto(reservation.getCustomer(),CustomerDTO.class));
+        reservationDTO.setTrip(entityToDto(reservation.getTrip()));
+        List<ExcursionDTO> exc=new ArrayList<ExcursionDTO>();
+        for(int i=0;i<reservation.getExcursions().size();i++){
+            exc.add(entityToDto(reservation.getExcursions().get(i)));
+        }
+        reservationDTO.setExcursions(exc);
+        return reservationDTO;
     }
 }

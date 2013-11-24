@@ -26,7 +26,7 @@ import org.joda.time.LocalDate;
 /**
  *
  * @author Marian Varaga
- */
+
 public class ExcursionDAOImplTest extends TestCase {
     
     private EntityManagerFactory emf;
@@ -57,9 +57,7 @@ public class ExcursionDAOImplTest extends TestCase {
         instance = null;
     }
 
-    /**
-     * Test of createExcurtion method, of class ExcursionDAOImpl.
-     */
+    
     public void testCreateExcurtion() {
         System.out.println("createExcurtion");
         
@@ -79,9 +77,7 @@ public class ExcursionDAOImplTest extends TestCase {
         assertDeepEquals(excursion, result);
     }
 
-    /**
-     * Test of getExcursion method, of class ExcursionDAOImpl.
-     */
+  
     public void testGetExcursion() {
         System.out.println("getExcursion");
         
@@ -101,9 +97,7 @@ public class ExcursionDAOImplTest extends TestCase {
         assertDeepEquals(excursion, result);
     }
     
-    /**
-     * Test of getExcursion method, of class ExcursionDAOImpl.
-     */
+  
     public void testGetExcursionWrongInput(){
         try {
         instance.getExcursion(null);
@@ -112,9 +106,6 @@ public class ExcursionDAOImplTest extends TestCase {
         }
     }
 
-    /**
-     * Test of updateExcursion method, of class ExcursionDAOImpl.
-     */
     public void testUpdateExcursion() {
         System.out.println("updateExcursion");
         
@@ -141,9 +132,7 @@ public class ExcursionDAOImplTest extends TestCase {
         assertDeepEquals(excursion, result);
     }
 
-    /**
-     * Test of deleteExcursion method, of class ExcursionDAOImpl.
-     */
+ 
     public void testDeleteExcursion() {
         System.out.println("deleteExcursion");
         
@@ -166,9 +155,7 @@ public class ExcursionDAOImplTest extends TestCase {
         assertNull(result);
     }
 
-    /**
-     * Test of getAllExcursions method, of class ExcursionDAOImpl.
-     */
+   
     public void testGetAllExcursions() {
         System.out.println("getAllExcursions");
          
@@ -208,9 +195,7 @@ public class ExcursionDAOImplTest extends TestCase {
         }
     }
 
-    /**
-     * Test of getTrip method, of class ExcursionDAOImpl.
-     */
+  
     public void testGetTrip() {
         System.out.println("getTrip");
         
@@ -262,3 +247,5 @@ public class ExcursionDAOImplTest extends TestCase {
         return preparedTrip;
     }
 }
+
+ */

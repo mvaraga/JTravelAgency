@@ -62,8 +62,6 @@ public class ReservationsActionBean extends BaseActionBean {
     public void setExcursionsIds(List<Long> excursionsIds) {
         this.excursionsIds = excursionsIds;
     }
-
-    
     
     private Long customerId;
     private Long tripId;
@@ -104,8 +102,6 @@ public class ReservationsActionBean extends BaseActionBean {
         return excursions;
     }
 
-
-
     public List<CustomerDTO> getCustomers() {
         return customers;
     }
@@ -114,8 +110,6 @@ public class ReservationsActionBean extends BaseActionBean {
         this.customers = customers;
     }
     
-    
-
     public ReservationDTO getReservation() {
         return reservation;
     }
@@ -124,12 +118,10 @@ public class ReservationsActionBean extends BaseActionBean {
         this.reservation = reservation;
     }
 
-
-
     public List<ReservationDTO> getReservations() {
         return reservations;
     }
-
+    
     public void setReservations(List<ReservationDTO> reservations) {
         this.reservations = reservations;
     }
@@ -151,8 +143,12 @@ public class ReservationsActionBean extends BaseActionBean {
 
     public Resolution add() {
         log.debug("add() reservation={}", reservation);
-        reservation = facade.makeReservation(facade.getCustomer(customerId), facade.getTrip(tripId), excursions );
-        //getContext().getMessages().add(new LocalizableMessage("reservation.add.message"));
+        List<ExcursionDTO> pomExcursions=new ArrayList<ExcursionDTO>();
+        for(int i=0;i<excursionsIds.size();i++){
+            pomExcursions.add(facade.getExcursion(excursionsIds.get(i)));
+        }
+        reservation = facade.makeReservation(facade.getCustomer(customerId), facade.getTrip(tripId), pomExcursions );
+
         getContext().getMessages().add(new LocalizableMessage("reservation.add.message",escapeHTML(reservation.getId().toString())));
         return new RedirectResolution(this.getClass(), "list");
     }
@@ -181,7 +177,7 @@ public class ReservationsActionBean extends BaseActionBean {
         //only id is filled by the form
         reservation = facade.getReservation(reservation.getId());
         facade.deleteReservation(reservation);
-        //getContext().getMessages().add(new LocalizableMessage("reservation.delete.message"));
+        
         getContext().getMessages().add(new LocalizableMessage("reservation.delete.message",escapeHTML(reservation.getId().toString())));
         return new RedirectResolution(this.getClass(), "list");
     }
@@ -200,8 +196,7 @@ public class ReservationsActionBean extends BaseActionBean {
         excursions=facade.getAllExcursions();
         for(int i=0;i<excursionsIds.size();i++){
             excursionsIds.add((reservation.getExcursions()).get(i).getId());
-        }
-        
+        }     
     }
 
     public Resolution edit() {
@@ -211,7 +206,6 @@ public class ReservationsActionBean extends BaseActionBean {
 
     public Resolution save() {
         log.debug("save() reservation={}", reservation);
-
         reservation.setCustomer(facade.getCustomer(customerId));
         reservation.setTrip(facade.getTrip(tripId));
         facade.updateReservation(reservation);

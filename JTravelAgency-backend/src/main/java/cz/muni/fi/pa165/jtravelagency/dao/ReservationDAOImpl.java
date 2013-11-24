@@ -7,6 +7,8 @@ package cz.muni.fi.pa165.jtravelagency.dao;
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
 import cz.muni.fi.pa165.jtravelagency.entity.Reservation;
 import cz.muni.fi.pa165.jtravelagency.entity.Customer;
+import cz.muni.fi.pa165.jtravelagency.entity.Excursion;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,6 +26,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 
     @PersistenceContext(type= PersistenceContextType.EXTENDED)
     EntityManager em;
+    ExcursionDAOImpl excursionDao=new ExcursionDAOImpl();
 
     public ReservationDAOImpl() {
     }
@@ -40,7 +43,7 @@ public class ReservationDAOImpl implements ReservationDAO {
         if (reservation.getId() != null) {
             throw new IllegalArgumentException("Already in DB");
         }
-
+       
         em.persist(reservation);
     }
 

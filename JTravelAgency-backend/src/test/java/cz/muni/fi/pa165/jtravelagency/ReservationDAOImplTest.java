@@ -26,9 +26,7 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 /**
- *
- * @author Peter Petrinec
- */
+
 public class ReservationDAOImplTest extends TestCase {
     private EntityManagerFactory emf;
     private EntityManager em1, em2, em3;
@@ -60,9 +58,6 @@ public class ReservationDAOImplTest extends TestCase {
         emf.close();
     }
 
-    /**
-     * Test of createReservation method, of class ReservationDAOImpl.
-     */
     public void testCreateReservation() {
         System.out.println("createReservation");
         
@@ -85,10 +80,7 @@ public class ReservationDAOImplTest extends TestCase {
         assertDeepEquals(reservation, result);
     }
     
-    /**
-     * Test of createReservation method, of class ReservationDAOImpl
-     * with illegal argument.
-     */
+ 
     public void testCreateReservationException() {
         System.out.println("createReservationException");
         
@@ -114,9 +106,7 @@ public class ReservationDAOImplTest extends TestCase {
         em1.getTransaction().commit();
     }
     
-    /**
-     * Test of getReservation method, of class ReservationDAOImpl.
-     */
+
     public void testGetReservation() {
         System.out.println("getReservation");
         
@@ -138,9 +128,7 @@ public class ReservationDAOImplTest extends TestCase {
         assertDeepEquals(reservation, result);
     }
     
-    /**
-     * Test of updateReservation method, of class ReservationDAOImpl.
-     */
+
     public void testUpdateReservation() {
         System.out.println("updateReservation");
         
@@ -164,9 +152,7 @@ public class ReservationDAOImplTest extends TestCase {
         assertDeepEquals(reservation, res);
     }  
 
-    /**
-     * Test of deleteReservation method, of class ReservationDAOImpl.
-     */
+  
     public void testDeleteReservation() {
         System.out.println("deleteReservation");
         
@@ -190,9 +176,7 @@ public class ReservationDAOImplTest extends TestCase {
         assertEquals(null, res);
     }
 
-    /**
-     * Test of getAllReservations method, of class ReservationDAOImpl.
-     */
+ 
     public void testGetAllReservations() {
         System.out.println("getAllReservations");
         
@@ -221,9 +205,7 @@ public class ReservationDAOImplTest extends TestCase {
         assertDeepEquals(expected, result);
     }
 
-    /**
-     * Test of getReservationByTrip method, of class ReservationDAOImpl.
-     */
+   
     public void testGetReservationByTrip() {
         System.out.println("getReservationByTrip");
         
@@ -255,9 +237,7 @@ public class ReservationDAOImplTest extends TestCase {
         assertDeepEquals(expected, result);
     }
 
-    /**
-     * Test of getReservationByCustomer method, of class ReservationDAOImpl.
-     */
+  
     public void testGetReservationByCustomer() {
         System.out.println("getReservationByCustomer");
         
@@ -343,3 +323,4 @@ public class ReservationDAOImplTest extends TestCase {
         return preparedTrip;
     }
 }
+* */

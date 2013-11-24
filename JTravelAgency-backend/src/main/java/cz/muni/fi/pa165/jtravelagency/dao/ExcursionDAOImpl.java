@@ -40,9 +40,10 @@ public class ExcursionDAOImpl implements ExcursionDAO {
         if(excursion.getId() != null) {
             throw new IllegalArgumentException("Excursion's id is null.");
         }
+       
         em.persist(excursion);
         em.flush();
-        em.detach(excursion);
+        //em.detach(excursion);
     }
 
     @Override

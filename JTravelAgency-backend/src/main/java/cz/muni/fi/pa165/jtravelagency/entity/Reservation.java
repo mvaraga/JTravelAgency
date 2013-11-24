@@ -39,7 +39,7 @@ public class Reservation {
     @ManyToOne//(cascade = CascadeType.ALL)
     private Trip trip;
     
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany//(cascade = CascadeType.ALL)
     private List<Excursion> excursions;
 
     /**

@@ -39,16 +39,16 @@ public class ReservationServiceImpl implements ReservationService {
             throw new IllegalArgumentException("ReservationDTO is null.");
         }
         if (reservationDTO.getId() != null) {
-            throw new IllegalArgumentException("ReservationDTO's id is null.");
+            throw new IllegalArgumentException("ReservationDTO's id is not null.");
         }
-        Reservation reservation=DTOAndEntityMapper.dtoToEntity(reservationDTO, Reservation.class);
+        Reservation reservation=DTOAndEntityMapper.dtoToEntity(reservationDTO);
         reservationDAO.createReservation(reservation);
         reservationDTO.setId(reservation.getId());
         
         //TEST
-//        for(int i=0;i<reservationDTO.getExcursions().size();i++){
-//            reservationDTO.getExcursions().get(i).setId(reservation.getExcursions().get(i).getId());
-//        }
+        for(int i=0;i<reservationDTO.getExcursions().size();i++){
+            reservationDTO.getExcursions().get(i).setId(reservation.getExcursions().get(i).getId());
+        }
         reservationDTO.getTrip().setId(reservation.getTrip().getId());
         //ceknut to proti null pripadne
         reservationDTO.getCustomer().setId(reservation.getCustomer().getId());
@@ -61,7 +61,7 @@ public class ReservationServiceImpl implements ReservationService {
         if (reservationDTO.getId() == null) {
             throw new IllegalArgumentException("ReservationDTO's id is null.");
         }
-        Reservation reservation=DTOAndEntityMapper.dtoToEntity(reservationDTO, Reservation.class);
+        Reservation reservation=DTOAndEntityMapper.dtoToEntity(reservationDTO);
         reservationDAO.deleteReservation(reservation);
     }
     
@@ -69,28 +69,28 @@ public class ReservationServiceImpl implements ReservationService {
         if (reservationDTO == null) {
             throw new IllegalArgumentException("ReservationDTO is null.");
         }
-        if (reservationDTO.getId() != null) {
+        if (reservationDTO.getId() == null) {
             throw new IllegalArgumentException("ReservationDTO's id is null.");
         }
         
-        Reservation reservation=DTOAndEntityMapper.dtoToEntity(reservationDTO, Reservation.class);
+        Reservation reservation=DTOAndEntityMapper.dtoToEntity(reservationDTO);
         reservationDAO.updateReservation(reservation);
         
-        reservationDTO=DTOAndEntityMapper.entityToDto(reservation, ReservationDTO.class);
+        reservationDTO=DTOAndEntityMapper.entityToDto(reservation);
     }
     public ReservationDTO  get(Long id){
         if (id == null) {
             throw new IllegalArgumentException("Id is null.");
         }
         Reservation reservation=reservationDAO.getReservation(id);
-        return DTOAndEntityMapper.entityToDto(reservation, ReservationDTO.class);
+        return DTOAndEntityMapper.entityToDto(reservation);
     }
     public List<ReservationDTO> getAll(){
         List<Reservation> reservations=new ArrayList<Reservation>();
         reservations=reservationDAO.getAllReservations();
         List<ReservationDTO> reservationsDTO=new ArrayList<ReservationDTO>();
         for(Reservation r: reservations){
-            reservationsDTO.add(DTOAndEntityMapper.entityToDto(r, ReservationDTO.class));
+            reservationsDTO.add(DTOAndEntityMapper.entityToDto(r));
         }
         return reservationsDTO;
     }
@@ -100,10 +100,10 @@ public class ReservationServiceImpl implements ReservationService {
             throw new IllegalArgumentException("Trip can not be null.");
         }
         List<Reservation> reservations=new ArrayList<Reservation>();
-        reservations=reservationDAO.getReservationByTrip(DTOAndEntityMapper.dtoToEntity(tripDTO, Trip.class));
+        reservations=reservationDAO.getReservationByTrip(DTOAndEntityMapper.dtoToEntity(tripDTO));
         List<ReservationDTO> reservationsDTO=new ArrayList<ReservationDTO>();
         for(Reservation r: reservations){
-            reservationsDTO.add(DTOAndEntityMapper.entityToDto(r, ReservationDTO.class));
+            reservationsDTO.add(DTOAndEntityMapper.entityToDto(r));
         }
         return reservationsDTO;
     }
@@ -116,7 +116,7 @@ public class ReservationServiceImpl implements ReservationService {
         reservations=reservationDAO.getReservationByCustomer(DTOAndEntityMapper.dtoToEntity(customerDTO, Customer.class));
         List<ReservationDTO> reservationsDTO=new ArrayList<ReservationDTO>();
         for(Reservation r: reservations) {
-            reservationsDTO.add(DTOAndEntityMapper.entityToDto(r, ReservationDTO.class));
+            reservationsDTO.add(DTOAndEntityMapper.entityToDto(r));
         }
         return reservationsDTO;
     }

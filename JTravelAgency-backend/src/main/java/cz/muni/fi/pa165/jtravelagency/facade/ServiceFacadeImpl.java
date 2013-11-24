@@ -200,6 +200,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
+    @Transactional
     public void addExcursionToTrip(ExcursionDTO excursionDTO, TripDTO tripDTO) {
         if ((excursionDTO==null)||(excursionDTO.getId()==null)) {throw new IllegalArgumentException();}
         if ((tripDTO==null)||(tripDTO.getId()==null)) {throw new IllegalArgumentException();}
@@ -213,19 +214,20 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
+    @Transactional
     public ReservationDTO makeReservation(CustomerDTO customerDTO, TripDTO tripDTO, List<ExcursionDTO> excursionDTOs) {
         
         if ((customerDTO==null) || (customerDTO.getId()==null)) {throw new IllegalArgumentException();}
         if ((tripDTO==null) || (tripDTO.getId()==null)) {throw new IllegalArgumentException();}
-       // if (excursionDTOs != null) {
+        if (excursionDTOs != null) {
 
-         //   for (int i = 0; i < excursionDTOs.size(); i++) {
-           //     if (excursionDTOs.get(i).getId() == null) {
-             //       throw new IllegalArgumentException();
-               // }
-            //}
+          for (int i = 0; i < excursionDTOs.size(); i++) {
+               if (excursionDTOs.get(i).getId() == null) {
+                  throw new IllegalArgumentException();
+                }
+            }
 
-        //}
+        }
         ReservationDTO reservationDTO=new ReservationDTO();
         reservationDTO.setCustomer(customerDTO);
         reservationDTO.setTrip(tripDTO);
@@ -237,6 +239,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
+    @Transactional
     public void addExcursionToReservation(ExcursionDTO excursionDTO, ReservationDTO reservationDTO) {
         if ((excursionDTO==null)||(reservationDTO==null)) {throw new IllegalArgumentException();}
         if ((excursionDTO.getId()==null)||(reservationDTO.getId()==null)) {throw new IllegalArgumentException();}

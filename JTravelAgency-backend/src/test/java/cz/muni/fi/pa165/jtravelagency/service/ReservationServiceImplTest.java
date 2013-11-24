@@ -25,9 +25,7 @@ import static org.mockito.Mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
- *
- * @author jakub
- */
+
 @RunWith(MockitoJUnitRunner.class)
 public class ReservationServiceImplTest extends TestCase {
     
@@ -50,9 +48,7 @@ public class ReservationServiceImplTest extends TestCase {
     }
 
 
-    /**
-     * Test of create method, of class ReservationServiceImpl.
-     */
+   
     @Test
     public void testCreate() {
         try{
@@ -76,10 +72,7 @@ public class ReservationServiceImplTest extends TestCase {
         
     }
     
-    /**
-     * Test of wrong create method - catching IllegalArgumentException, of class
-     * ReservationServiceImpl.
-     */
+
     @Test(expected = IllegalArgumentException.class)
     public void testCreateException() {
         ReservationDTO reservationDTO = newReservationDTO();    
@@ -93,9 +86,7 @@ public class ReservationServiceImplTest extends TestCase {
         }
     }
     
-    /**
-     * Test of delete method, of class ReservationServiceImpl.
-     */
+   
     @Test
     public void testDelete() {
         try{
@@ -120,9 +111,6 @@ public class ReservationServiceImplTest extends TestCase {
         //verify(reservationDAO,times(1)).deleteReservation(reservation);
     }
 
-    /**
-     * Test of update method, of class ReservationServiceImpl.
-     */
     @Test
     public void testUpdate() {
         try {
@@ -140,9 +128,7 @@ public class ReservationServiceImplTest extends TestCase {
         verify(reservationDAO,times(1)).updateReservation(DTOAndEntityMapper.dtoToEntity(reservationDTO, Reservation.class));
     }
 
-    /**
-     * Test of get method, of class ReservationServiceImpl.
-     */
+   
     @Test
     public void testGet() {
         try {
@@ -166,9 +152,7 @@ public class ReservationServiceImplTest extends TestCase {
         verify(reservationDAO, never()).updateReservation(DTOAndEntityMapper.dtoToEntity(reservationDTO, Reservation.class));
     }
 
-    /**
-     * Test of getAll method, of class ReservationServiceImpl.
-     */
+ 
     @Test
     public void testGetAll() {
         when(reservationDAO.getAllReservations()).thenReturn(new ArrayList<Reservation>());
@@ -199,9 +183,7 @@ public class ReservationServiceImplTest extends TestCase {
         verify(reservationDAO, times(2)).getAllReservations();
     }
 
-    /**
-     * Test of getByTrip method, of class ReservationServiceImpl.
-     */
+    
     @Test
     public void testGetByTrip() {
         try {
@@ -242,9 +224,7 @@ public class ReservationServiceImplTest extends TestCase {
         verify(reservationDAO, times(2)).getReservationByTrip(trip);
     }
 
-    /**
-     * Test of getByCustomer method, of class ReservationServiceImpl.
-     */
+
     @Test
     public void testGetByCustomer() {
         try {
@@ -307,3 +287,4 @@ public class ReservationServiceImplTest extends TestCase {
         return reservation;
     }
 }
+*/

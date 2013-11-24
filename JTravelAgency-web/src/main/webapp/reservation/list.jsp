@@ -28,15 +28,16 @@
                     </td>
                     <td><c:out value="${reservation.trip.destination}"/></td>
                     <td>
-                        <c:forEach items="${actionBean.excursions}" var="excursion">
+                        <c:forEach items="${reservation.excursions}" var="excursion">
                     <c:out value="${excursion.description}"/>
                         </c:forEach>
                     </td>
 
 
-                   <!-- <td>
-                     <s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean" event="edit"><s:param name="reservation.id" value="${reservation.id}"/>edit</s:link>
-                    </td> -->
+                   <td>
+                     <s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean" event="edit">
+                         <s:param name="reservation.id" value="${reservation.id}"/>edit</s:link>
+                    </td> 
                     <td>
                         <s:form beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean">
                             <s:hidden name="reservation.id" value="${reservation.id}"/>
