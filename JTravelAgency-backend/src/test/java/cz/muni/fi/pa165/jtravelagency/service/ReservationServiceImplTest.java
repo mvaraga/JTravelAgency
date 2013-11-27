@@ -24,7 +24,7 @@ import org.mockito.Mock;
 import static org.mockito.Mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 
-/**
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReservationServiceImplTest extends TestCase {
@@ -120,8 +120,9 @@ public class ReservationServiceImplTest extends TestCase {
             // OK
         }
          
-        ReservationDTO reservationDTO = newReservationDTO();
+        ReservationDTO reservationDTO = newReservationDTO();        
         reservationDTO.setTrip(new TripDTO());
+        reservationDTO.setId(1L);
         service.update(reservationDTO);
         
         verify(reservationDAO,never()).createReservation(null);
@@ -287,4 +288,4 @@ public class ReservationServiceImplTest extends TestCase {
         return reservation;
     }
 }
-*/
+

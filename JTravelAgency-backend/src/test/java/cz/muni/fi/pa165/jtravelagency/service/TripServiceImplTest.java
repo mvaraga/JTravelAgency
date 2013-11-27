@@ -29,25 +29,22 @@ import org.mockito.runners.MockitoJUnitRunner;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TripServiceImplTest extends TestCase {
-    
+
     @InjectMocks
     private TripServiceImpl service;
-    
+
     @Mock
     private TripDAOImpl dao;
-    
-  
-    
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
-    
+
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
-
 
     @Test
     public void testCreate() {
@@ -59,9 +56,11 @@ public class TripServiceImplTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             //OK
         }
-        
-        Trip trip =prepareTrip();
-        TripDTO tripDTO = DTOAndEntityMapper.entityToDto(trip);
+
+        Trip trip = prepareTrip();
+        //TripDTO tripDTO = DTOAndEntityMapper.entityToDto(trip);
+        TripDTO tripDTO = DTOAndEntityMapper.entityToDto(trip, TripDTO.class);
+
         service.create(tripDTO);
 
         verify(dao).createTrip(trip);
@@ -71,20 +70,20 @@ public class TripServiceImplTest extends TestCase {
         verify(dao, times(0)).getAllTrips();
     }
 
-   
     @Test
     public void testGet() {
-        
-                try{
+
+        try {
             service.get(null);
             fail();
-        }catch(IllegalArgumentException ex){
-          
+        } catch (IllegalArgumentException ex) {
+
         }
-        
-        Trip trip=prepareTrip();
-        
-        TripDTO expected = DTOAndEntityMapper.entityToDto(trip);
+
+        Trip trip = prepareTrip();
+
+        TripDTO expected = DTOAndEntityMapper.entityToDto(trip, TripDTO.class);
+        //TripDTO expected = DTOAndEntityMapper.entityToDto(trip);
         expected.setId(1l);
         //asi by sa to malo este do databazy poslat 
         when(dao.getTrip(1l)).thenReturn(DTOAndEntityMapper.dtoToEntity(expected, Trip.class));
@@ -97,23 +96,21 @@ public class TripServiceImplTest extends TestCase {
         verify(dao, times(0)).getAllTrips();
 
        //assertTripDeepEquals(expected, returned);
-       
     }
 
- 
     @Test
     public void testUpdate() {
-        
-                
-        try{
+
+        try {
             service.update(null);
             fail();
-        }catch(IllegalArgumentException ex){
-           
+        } catch (IllegalArgumentException ex) {
+
         }
-        
+
         Trip trip = prepareTrip();
-        TripDTO tripDTO=DTOAndEntityMapper.entityToDto(trip);
+        TripDTO tripDTO = DTOAndEntityMapper.entityToDto(trip, TripDTO.class);
+        //TripDTO tripDTO = DTOAndEntityMapper.entityToDto(trip);
         tripDTO.setId(1l);
         service.update(tripDTO);
 
@@ -121,18 +118,18 @@ public class TripServiceImplTest extends TestCase {
         verifyNoMoreInteractions(dao);
     }
 
-    
     @Test
     public void testDelete() {
-        
-                try{
+
+        try {
             service.delete(null);
             fail();
-        }catch(IllegalArgumentException ex){
-            
+        } catch (IllegalArgumentException ex) {
+
         }
         Trip trip = prepareTrip();
-        TripDTO tripDTO=DTOAndEntityMapper.entityToDto(trip);
+        TripDTO tripDTO = DTOAndEntityMapper.entityToDto(trip, TripDTO.class);
+        //TripDTO tripDTO = DTOAndEntityMapper.entityToDto(trip);
         tripDTO.setId(1l);
         service.delete(tripDTO);
 
@@ -146,59 +143,62 @@ public class TripServiceImplTest extends TestCase {
         expected.add(prepareTrip());
         when(dao.getAllTrips()).thenReturn(expected);
         List<TripDTO> returned = service.getAll();
-        
+
         verify(dao).getAllTrips();
         verifyNoMoreInteractions(dao);
-        
-       for(int i=0;i<expected.size();i++){
-       assertTripDeepEquals(DTOAndEntityMapper.entityToDto(expected.get(i)), returned.get(i));
-       }
+
+        for (int i = 0; i < expected.size(); i++) {
+            assertTripDeepEquals(DTOAndEntityMapper.entityToDto(expected.get(i), TripDTO.class), returned.get(i));
+            //assertTripDeepEquals(DTOAndEntityMapper.entityToDto(expected.get(i)), returned.get(i));
+        }
     }
 
-    
     @Test
     public void testFindAllByDateRange() {
 
-                List<Trip> expected = new ArrayList<Trip>();
+        List<Trip> expected = new ArrayList<Trip>();
         expected.add(prepareTrip());
         when(dao.getAllTrips()).thenReturn(expected);
         List<TripDTO> returned = service.getAll();
-        
+
         verify(dao).getAllTrips();
         verifyNoMoreInteractions(dao);
-        
-       for(int i=0;i<expected.size();i++){
-       assertTripDeepEquals(DTOAndEntityMapper.entityToDto(expected.get(i)), returned.get(i));
-    }
-    
+
+        for (int i = 0; i < expected.size(); i++) {
+            assertTripDeepEquals(DTOAndEntityMapper.entityToDto(expected.get(i), TripDTO.class), returned.get(i));
+            //assertTripDeepEquals(DTOAndEntityMapper.entityToDto(expected.get(i)), returned.get(i));
+        }
+
     }
 
     @Test
     public void testFindAllByDestination() {
 
-                List<Trip> expected = new ArrayList<Trip>();
+        List<Trip> expected = new ArrayList<Trip>();
         expected.add(prepareTrip());
         when(dao.getAllTrips()).thenReturn(expected);
         List<TripDTO> returned = service.getAll();
-        
+
         verify(dao).getAllTrips();
         verifyNoMoreInteractions(dao);
-        
-       for(int i=0;i<expected.size();i++){
-       assertTripDeepEquals(DTOAndEntityMapper.entityToDto(expected.get(i)), returned.get(i));
-    }}
-    
-        private Trip prepareTrip() {
+
+        for (int i = 0; i < expected.size(); i++) {
+            assertTripDeepEquals(DTOAndEntityMapper.entityToDto(expected.get(i), TripDTO.class), returned.get(i));
+            //assertTripDeepEquals(DTOAndEntityMapper.entityToDto(expected.get(i)), returned.get(i));
+        }
+    }
+
+    private Trip prepareTrip() {
         Trip preparedTrip = new Trip();
         preparedTrip.setDateFrom(new DateTime(2013, 11, 23, 10, 00));
         preparedTrip.setDateTo(new DateTime(2013, 1, 30, 10, 00));
         preparedTrip.setDestination("Spain");
         preparedTrip.setAvailableTrips(10);
         preparedTrip.setPrice(new BigDecimal(15200.25));
-        
+
         return preparedTrip;
     }
-    
+
     private static void assertTripDeepEquals(TripDTO expected, TripDTO actual) {
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getDateFrom(), actual.getDateFrom());
@@ -207,6 +207,5 @@ public class TripServiceImplTest extends TestCase {
         assertEquals(expected.getAvailableTrips(), actual.getAvailableTrips());
         assertEquals(expected.getPrice(), actual.getPrice());
     }
-   
 
 }

@@ -31,7 +31,8 @@ public class ExcursionServiceImpl implements ExcursionService{
         if (excursionDTO.getId() != null) {
             throw new IllegalArgumentException("Excursion's id is null.");
         }
-        Excursion excursion = DTOAndEntityMapper.dtoToEntity(excursionDTO);
+        //Excursion excursion = DTOAndEntityMapper.dtoToEntity(excursionDTO);
+        Excursion excursion = DTOAndEntityMapper.dtoToEntity(excursionDTO, Excursion.class);
         excursionDAO.createExcursion(excursion);
         excursionDTO.setId(excursion.getId());
        // excursionDTO.getTrip().setId(excursion.getId());
@@ -42,7 +43,8 @@ public class ExcursionServiceImpl implements ExcursionService{
             throw new IllegalArgumentException("Id cannot be null.");
         }
         Excursion excursion = excursionDAO.getExcursion(id);
-        return DTOAndEntityMapper.entityToDto(excursion);
+        return DTOAndEntityMapper.entityToDto(excursion, ExcursionDTO.class);
+        //return DTOAndEntityMapper.entityToDto(excursion);
     }
 
     public void update(ExcursionDTO excursionDTO) {
@@ -50,7 +52,8 @@ public class ExcursionServiceImpl implements ExcursionService{
         if(excursionDTO.getId() == null) {
             throw new IllegalArgumentException("Id cannot be null.");
         }
-        Excursion excursion = DTOAndEntityMapper.dtoToEntity(excursionDTO);
+        Excursion excursion = DTOAndEntityMapper.dtoToEntity(excursionDTO, Excursion.class);
+        //Excursion excursion = DTOAndEntityMapper.dtoToEntity(excursionDTO);
         excursionDAO.updateExcursion(excursion);
     }
 
@@ -67,7 +70,8 @@ public class ExcursionServiceImpl implements ExcursionService{
         List<Excursion> excursions = excursionDAO.getAllExcursions();
         List<ExcursionDTO> excursionDTOs = new ArrayList<ExcursionDTO>();
         for(Excursion e : excursions) {
-            excursionDTOs.add(DTOAndEntityMapper.entityToDto(e));
+            excursionDTOs.add(DTOAndEntityMapper.entityToDto(e, ExcursionDTO.class));
+            //excursionDTOs.add(DTOAndEntityMapper.entityToDto(e));
         }
         return excursionDTOs;
     }
