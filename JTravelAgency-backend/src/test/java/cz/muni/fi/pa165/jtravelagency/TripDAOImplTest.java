@@ -1,5 +1,3 @@
-/*
-
 package cz.muni.fi.pa165.jtravelagency;
 
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
@@ -260,5 +258,3 @@ public class TripDAOImplTest extends TestCase {
         assertEquals(expected.getPrice(), actual.getPrice());
     }
 }
-* 
-* */

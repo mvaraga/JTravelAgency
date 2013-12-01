@@ -26,6 +26,7 @@ import org.joda.time.LocalDate;
 /**
  *
  * @author Marian Varaga
+ */
 
 public class ExcursionDAOImplTest extends TestCase {
     
@@ -247,5 +248,3 @@ public class ExcursionDAOImplTest extends TestCase {
         return preparedTrip;
     }
 }
-
- */

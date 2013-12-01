@@ -25,7 +25,6 @@ import junit.framework.TestCase;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
-/**
 
 public class ReservationDAOImplTest extends TestCase {
     private EntityManagerFactory emf;
@@ -80,7 +79,7 @@ public class ReservationDAOImplTest extends TestCase {
         assertDeepEquals(reservation, result);
     }
     
- 
+
     public void testCreateReservationException() {
         System.out.println("createReservationException");
         
@@ -145,7 +144,8 @@ public class ReservationDAOImplTest extends TestCase {
         Reservation reservation = newReservation(customer, trip);
         em1.getTransaction().begin();
         instance.createReservation(reservation);
-        reservation.getExcursions().add(new Excursion());
+        // !!! cannot add unpersist excursion to reservation
+        //reservation.getExcursions().add(new Excursion());
         instance.updateReservation(reservation);
         Reservation res = instance.getReservation(reservation.getId());
         em1.getTransaction().commit();
@@ -278,8 +278,9 @@ public class ReservationDAOImplTest extends TestCase {
         Reservation reservation = new Reservation();
         reservation.setCustomer(customer);
         List<Excursion> excursions = new ArrayList<Excursion>();
-        Excursion excursion = new Excursion();
-        excursions.add(excursion);
+        // !!! cannot add unpersist excursion to reservation
+        //Excursion excursion = new Excursion();
+        //excursions.add(excursion);
         reservation.setExcursions(excursions);
         reservation.setTrip(trip);
         return reservation;
@@ -323,4 +324,3 @@ public class ReservationDAOImplTest extends TestCase {
         return preparedTrip;
     }
 }
-* */
