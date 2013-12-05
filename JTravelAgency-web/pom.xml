@@ -21,6 +21,12 @@
     
     <dependencies>
         <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <!-- if your container implements Servlet API older than 3.0, use "jersey-container-servlet-core"  -->
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>2.4.1</version>
+        </dependency>
+        <dependency>
             <groupId>net.sourceforge.stripes</groupId>
             <artifactId>stripes</artifactId>
             <version>1.5.7</version>
@@ -55,6 +61,15 @@
 
     <build>
         <plugins>
+<!--            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>6</source>
+                    <target>6</target>
+                </configuration>
+            </plugin>-->
+            <!-- Servlet 3.0 without web.xml -->
              <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>

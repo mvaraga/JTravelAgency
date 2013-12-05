@@ -4,7 +4,11 @@
  */
 package cz.muni.fi.pa165.jtravelagency.dto;
 
+
 import java.util.List;
+import javax.ws.rs.GET;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -20,7 +24,13 @@ public class CustomerDTO {
 
     public CustomerDTO() {
     }
-
+    
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getPlain() {
+        return this.toString();
+    }
+    
     public Long getId() {
         return id;
     }
