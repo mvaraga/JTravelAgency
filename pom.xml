@@ -10,5 +10,6 @@
         <module>JTravelAgency-backend</module>
         <module>JTravelAgency-api</module>
         <module>JTravelAgency-web</module>
+    <module>JTravelAgency-rest-client</module>
   </modules>
 </project>

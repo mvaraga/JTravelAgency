@@ -9,11 +9,14 @@ import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author mvaraga
  */
+
+@XmlRootElement
 public class CustomerDTO {
     
     private Long id;

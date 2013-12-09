@@ -16,7 +16,6 @@ public class ApplicationConfig extends Application {
         return resources;
     }
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(cz.muni.fi.pa165.jtravelagency.rest.ServiceResource.class);
         resources.add(cz.muni.fi.pa165.jtravelagency.rest.CustomerFacade.class);
     }
 }
