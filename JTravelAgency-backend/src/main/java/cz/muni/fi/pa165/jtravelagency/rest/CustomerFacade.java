@@ -84,8 +84,8 @@ public class CustomerFacade {
     
     
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response postJson(CustomerDTO customerResource) {
         facade.createCustomer(customerResource);
         System.out.println("Created customer " + customerResource.getId());
