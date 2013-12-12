@@ -16,36 +16,9 @@
             }
 
             function sendText() {
-                //alert(${pageContext.request.contextPath});
-
                 var firstname = $('#first_name').val();
                 var lastname = $('#last_name').val();
                 var status = $('#status').val();
-
-                $.ajax({
-                    type: 'POST',
-                    contentType: 'application/json',
-                    dataType: 'json',
-                    url: "http://localhost:8080/pa165/webresources/customers/",
-                    data: {'firstName': firstname, 'lastName': lastname, 'status': status},
-                    success: function(data) {
-                        alert('got ' + data);
-                    },
-                    failure: function(errMsg) {
-                        alert(errMsg);
-                    }
-                })
-                        .done(function(data) {
-                    alert('got ' + data);
-                });
-            }
-
-            function test() {
-                var firstname = $('#first_name').val();
-                var lastname = $('#last_name').val();
-                var status = $('#status').val();
-
-               
 
                 $.ajax({
                     type: 'POST',
@@ -69,12 +42,11 @@
     </head>
     <body>
         <div id="board">
-            <h1>Noticeboard HTML</h1>
+            <h1>REST Client</h1>
         </div>
         <label for="publish">First name:</label><input id="first_name" type="text" name="firstname" value="aaa" size="30"> </br>
         <label for="publish">Last name:</label><input id="last_name" type="text" name="lastname" value="aaa" size="30">
         <label for="publish">Status: </label><input id="status" type="text" name="status" value="REGULAR" size="30">
         <button onclick="sendText();">Publish</button>
-        <button onclick="test();">test</button>
     </body>
 </html>
