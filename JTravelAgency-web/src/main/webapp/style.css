@@ -89,6 +89,9 @@ html>body #navigation li a {
     margin-left: 50px;
 }
 
+.hidden {
+    dispplay: none;
+}
 
 /* css for timepicker */
 #ui-datepicker-div { font-size:11px; }

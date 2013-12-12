@@ -6,12 +6,17 @@ package cz.muni.fi.pa165.jtravelagency.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
+import javax.ws.rs.GET;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.xml.bind.annotation.XmlRootElement;
 import org.joda.time.DateTime;
 
 /**
  *
  * @author jakub
  */
+@XmlRootElement
 public class TripDTO {
 
     
@@ -25,7 +30,7 @@ public class TripDTO {
     
     private int availableTrips;
     
-    private List<ExcursionDTO> excursionsDTO;
+   // private List<ExcursionDTO> excursionsDTO;
 
     private BigDecimal price;
     
@@ -33,6 +38,11 @@ public class TripDTO {
     public TripDTO() {
     }
     
+        @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getPlain() {
+        return this.toString();
+    }
     
     /**
      * @return the id
@@ -109,14 +119,14 @@ public class TripDTO {
      * @return the excursions
      */
     public List<ExcursionDTO> getExcursions() {
-        return excursionsDTO;
+        return null;//excursionsDTO;
     }
 
     /**
      * @param excursions the excursions to set
      */
     public void setExcursions(List<ExcursionDTO> excursionsDTO) {
-        this.excursionsDTO = excursionsDTO;
+        //this.excursionsDTO = excursionsDTO;
     }
     
     /**

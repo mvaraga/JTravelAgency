@@ -4,7 +4,7 @@
  */
 package cz.muni.fi.pa165.jtravelagency.rest;
 
-import cz.muni.fi.pa165.jtravelagency.dto.CustomerDTO;
+import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
 import cz.muni.fi.pa165.jtravelagency.facade.ServiceFacade;
 import java.net.URI;
 import java.util.List;
@@ -32,13 +32,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author xvaraga
  */
-@Path("customers")
+@Path("trips")
 @Singleton
-public class CustomerFacade {
+public class TripFacade {
 
     private static ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
     private ServiceFacade facade = applicationContext.getBean("facade", ServiceFacade.class);
-    //private static List<CustomerDTO> customers = new ArrayList<>();
+    //private static List<TripDTO> trips = new ArrayList<>();
     private String _corsHeaders;
 
     private Response makeCORS(ResponseBuilder req, String returnMethod) {
@@ -58,21 +58,21 @@ public class CustomerFacade {
     @Context
     private UriInfo context;
 
-    public CustomerFacade() {
-        //customers.clear();
-//        List<CustomerDTO> customers = facade.getAllCustomers();
-//        this.customers.addAll(customers);
+    public TripFacade() {
+        //trips.clear();
+//        List<TripDTO> trips = facade.getAllTrips();
+//        this.trips.addAll(trips);
     }
-
+//
     @GET
     @Produces("text/plain")
     public String getPlain() {
         StringBuilder returnString = new StringBuilder();
-        List<CustomerDTO> customers = facade.getAllCustomers();
-        for (CustomerDTO customer : customers) {
-            returnString.append(customer.getFirstName());
+        List<TripDTO> trips = facade.getAllTrips();
+        for (TripDTO trip : trips) {
+            returnString.append(trip.getDestination());
             returnString.append(" ");
-            returnString.append(customer.getLastName());
+            returnString.append(trip.getPrice());
             returnString.append("\n");
         }
 
@@ -82,40 +82,40 @@ public class CustomerFacade {
     @GET
     @Path("j")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<CustomerDTO> getJsonCustomers() {
-        return facade.getAllCustomers();
+    public List<TripDTO> getJsonTrips() {
+        return facade.getAllTrips();
     }
 
     @Path("{id}")
-    public CustomerDTO getCustomerResource(@PathParam("id") Long id) {
-        return facade.getCustomer(id);
+    public TripDTO getTripResource(@PathParam("id") Long id) {
+        return facade.getTrip(id);
     }
 
     @GET
     @Path("json/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public CustomerDTO getJson(@PathParam("id") Long id) {
-        if (facade.getCustomer(id) == null) {
+    public TripDTO getJson(@PathParam("id") Long id) {
+        if (facade.getTrip(id) == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        return facade.getCustomer(id);
+        return facade.getTrip(id);
     }
 
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
     public String getCount() {
-        List<CustomerDTO> customers = facade.getAllCustomers();
-        return String.valueOf(customers.size());
+        List<TripDTO> trips = facade.getAllTrips();
+        return String.valueOf(trips.size());
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response postJson(CustomerDTO customerResource) {
-        facade.createCustomer(customerResource);
-        System.out.println("Created customer " + customerResource.getId());
-        return Response.created(URI.create(context.getAbsolutePath() + "/" + customerResource.getId())).header("Access-Control-Allow-Origin", "*").header("Access-Control-Allow-Methods", "GET, POST, OPTIONS").build();
+    public Response postJson(TripDTO tripResource) {
+        facade.createTrip(tripResource);
+        System.out.println("Created trip " + tripResource.getId());
+        return Response.created(URI.create(context.getAbsolutePath() + "/" + tripResource.getId())).header("Access-Control-Allow-Origin", "*").header("Access-Control-Allow-Methods", "GET, POST, OPTIONS").build();
     }
 
     @OPTIONS
@@ -129,32 +129,32 @@ public class CustomerFacade {
     public void delete(@PathParam("id") Long id) {
         System.out.println("---- Deleting item nr. " + id);
 
-        if (facade.getCustomer(id) == null) {
+        if (facade.getTrip(id) == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        facade.deleteCustomer(facade.getCustomer(id));
+        facade.deleteTrip(facade.getTrip(id));
     }
 
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response putJson(@PathParam("id") Long id, CustomerDTO customerResource) {
+    public Response putJson(@PathParam("id") Long id, TripDTO tripResource) {
 
         System.out.println("----  putting item ");
 
         URI uri = context.getAbsolutePath();
         System.out.println(context.getAbsolutePath());
 
-        CustomerDTO customer = facade.getCustomer(id);
+        TripDTO trip = facade.getTrip(id);
         
         Response response;
-        if (customer!=null) {
+        if (trip!=null) {
             response = Response.created(uri).build();
         } else {
             response = Response.noContent().build();
         }
 
-        facade.updateCustomer(customerResource);
+        facade.updateTrip(tripResource);
 
         return response;
     }

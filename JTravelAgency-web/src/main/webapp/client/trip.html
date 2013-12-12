@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Noticeboard</title>
+        <link rel="stylesheet" type="text/css" href="../style.css" />
+        <!-- load JQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                window.setInterval(updateBoard, 1000);
+                updateBoard();
+            });
+
+
+            function updateBoard() {
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: "json",
+                    url: "http://localhost:8080/pa165/webresources/trips/j",
+                    success: function(data) {
+                        window.jdata = data;
+                        //console.log(data[0]);
+                        var myTableDiv = $("#trips-table");
+                        myTableDiv.children().remove();
+                        myTableDiv.append('<table class="basic"></table>');
+                        var myTable = $('#trips-table > table');
+                        for (var i = 0; i < data.length; i++) {
+                            myTable.append('<tr id='+ data[i].id +'>\n\
+                            <td id="dest">' + data[i].destination + '</td>\n\
+                            <td id="price">' + data[i].price + '</td>\n\
+                            <td id="availableTrips">' + data[i].availableTrips + '</td>\n\
+                            <td id="dateFrom">' + data[i].dateFrom + '</td>\n\
+                            <td id="dateTo">' + data[i].dateTo + '</td>\n\
+                            <td><button onclick="deleteTrip();">Delete</button></td>\n\
+                            <td><button onclick="startEdit('+ data[i].id +')">Update</button></td>\n\
+                            </tr>');
+                        }
+                    }
+                });
+                console.log("updated board");
+            }
+
+            function sendText() {
+                var destination = $('#destination').val();
+                var price = $('#price').val();
+                var dateFrom = '12.12.2013 12:12';
+                var dateTo = '12.12.2013 12:12';
+                var availableTrips = 10;
+              
+
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: "json",
+                    url: "http://localhost:8080/pa165/webresources/trips/",
+                    data: JSON.stringify({'destination': destination, 'price': price, 'dateFrom': dateFrom, 'dateTo': dateTo, 'availableTrips': availableTrips}),
+                    success: function(data) {
+                        console.log('got ' + data);
+                    },
+                    failure: function(errMsg) {
+                        alert(errMsg);
+                    }
+                }).done(function(data) {
+                    alert('test ');
+
+                });
+                
+            }
+
+            function deleteTrip() {
+                var id = $("tr").attr('id');
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: "http://localhost:8080/pa165/webresources/trips/" + id,
+                    success: function(data) {
+                        console.log('got ' + data);
+                    },
+                    failure: function(errMsg) {
+                        alert(errMsg);
+                    }
+                });
+            }
+            
+            function startEdit(eid){
+                $("input#destination").val($("#"+eid+" #dest").text());
+                $("input#price").val($("#"+eid+" #price").text());
+                $("input#availableTrips").val($("#"+eid+" #availableTrips").text());
+                $("input#dateFrom").val($("#"+eid+" #dateFrom").text());
+                $("input#dateTo").val($("#"+eid+" #dateTo").text());
+                $("button#dateTo").removeAttr("disabled");
+                $("button#up").attr("updid", eid);
+                $("button#pub").attr("disabled", "true");
+            }
+            
+            function updateTrip() {
+                var destination = $('#destination').val();
+                var lastname = $('#price').val();
+                var status = $('#availableTrips').val();
+                var status = $('#dateFrom').val();
+                var status = $('#dateTo').val();
+                var updid = $('#up').attr("updid");
+                
+                $.ajax({
+                    type: 'PUT',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: "json",
+                    url: "http://localhost:8080/pa165/webresources/trips/" + updid,
+                    data: JSON.stringify({'id' : updid, 'destination': destination, 'lastName': lastname, 'status': status}),
+                    success: function(data) {
+                        console.log('got ' + data);
+                    },
+                    failure: function(errMsg) {
+                        alert(errMsg);
+                    }
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div id="board">
+            <h1>REST Client</h1>
+        </div>
+        <div id="trips-table"></div>
+        <label for="destination">Destination:</label><input id="destination" type="text" value="aaa" size="30" /> </br>
+        <label for="price">Price:</label><input id="price" type="text" value="1" size="30" /><br />
+        <label for="availableTrips">Available trips:</label><input id="availableTrips" type="text" value="10" size="5" />
+        <label for="dateFrom">Date from:</label><input id="dateFrom" type="text" size="20" />
+        <label for="dateTo">Date to:</label><input id="dateTo" type="text" size="20" />
+        <button id="pub" onclick="sendText();">Publish</button>
+        <button id="up" disabled="true" onclick="updateTrip()">Update</button>
+    </body>
+</html>

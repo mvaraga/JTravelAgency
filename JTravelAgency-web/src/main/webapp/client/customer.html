@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Noticeboard</title>
+        <link rel="stylesheet" type="text/css" href="../style.css" />
+        <!-- load JQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                window.setInterval(updateBoard, 1000);
+                updateBoard();
+            });
+
+            function receive(saveData) {
+                if (saveData == null) {
+                    alert("DATA IS UNDEFINED!");  // displays every time
+                }
+                alert("Success is " + saveData);  // 'Success is undefined'
+            }
+
+            function updateBoard() {
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: "json",
+                    url: "http://localhost:8080/pa165/webresources/customers/j",
+                    success: function(data) {
+                        window.jdata = data;
+                        //console.log(data[0]);
+                        var myTableDiv = $("#customers-table");
+                        myTableDiv.children().remove();
+                        myTableDiv.append('<table class="basic"></table>');
+                        var myTable = $('#customers-table > table');
+                        for (var i = 0; i < data.length; i++) {
+                            myTable.append('<tr id='+ data[i].id +'><td id="fname">' + data[i].firstName + '</td>\n\
+                            <td id="lname">' + data[i].lastName + '</td> <td><button onclick="deleteCustomer();">Delete</button></td><td><button onclick="startEdit('+ data[i].id +')">Update</button></td></tr>');
+                        }
+                    }
+                });
+                console.log("updated board");
+            }
+
+            function sendText() {
+                var firstname = $('#first_name').val();
+                var lastname = $('#last_name').val();
+                var status = $('#status').val();
+
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: "json",
+                    url: "http://localhost:8080/pa165/webresources/customers/",
+                    data: JSON.stringify({'firstName': firstname, 'lastName': lastname, 'status': status}),
+                    success: function(data) {
+                        console.log('got ' + data);
+                    },
+                    failure: function(errMsg) {
+                        alert(errMsg);
+                    }
+                }).done(function(data) {
+                    alert('test ');
+
+                });
+                
+            }
+
+            function deleteCustomer() {
+                var id = $("tr").attr('id');
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: "http://localhost:8080/pa165/webresources/customers/" + id,
+                    success: function(data) {
+                        console.log('got ' + data);
+                    },
+                    failure: function(errMsg) {
+                        alert(errMsg);
+                    }
+                });
+            }
+            
+            function startEdit(eid){
+                $("input#first_name").val($("#"+eid+" #fname").text());
+                $("input#last_name").val($("#"+eid+" #lname").text());
+                $("button#up").removeAttr("disabled");
+                $("button#up").attr("updid", eid);
+                $("button#pub").attr("disabled", "true");
+            }
+            
+            function updateCustomer() {
+                var firstname = $('#first_name').val();
+                var lastname = $('#last_name').val();
+                var status = $('#status').val();
+                var updid = $('#up').attr("updid");
+                
+                $.ajax({
+                    type: 'PUT',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: "json",
+                    url: "http://localhost:8080/pa165/webresources/customers/" + updid,
+                    data: JSON.stringify({'id' : updid, 'firstName': firstname, 'lastName': lastname, 'status': status}),
+                    success: function(data) {
+                        console.log('got ' + data);
+                    },
+                    failure: function(errMsg) {
+                        alert(errMsg);
+                    }
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div id="board">
+            <h1>REST Client</h1>
+        </div>
+        <div id="customers-table"></div>
+        <label for="publish">First name:</label><input id="first_name" type="text" name="firstname" value="aaa" size="30"> </br>
+        <label for="publish">Last name:</label><input id="last_name" type="text" name="lastname" value="aaa" size="30">
+        <label for="publish">Status: </label><input id="status" type="text" name="status" value="REGULAR" size="30">
+        <button id="pub" onclick="sendText();">Publish</button>
+        <button id="up" disabled="true" onclick="updateCustomer()">Update</button>
+    </body>
+</html>
