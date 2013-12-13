@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <title>Noticeboard</title>
-        <link rel="stylesheet" type="text/css" href="../style.css" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
         <!-- load JQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>
@@ -19,22 +19,18 @@
             }
 
             function updateBoard() {
-                $.ajax({
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: "json",
-                    url: "http://localhost:8080/pa165/webresources/customers/j",
-                    success: function(data) {
-                        window.jdata = data;
-                        //console.log(data[0]);
-                        var myTableDiv = $("#customers-table");
-                        myTableDiv.children().remove();
-                        myTableDiv.append('<table class="basic"></table>');
-                        var myTable = $('#customers-table > table');
-                        for (var i = 0; i < data.length; i++) {
-                            myTable.append('<tr id=' + data[i].id + '><td id="fname">' + data[i].firstName + '</td>\n\
+                $.getJSON("http://localhost:8080/pa165/webresources/customers/j", function(data) {
+                    window.jdata = data;
+                    //console.log(data[0]);
+                    var myTableDiv = $("#customers-table");
+                    myTableDiv.children().remove();
+                    myTableDiv.append('<table class="basic"></table>');
+                    var myTable = $('#customers-table > table');
+                    for (var i = 0; i < data.length; i++) {
+                        myTable.append('<tr id=' + data[i].id + '><td id="fname">' + data[i].firstName + '</td>\n\
                             <td id="lname">' + data[i].lastName + '</td> <td><button onclick="deleteCustomer(' + data[i].id + ');">Delete</button></td><td><button onclick="startEdit(' + data[i].id + ')">Update</button></td></tr>');
-                        }
                     }
+
                 });
                 console.log("updated board");
             }
@@ -65,6 +61,7 @@
             function deleteCustomer(id) {
                 $.ajax({
                     type: 'DELETE',
+                    contentType: 'text/plain; charset=utf-8',
                     url: "http://localhost:8080/pa165/webresources/customers/" + id,
                     success: function(data) {
                         console.log('got ' + data);

@@ -21,6 +21,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
@@ -43,7 +44,7 @@ public class CustomerFacade {
 
     private Response makeCORS(ResponseBuilder req, String returnMethod) {
         ResponseBuilder rb = req.header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+                .header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, DELETE, PUT");
 
         if (!"".equals(returnMethod)) {
             rb.header("Access-Control-Allow-Headers", returnMethod);
@@ -59,9 +60,6 @@ public class CustomerFacade {
     private UriInfo context;
 
     public CustomerFacade() {
-        //customers.clear();
-//        List<CustomerDTO> customers = facade.getAllCustomers();
-//        this.customers.addAll(customers);
     }
 
     @GET
@@ -78,12 +76,17 @@ public class CustomerFacade {
 
         return returnString.toString();
     }
-    
+
     @GET
     @Path("j")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<CustomerDTO> getJsonCustomers() {
-        return facade.getAllCustomers();
+    public Response getJsonCustomers() {
+        List<CustomerDTO> list = facade.getAllCustomers();
+        GenericEntity<List<CustomerDTO>> entity = new GenericEntity<List<CustomerDTO>>(list) {
+        };
+
+        return makeCORS(Response.ok(entity));
+
     }
 
     @Path("{id}")
@@ -115,7 +118,7 @@ public class CustomerFacade {
     public Response postJson(CustomerDTO customerResource) {
         facade.createCustomer(customerResource);
         System.out.println("Created customer " + customerResource.getId());
-        return Response.created(URI.create(context.getAbsolutePath() + "/" + customerResource.getId())).header("Access-Control-Allow-Origin", "*").header("Access-Control-Allow-Methods", "GET, POST, OPTIONS").build();
+        return makeCORS(Response.created(URI.create(context.getAbsolutePath() + "/" + customerResource.getId())));
     }
 
     @OPTIONS
@@ -123,16 +126,24 @@ public class CustomerFacade {
         _corsHeaders = requestH;
         return makeCORS(Response.ok(), requestH);
     }
+    
+    @OPTIONS
+    @Path("{id}")
+    public Response corsMyResource2(@HeaderParam("Access-Control-Request-Headers") String requestH) {
+        _corsHeaders = requestH;
+        return makeCORS(Response.ok(), requestH);
+    }
 
     @DELETE
     @Path("{id}")
-    public void delete(@PathParam("id") Long id) {
+    public Response delete(@PathParam("id") Long id) {
         System.out.println("---- Deleting item nr. " + id);
 
         if (facade.getCustomer(id) == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
         facade.deleteCustomer(facade.getCustomer(id));
+        return makeCORS(Response.ok());
     }
 
     @PUT
@@ -146,9 +157,9 @@ public class CustomerFacade {
         System.out.println(context.getAbsolutePath());
 
         CustomerDTO customer = facade.getCustomer(id);
-        
+
         Response response;
-        if (customer!=null) {
+        if (customer != null) {
             response = Response.created(uri).build();
         } else {
             response = Response.noContent().build();
