@@ -5,11 +5,21 @@
         <link rel="stylesheet" type="text/css" href="style.css" />
         <!-- load JQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+          <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <script>
+
+
+            
             $(document).ready(function() {
+                $("#dateFrom").datepicker();
+                $("#dateTo").datepicker();
                 window.setInterval(updateBoard, 1000);
                 updateBoard();
             });
+
+    
 
 
             function updateBoard() {
@@ -25,14 +35,14 @@
                         myTableDiv.append('<table class="basic"></table>');
                         var myTable = $('#trips-table > table');
                         for (var i = 0; i < data.length; i++) {
-                            myTable.append('<tr id='+ data[i].id +'>\n\
+                            myTable.append('<tr id=' + data[i].id + '>\n\
                             <td id="destOrig">' + data[i].destination + '</td>\n\
                             <td id="priceOrig">' + data[i].price + '</td>\n\
                             <td id="availableTrips">' + data[i].availableTrips + '</td>\n\
                             <td id="dateFromOrig">' + new Date(data[i].dateFrom.millis).toLocaleString() + '</td>\n\
                             <td id="dateToOrig">' + new Date(data[i].dateTo.millis).toLocaleString() + '</td>\n\
-                            <td><button onclick="deleteTrip();">Delete</button></td>\n\
-                            <td><button onclick="startEdit('+ data[i].id +')">Update</button></td>\n\
+                            <td><button onclick="deleteTrip('+data[i].id+');">Delete</button></td>\n\
+                            <td><button onclick="startEdit(' + data[i].id + ')">Update</button></td>\n\
                             </tr>');
                         }
                     }
@@ -45,8 +55,8 @@
                 var price = $('#price').val();
                 var dateFrom = $('#dateFrom').val();
                 var dateTo = $('#dateTo').val();
-                var availableTrips = $("input#availableTrips").val();
-              
+                var availableTrips = $("input#availableTrips_").val();
+
 
                 $.ajax({
                     type: 'POST',
@@ -64,11 +74,11 @@
                     alert('test ');
 
                 });
-                
+                clearForm();
+
             }
 
-            function deleteTrip() {
-                var id = $("tr").attr('id');
+            function deleteTrip(id) {
 
                 $.ajax({
                     type: 'DELETE',
@@ -81,18 +91,18 @@
                     }
                 });
             }
-            
-            function startEdit(eid){
-                $("input#destination").val($("#"+eid+" #destOrig").text());
-                $("input#price").val($("#"+eid+" #priceOrig").text());
-                $("input#availableTrips").val($("#"+eid+" #availableTrips").text());
-                $("input#dateFrom").val($("#"+eid+" #dateFromOrig").text());
-                $("input#dateTo").val($("#"+eid+" #dateToOrig").text());
+
+            function startEdit(eid) {
+                $("input#destination").val($("#" + eid + " #destOrig").text());
+                $("input#price").val($("#" + eid + " #priceOrig").text());
+                $("input#availableTrips_").val($("#" + eid + " #availableTrips").text());
+                $("input#dateFrom").val($("#" + eid + " #dateFromOrig").text());
+                $("input#dateTo").val($("#" + eid + " #dateToOrig").text());
                 $("button#up").removeAttr("disabled");
                 $("button#up").attr("updid", eid);
                 $("button#pub").attr("disabled", "true");
             }
-            
+
             function updateTrip() {
                 var destination = $('input#destination').val();
                 var price = $('input#price').val();
@@ -100,16 +110,16 @@
                 var dateFrom = $('input#dateFrom').val();
                 var dateTo = $('input#dateTo').val();
                 var updid = $('#up').attr("updid");
-                
+
                 $.ajax({
                     type: 'PUT',
                     contentType: 'application/json; charset=utf-8',
                     //dataType: "json",
                     url: "http://localhost:8080/pa165/webresources/trips/" + updid,
-                    data: JSON.stringify({'id' : updid, 'availableTrips' : availableTrips, 'dateFrom': dateFrom, 'dateTo': dateTo, 'destination': destination, 'price': price}),
+                    data: JSON.stringify({'id': updid, 'availableTrips': availableTrips, 'dateFrom': dateFrom, 'dateTo': dateTo, 'destination': destination, 'price': price}),
                     success: function(data) {
                         console.log('got ' + data);
-                        $("button#up").attr("disabled","true");
+                        $("button#up").attr("disabled", "true");
                         $("button#up").removeAttr("updid");
                         $("button#pub").removeAttr("disabled");
                     },
@@ -117,7 +127,19 @@
                         alert(errMsg);
                     }
                 });
+                clearForm();
             }
+            function clearForm() {
+                $('#destination').val('');
+                $('#availableTrips_').val('');
+                $('#dateFrom').val('');
+                $('#dateTo').val('');
+                $('#price').val('');
+                $('#up').removeAttr('updid');
+                $("button#pub").removeAttr("disabled");
+                $("button#up").attr("disabled", "true");
+            }
+
         </script>
     </head>
     <body>
@@ -125,29 +147,30 @@
             <h1>REST Client</h1>
         </div>
         <div id="trips-table"></div>
-	<table>
-          <tr>
-	    <td><label for="destination">Destination:</label></td>
-	    <td><input id="destination" type="text" value="aaa" size="30" /></td>
-	  </tr>
-          <tr>
-	    <td><label for="price">Price:</label></td>
-	    <td><input id="price" type="text" value="1" size="30" /></td>
-	  </tr>
-          <tr>
-	    <td><label for="availableTrips">Available trips:</label></td>
-	    <td><input id="availableTrips" type="text" value="10" size="5" /></td>
-	  </tr>
-	  <tr>
-	    <td><label for="dateFrom">Date from:</label></td>
-	    <td><input id="dateFrom" type="text" size="20" /></td>
-	  </tr>
-          <tr>
-	    <td><label for="dateTo">Date to:</label></td>
-	    <td><input id="dateTo" type="text" size="20" /></td>
-	  </tr>
-	</table>
+        <table>
+            <tr>
+                <td><label for="destination">Destination:</label></td>
+                <td><input id="destination" type="text" value="new trip" size="30" /></td>
+            </tr>
+            <tr>
+                <td><label for="price">Price:</label></td>
+                <td><input id="price" type="text" value="1000" size="30" /></td>
+            </tr>
+            <tr>
+                <td><label for="availableTrips">Available trips:</label></td>
+                <td><input id="availableTrips_" type="text" value="20" size="5" /></td>
+            </tr>
+            <tr>
+                <td><label for="dateFrom">Date from:</label></td>
+                <td><input id="dateFrom" value="12/18/2013" type="text" size="20" /></td>
+            </tr>
+            <tr>
+                <td><label for="dateTo">Date to:</label></td>
+                <td><input id="dateTo" value="12/19/2013" type="text" size="20" /></td>
+            </tr>
+        </table>
         <button id="pub" onclick="sendText();">Publish</button>
         <button id="up" disabled="true" onclick="updateTrip()">Update</button>
+        <button id="cancel" onclick="clearForm()">Cancel</button>
     </body>
 </html>
