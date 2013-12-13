@@ -7,7 +7,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
-                window.setInterval(updateBoard, 1000);
+               // window.setInterval(updateBoard, 1000);
                 updateBoard();
             });
 
@@ -32,7 +32,7 @@
                         var myTable = $('#customers-table > table');
                         for (var i = 0; i < data.length; i++) {
                             myTable.append('<tr id='+ data[i].id +'><td id="fname">' + data[i].firstName + '</td>\n\
-                            <td id="lname">' + data[i].lastName + '</td> <td><button onclick="deleteCustomer();">Delete</button></td><td><button onclick="startEdit('+ data[i].id +')">Update</button></td></tr>');
+                            <td id="lname">' + data[i].lastName + '</td> <td><button onclick="deleteCustomer('+data[i].id+');">Delete</button></td><td><button onclick="startEdit('+ data[i].id +')">Update</button></td></tr>');
                         }
                     }
                 });
@@ -62,9 +62,7 @@
                 
             }
 
-            function deleteCustomer() {
-                var id = $("tr").attr('id');
-
+            function deleteCustomer(id) {
                 $.ajax({
                     type: 'DELETE',
                     url: "http://localhost:8080/pa165/webresources/customers/" + id,
