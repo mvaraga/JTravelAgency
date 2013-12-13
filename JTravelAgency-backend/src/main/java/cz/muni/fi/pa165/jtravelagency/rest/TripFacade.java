@@ -21,10 +21,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.UriInfo;
+import org.joda.time.LocalDateTime;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -43,7 +45,7 @@ public class TripFacade {
 
     private Response makeCORS(ResponseBuilder req, String returnMethod) {
         ResponseBuilder rb = req.header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+                .header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, DELETE, PUT");
 
         if (!"".equals(returnMethod)) {
             rb.header("Access-Control-Allow-Headers", returnMethod);
@@ -64,6 +66,7 @@ public class TripFacade {
 //        this.trips.addAll(trips);
     }
 //
+
     @GET
     @Produces("text/plain")
     public String getPlain() {
@@ -78,12 +81,23 @@ public class TripFacade {
 
         return returnString.toString();
     }
-    
+
     @GET
     @Path("j")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<TripDTO> getJsonTrips() {
-        return facade.getAllTrips();
+    public Response getJsonTrips() {
+        List<TripDTO> list = facade.getAllTrips();
+        GenericEntity<List<TripDTO>> entity = new GenericEntity<List<TripDTO>>(list) {
+        };
+
+        return makeCORS(Response.ok(entity));
+    }
+
+    @OPTIONS
+    @Path("j")
+    public Response corsMyResource3(@HeaderParam("Access-Control-Request-Headers") String requestH) {
+        _corsHeaders = requestH;
+        return makeCORS(Response.ok(), requestH);
     }
 
     @Path("{id}")
@@ -114,8 +128,8 @@ public class TripFacade {
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response postJson(TripDTO tripResource) {
         facade.createTrip(tripResource);
-        System.out.println("Created trip " + tripResource.getId());
-        return Response.created(URI.create(context.getAbsolutePath() + "/" + tripResource.getId())).header("Access-Control-Allow-Origin", "*").header("Access-Control-Allow-Methods", "GET, POST, OPTIONS").build();
+        System.out.println("Created trip " + tripResource.getDateFrom());
+        return makeCORS(Response.created(URI.create(context.getAbsolutePath() + "/" + tripResource.getId())));
     }
 
     @OPTIONS
@@ -123,16 +137,24 @@ public class TripFacade {
         _corsHeaders = requestH;
         return makeCORS(Response.ok(), requestH);
     }
+    
+    @OPTIONS
+    @Path("{id}")
+    public Response corsMyResource2(@HeaderParam("Access-Control-Request-Headers") String requestH) {
+        _corsHeaders = requestH;
+        return makeCORS(Response.ok(), requestH);
+    }
 
     @DELETE
     @Path("{id}")
-    public void delete(@PathParam("id") Long id) {
+    public Response delete(@PathParam("id") Long id) {
         System.out.println("---- Deleting item nr. " + id);
 
         if (facade.getTrip(id) == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
         facade.deleteTrip(facade.getTrip(id));
+        return makeCORS(Response.ok());
     }
 
     @PUT
@@ -146,9 +168,9 @@ public class TripFacade {
         System.out.println(context.getAbsolutePath());
 
         TripDTO trip = facade.getTrip(id);
-        
+
         Response response;
-        if (trip!=null) {
+        if (trip != null) {
             response = Response.created(uri).build();
         } else {
             response = Response.noContent().build();

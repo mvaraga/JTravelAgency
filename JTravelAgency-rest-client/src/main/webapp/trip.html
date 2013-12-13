@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <title>Noticeboard</title>
-        <link rel="stylesheet" type="text/css" href="../style.css" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
         <!-- load JQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>
@@ -125,11 +125,28 @@
             <h1>REST Client</h1>
         </div>
         <div id="trips-table"></div>
-        <label for="destination">Destination:</label><input id="destination" type="text" value="aaa" size="30" /> </br>
-        <label for="price">Price:</label><input id="price" type="text" value="1" size="30" /><br />
-        <label for="availableTrips">Available trips:</label><input id="availableTrips" type="text" value="10" size="5" />
-        <label for="dateFrom">Date from:</label><input id="dateFrom" type="text" size="20" />
-        <label for="dateTo">Date to:</label><input id="dateTo" type="text" size="20" />
+	<table>
+          <tr>
+	    <td><label for="destination">Destination:</label></td>
+	    <td><input id="destination" type="text" value="aaa" size="30" /></td>
+	  </tr>
+          <tr>
+	    <td><label for="price">Price:</label></td>
+	    <td><input id="price" type="text" value="1" size="30" /></td>
+	  </tr>
+          <tr>
+	    <td><label for="availableTrips">Available trips:</label></td>
+	    <td><input id="availableTrips" type="text" value="10" size="5" /></td>
+	  </tr>
+	  <tr>
+	    <td><label for="dateFrom">Date from:</label></td>
+	    <td><input id="dateFrom" type="text" size="20" /></td>
+	  </tr>
+          <tr>
+	    <td><label for="dateTo">Date to:</label></td>
+	    <td><input id="dateTo" type="text" size="20" /></td>
+	  </tr>
+	</table>
         <button id="pub" onclick="sendText();">Publish</button>
         <button id="up" disabled="true" onclick="updateTrip()">Update</button>
     </body>

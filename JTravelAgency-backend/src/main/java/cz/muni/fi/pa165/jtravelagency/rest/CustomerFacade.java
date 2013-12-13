@@ -41,6 +41,8 @@ public class CustomerFacade {
     private ServiceFacade facade = applicationContext.getBean("facade", ServiceFacade.class);
     //private static List<CustomerDTO> customers = new ArrayList<>();
     private String _corsHeaders;
+    @Context
+    private UriInfo context;
 
     private Response makeCORS(ResponseBuilder req, String returnMethod) {
         ResponseBuilder rb = req.header("Access-Control-Allow-Origin", "*")
@@ -56,8 +58,6 @@ public class CustomerFacade {
     private Response makeCORS(ResponseBuilder req) {
         return makeCORS(req, _corsHeaders);
     }
-    @Context
-    private UriInfo context;
 
     public CustomerFacade() {
     }
@@ -87,6 +87,13 @@ public class CustomerFacade {
 
         return makeCORS(Response.ok(entity));
 
+    }
+    
+    @OPTIONS
+    @Path("j")
+    public Response corsMyResource3(@HeaderParam("Access-Control-Request-Headers") String requestH) {
+        _corsHeaders = requestH;
+        return makeCORS(Response.ok(), requestH);
     }
 
     @Path("{id}")
@@ -126,7 +133,7 @@ public class CustomerFacade {
         _corsHeaders = requestH;
         return makeCORS(Response.ok(), requestH);
     }
-    
+
     @OPTIONS
     @Path("{id}")
     public Response corsMyResource2(@HeaderParam("Access-Control-Request-Headers") String requestH) {
