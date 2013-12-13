@@ -8,7 +8,6 @@ import cz.muni.fi.pa165.jtravelagency.dao.CustomerDAO;
 import cz.muni.fi.pa165.jtravelagency.dao.CustomerDAOImpl;
 import cz.muni.fi.pa165.jtravelagency.dao.TripDAO;
 import cz.muni.fi.pa165.jtravelagency.dao.TripDAOImpl;
-import cz.muni.fi.pa165.jtravelagency.dto.CustomerStatus;
 import cz.muni.fi.pa165.jtravelagency.entity.Customer;
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
 import cz.muni.fi.pa165.jtravelagency.entity.Excursion;
@@ -304,7 +303,6 @@ public class ReservationDAOImplTest extends TestCase {
     private Customer newCustomer(String firstName, String lastName){
         Customer customer=new Customer();
         customer.setFirstName(firstName);
-        customer.setStatus(CustomerStatus.REGULAR);
         customer.setLastName(lastName);
         List<Reservation> reservations=new ArrayList<Reservation>();
         reservations.add(new Reservation());

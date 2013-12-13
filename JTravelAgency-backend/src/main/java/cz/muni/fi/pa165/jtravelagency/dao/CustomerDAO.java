@@ -42,10 +42,4 @@ public interface CustomerDAO {
      * Gets all customers from database.
      */
     List<Customer> getAllCustomers();
-    
-    /*
-     * Set status to deleted
-     * @param
-     */
-    void setDeletedStatus(Customer customer);
 }

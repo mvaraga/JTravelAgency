@@ -22,7 +22,6 @@ public class CustomerDTO {
     private Long id;
     private String firstName;
     private String lastName;
-    private CustomerStatus status;
     private List<ReservationDTO> reservations;
 
     public CustomerDTO() {
@@ -58,14 +57,6 @@ public class CustomerDTO {
         this.lastName = lastName;
     }
 
-    public CustomerStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(CustomerStatus status) {
-        this.status = status;
-    }
-
     public List<ReservationDTO> getReservations() {
         return reservations;
     }
@@ -98,7 +89,7 @@ public class CustomerDTO {
 
     @Override
     public String toString() {
-        return "CustomerDTO{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", status=" + status + ", reservations=" + reservations + '}';
+        return "CustomerDTO{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", reservations=" + reservations + '}';
     }
     
 }

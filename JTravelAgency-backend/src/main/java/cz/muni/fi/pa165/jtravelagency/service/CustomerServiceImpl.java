@@ -70,12 +70,6 @@ public class CustomerServiceImpl implements CustomerService {
         return list;
     }
 
-    public void setDeletedStatus(CustomerDTO customerDto) {
-        Customer customer = DTOAndEntityMapper.dtoToEntity(customerDto, Customer.class);
-        customerDao.setDeletedStatus(customer);
-        customerDto.setStatus(customer.getStatus());
-    }
-
     private void validateCustomer(CustomerDTO customerDto) {
         if (customerDto == null) {
             throw new IllegalArgumentException("Customer cannot be null.");

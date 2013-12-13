@@ -2,7 +2,6 @@
 <s:errors/>
 <table>
     <tr>
-        <s:hidden name="customer.status" value="REGULAR"/>
         <th><s:label for="b1" name="customer.firstName"/></th>
         <td><s:text id="b1" name="customer.firstName"/></td>
     </tr>

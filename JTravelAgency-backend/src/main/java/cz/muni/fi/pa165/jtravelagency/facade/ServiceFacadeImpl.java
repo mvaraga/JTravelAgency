@@ -185,11 +185,6 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
-    public void setDeletedStatusToCustomer(CustomerDTO customerDTO) {
-        customerService.setDeletedStatus(customerDTO);
-    }
-
-    @Override
     public List<TripDTO> findTripsByDateRange(DateTime from, DateTime to) {
         return tripService.findAllByDateRange(from, to);
     }

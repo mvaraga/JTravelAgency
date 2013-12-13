@@ -42,14 +42,13 @@
             function sendText() {
                 var firstname = $('#first_name').val();
                 var lastname = $('#last_name').val();
-                var status = $('#status').val();
 
                 $.ajax({
                     type: 'POST',
                     contentType: 'application/json; charset=utf-8',
                     dataType: "json",
                     url: "http://localhost:8080/pa165/webresources/customers/",
-                    data: JSON.stringify({'firstName': firstname, 'lastName': lastname, 'status': status}),
+                    data: JSON.stringify({'firstName': firstname, 'lastName': lastname}),
                     success: function(data) {
                         console.log('got ' + data);
                     },
@@ -89,7 +88,6 @@
             function updateCustomer() {
                 var firstname = $('#first_name').val();
                 var lastname = $('#last_name').val();
-                var status = $('#status').val();
                 var updid = $('#up').attr("updid");
                 
                 $.ajax({
@@ -97,7 +95,7 @@
                     contentType: 'application/json; charset=utf-8',
                     dataType: "json",
                     url: "http://localhost:8080/pa165/webresources/customers/" + updid,
-                    data: JSON.stringify({'id' : updid, 'firstName': firstname, 'lastName': lastname, 'status': status}),
+                    data: JSON.stringify({'id' : updid, 'firstName': firstname, 'lastName': lastname}),
                     success: function(data) {
                         console.log('got ' + data);
                     },
@@ -115,7 +113,6 @@
         <div id="customers-table"></div>
         <label for="publish">First name:</label><input id="first_name" type="text" name="firstname" value="aaa" size="30"> </br>
         <label for="publish">Last name:</label><input id="last_name" type="text" name="lastname" value="aaa" size="30">
-        <label for="publish">Status: </label><input id="status" type="text" name="status" value="REGULAR" size="30">
         <button id="pub" onclick="sendText();">Publish</button>
         <button id="up" disabled="true" onclick="updateCustomer()">Update</button>
     </body>

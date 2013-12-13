@@ -84,13 +84,6 @@ public interface ServiceFacade {
     
     public void deleteReservation(ReservationDTO reservationDTO);
     
-    
-    /*
-     * 
-     */
-    public void setDeletedStatusToCustomer(CustomerDTO customerDTO);
-    
-    
     /*
      * 
      */

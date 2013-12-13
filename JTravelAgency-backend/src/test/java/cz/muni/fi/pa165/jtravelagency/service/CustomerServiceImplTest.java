@@ -4,7 +4,6 @@
  */
 package cz.muni.fi.pa165.jtravelagency.service;
 
-import cz.muni.fi.pa165.jtravelagency.dto.CustomerStatus;
 import cz.muni.fi.pa165.jtravelagency.dao.CustomerDAOImpl;
 import cz.muni.fi.pa165.jtravelagency.dto.CustomerDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.ReservationDTO;
@@ -120,23 +119,10 @@ public class CustomerServiceImplTest extends TestCase {
         assertDeepEquals(EntityToDTOList(expected), returned);
     }
 
-    /**
-     * Test of setDeletedStatus method, of class CustomerServiceImpl.
-     */
-    @Test
-    public void testSetDeletedStatus() {
-        CustomerDTO customerDTO = newCustomerDTO();
-        customerService.setDeletedStatus(customerDTO);
-        
-        verify(customerDAO).setDeletedStatus(DTOAndEntityMapper.dtoToEntity(customerDTO, Customer.class));
-        verifyNoMoreInteractions(customerDAO);
-    }
-
     private CustomerDTO newCustomerDTO() {
         CustomerDTO customer = new CustomerDTO();
         customer.setFirstName("John");
         customer.setLastName("Doe");
-        customer.setStatus(CustomerStatus.REGULAR);
         List<ReservationDTO> reservations = new ArrayList<ReservationDTO>();
         reservations.add(new ReservationDTO());
         reservations.add(new ReservationDTO());
@@ -148,7 +134,6 @@ public class CustomerServiceImplTest extends TestCase {
         Customer customer = new Customer();
         customer.setFirstName("John");
         customer.setLastName("Deo");
-        customer.setStatus(CustomerStatus.REGULAR);
         List<Reservation> reservations = new ArrayList<Reservation>();
         reservations.add(new Reservation());
         reservations.add(new Reservation());
@@ -160,7 +145,6 @@ public class CustomerServiceImplTest extends TestCase {
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getFirstName(), actual.getFirstName());
         assertEquals(expected.getLastName(), actual.getLastName());
-        assertEquals(expected.getStatus(), actual.getStatus());
         assertEquals(expected.getReservations().size(), actual.getReservations().size());
     }
     

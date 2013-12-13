@@ -4,7 +4,6 @@
  */
 package cz.muni.fi.pa165.jtravelagency.entity;
 
-import cz.muni.fi.pa165.jtravelagency.dto.CustomerStatus;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -37,16 +36,12 @@ public class Customer implements Serializable {
     @Column(name = "last_name")
     private String lastName;
     
-    @Enumerated(EnumType.STRING)
-    @Column(length = 10, nullable = false)
-    private CustomerStatus status;
     
     @OneToMany(mappedBy = "customer")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Reservation> reservations;
 
     public Customer() {
-        status = CustomerStatus.REGULAR;
     }
 
     /**
@@ -97,13 +92,6 @@ public class Customer implements Serializable {
         return hash;
     }
 
-    public CustomerStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(CustomerStatus status) {
-        this.status = status;
-    }
 
     public List<Reservation> getReservations() {
         return reservations;
@@ -131,7 +119,7 @@ public class Customer implements Serializable {
     @Override
     public String toString() {
         return "Customer{" + "id=" + id + ", firstName=" + firstName
-                + ", lastName=" + lastName + ", status=" + status;
+                + ", lastName=" + lastName;
                // + ", count of reservations=" + reservations.size() + '}';
     }
 }

@@ -6,7 +6,6 @@
 package cz.muni.fi.pa165.jtravelagency;
 
 import cz.muni.fi.pa165.jtravelagency.dto.CustomerDTO;
-import cz.muni.fi.pa165.jtravelagency.dto.CustomerStatus;
 import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
@@ -98,7 +97,6 @@ public class App {
         customer.setFirstName("first name");
         customer.setLastName("last name");
         customer.setReservations(new ArrayList<Reservation>());
-        customer.setStatus(CustomerStatus.REGULAR);
         return customer;
     }
 }

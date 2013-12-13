@@ -40,11 +40,4 @@ public interface CustomerService {
      * Gets all customers from database.
      */
     List<CustomerDTO> getAll();
-    
-    /*
-     * Set status to deleted
-     * @param customer customer to set status
-     */
-    void setDeletedStatus(CustomerDTO customer);
-    
 }

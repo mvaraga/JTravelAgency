@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.jtravelagency;
 
-import cz.muni.fi.pa165.jtravelagency.dto.CustomerStatus;
 import cz.muni.fi.pa165.jtravelagency.entity.Customer;
 import cz.muni.fi.pa165.jtravelagency.entity.Reservation;
 import java.util.ArrayList;
@@ -54,7 +53,6 @@ public class CustomerDAOImplTest extends TestCase {
         assertNotNull(customerDAOImpl.getCustomer(customer.getId()));
         assertEquals("Meno1", customerDAOImpl.getCustomer(customer.getId()).getFirstName());
         assertEquals("Priezvisko1", customerDAOImpl.getCustomer(customer.getId()).getLastName());
-        assertEquals(customer.getStatus(), customerDAOImpl.getCustomer(customer.getId()).getStatus());
         assertDeepEquals(customer.getReservations(), customerDAOImpl.getCustomer(customer.getId()).getReservations());
     }
 
@@ -70,7 +68,6 @@ public class CustomerDAOImplTest extends TestCase {
         assertEquals(customer, result);
         assertEquals(customer.getFirstName(), result.getFirstName());
         assertEquals(customer.getLastName(), result.getLastName());
-        assertEquals(customer.getStatus(), customerDAOImpl.getCustomer(customer.getId()).getStatus());
         assertDeepEquals(customer.getReservations(), customerDAOImpl.getCustomer(customer.getId()).getReservations());
     }
     
@@ -105,7 +102,6 @@ public class CustomerDAOImplTest extends TestCase {
         em.getTransaction().commit();
         assertEquals("Menonove", customer.getFirstName());
         assertEquals("Priezvisko1", customer.getLastName());
-      assertEquals(customer.getStatus(), customerDAOImpl.getCustomer(customer.getId()).getStatus());
 //      assertDeepEquals(customer.getReservations(), customerDAOImpl.getCustomer(customer.getId()).getReservations());
         
       customer = customerDAOImpl.getCustomer(customer.getId());
@@ -190,25 +186,11 @@ public class CustomerDAOImplTest extends TestCase {
         assertTrue(result.contains(customer2));
     }
 
-    /**
-     * Test of setDeletedStatus method, of class CustomerDAO.
-     */
-    public void testSetDeletedStatus() {
-        System.out.println("setDeletedStatus");
-        Customer customer= newCustomer("Meno1", "Priezvisko1");
-        
-        em.getTransaction().begin();
-        customerDAOImpl.createCustomer(customer);
-        customerDAOImpl.setDeletedStatus(customer);
-        em.getTransaction().commit();
-        
-        assertEquals(customer.getStatus(), CustomerStatus.DELETED);
-    }
+
     
     private Customer newCustomer(String firstName, String lastName){
         Customer customer=new Customer();
         customer.setFirstName(firstName);
-        customer.setStatus(CustomerStatus.REGULAR);
         customer.setLastName(lastName);
         List<Reservation> reservations=new ArrayList<Reservation>();
         reservations.add(new Reservation());

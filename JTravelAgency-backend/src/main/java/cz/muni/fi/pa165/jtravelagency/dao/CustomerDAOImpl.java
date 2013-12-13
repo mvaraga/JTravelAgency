@@ -4,7 +4,6 @@
  */
 package cz.muni.fi.pa165.jtravelagency.dao;
 
-import cz.muni.fi.pa165.jtravelagency.dto.CustomerStatus;
 import cz.muni.fi.pa165.jtravelagency.entity.Customer;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -95,22 +94,11 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     // todo defenzivne???
-    @Override
-    public void setDeletedStatus(Customer customer) {
-//        Customer c = getCustomer(customer.getId());
-//        c.setStatus(CustomerStatus.DELETED);
-        customer.setStatus(CustomerStatus.DELETED);
-        updateCustomer(customer);
-        
-    }
-
     private void validateCustomer(Customer customer){
         if(customer.getFirstName()==null)
             throw new IllegalArgumentException("FirstName cannot be null");
         if(customer.getLastName()==null)
             throw new IllegalArgumentException("LastName cannot be null");
-        if(customer.getStatus()==null)
-            throw new IllegalArgumentException("Status cannot be null");
     }
     
 }
