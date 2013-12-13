@@ -14,68 +14,38 @@ import java.util.Objects;
 public class ReservationDTO {
     
     private Long id;
-    
-
     private CustomerDTO customer;
-    
- 
     private TripDTO trip;
-    
- 
     private List<ExcursionDTO> excursions;
 
-    /**
-     * @return the id
-     */
     public Long getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(Long id) {
         this.id = id;
     }
 
-    /**
-     * @return the customer
-     */
     public CustomerDTO getCustomer() {
         return customer;
     }
 
-    /**
-     * @param customer the customer to set
-     */
     public void setCustomer(CustomerDTO customer) {
         this.customer = customer;
     }
 
-    /**
-     * @return the trip
-     */
     public TripDTO getTrip() {
         return trip;
     }
 
-    /**
-     * @param trip the trip to set
-     */
     public void setTrip(TripDTO trip) {
         this.trip = trip;
     }
 
-    /**
-     * @return the excursions
-     */
     public List<ExcursionDTO> getExcursions() {
         return excursions;
     }
 
-    /**
-     * @param excursions the excursions to set
-     */
     public void setExcursions(List<ExcursionDTO> excursions) {
         this.excursions = excursions;
     }

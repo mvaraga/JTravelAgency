@@ -43,7 +43,6 @@ public class ExcursionDAOImpl implements ExcursionDAO {
        
         em.persist(excursion);
         em.flush();
-        //em.detach(excursion);
     }
 
     @Override
@@ -74,7 +73,6 @@ public class ExcursionDAOImpl implements ExcursionDAO {
         Excursion excursionToDelete = em.find(Excursion.class, excursion.getId());
         em.remove(excursionToDelete);
         em.flush();
-        //em.detach(excursion);
     }
 
     @Override

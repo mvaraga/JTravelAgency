@@ -39,7 +39,6 @@ public class CustomerFacade {
 
     private static ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
     private ServiceFacade facade = applicationContext.getBean("facade", ServiceFacade.class);
-    //private static List<CustomerDTO> customers = new ArrayList<>();
     private String _corsHeaders;
     @Context
     private UriInfo context;

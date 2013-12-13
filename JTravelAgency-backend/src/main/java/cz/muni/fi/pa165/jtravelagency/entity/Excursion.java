@@ -7,7 +7,6 @@ package cz.muni.fi.pa165.jtravelagency.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -75,7 +74,7 @@ public class Excursion implements Serializable {
     }
 
     /**
-     * @param date the date to set
+     * @param excursionDate the date to set
      */
     public void setExcursionDate(DateTime excursionDate) {
         this.excursionDate = excursionDate;

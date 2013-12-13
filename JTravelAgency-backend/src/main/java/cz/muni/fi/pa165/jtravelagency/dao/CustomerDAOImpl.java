@@ -83,7 +83,6 @@ public class CustomerDAOImpl implements CustomerDAO {
         Customer customerToDelete = em.find(Customer.class, customer.getId());
         em.remove(customerToDelete);
         em.flush();
-        //em.detach(em);
     }
 
     @Override
@@ -93,7 +92,6 @@ public class CustomerDAOImpl implements CustomerDAO {
         return query.getResultList();
     }
 
-    // todo defenzivne???
     private void validateCustomer(Customer customer){
         if(customer.getFirstName()==null)
             throw new IllegalArgumentException("FirstName cannot be null");

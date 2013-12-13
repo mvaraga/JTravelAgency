@@ -43,7 +43,6 @@ public class TripServiceImpl implements TripService {
         }
         validateTripDTO(tripDTO);
         Trip trip = DTOAndEntityMapper.dtoToEntity(tripDTO, Trip.class);
-        //Trip trip = DTOAndEntityMapper.dtoToEntity(tripDTO);
         tripDAO.createTrip(trip);
         tripDTO.setId(trip.getId());
     }
@@ -55,7 +54,6 @@ public class TripServiceImpl implements TripService {
         }
         Trip trip = tripDAO.getTrip(id);
         return DTOAndEntityMapper.entityToDto(trip, TripDTO.class);
-        //return DTOAndEntityMapper.entityToDto(trip);
     }
 
     @Override
@@ -68,7 +66,6 @@ public class TripServiceImpl implements TripService {
         }
         validateTripDTO(tripDTO);
         Trip trip = DTOAndEntityMapper.dtoToEntity(tripDTO, Trip.class);
-        //Trip trip = DTOAndEntityMapper.dtoToEntity(tripDTO);
         tripDAO.updateTrip(trip);
     }
 
@@ -82,7 +79,6 @@ public class TripServiceImpl implements TripService {
         }
         validateTripDTO(tripDTO);
         Trip trip = DTOAndEntityMapper.dtoToEntity(tripDTO, Trip.class);
-        //Trip trip = DTOAndEntityMapper.dtoToEntity(tripDTO);
         tripDAO.deleteTrip(trip);
     }
 
@@ -92,7 +88,6 @@ public class TripServiceImpl implements TripService {
         List<TripDTO> tripDTOs = new ArrayList<TripDTO>();
         for(Trip t : trips) {
             tripDTOs.add(DTOAndEntityMapper.entityToDto(t, TripDTO.class));
-            //tripDTOs.add(DTOAndEntityMapper.entityToDto(t));
         }
         return tripDTOs;
     }
@@ -109,7 +104,6 @@ public class TripServiceImpl implements TripService {
         List<TripDTO> tripDTOs = new ArrayList<TripDTO>();
         for(Trip t : trips) {
             tripDTOs.add(DTOAndEntityMapper.entityToDto(t, TripDTO.class));
-            //tripDTOs.add(DTOAndEntityMapper.entityToDto(t));
         }
         return tripDTOs;
     }
@@ -120,7 +114,6 @@ public class TripServiceImpl implements TripService {
         List<TripDTO> tripDTOs = new ArrayList<TripDTO>();
         for(Trip t : trips) {
             tripDTOs.add(DTOAndEntityMapper.entityToDto(t, TripDTO.class));
-            //tripDTOs.add(DTOAndEntityMapper.entityToDto(t));
         }
         return tripDTOs;
     }

@@ -31,10 +31,9 @@ import org.slf4j.LoggerFactory;
 public class CustomersActionBean extends BaseActionBean implements ValidationErrorHandler {
 final static Logger log = LoggerFactory.getLogger(CustomersActionBean.class);
 
-    @SpringBean //Spring can inject even to private and protected fields
+    @SpringBean
     protected ServiceFacade facade;
 
-    //--- part for showing a list of books ----
     private List<CustomerDTO> customers;
 
     @DefaultHandler
@@ -63,9 +62,7 @@ final static Logger log = LoggerFactory.getLogger(CustomersActionBean.class);
 
     @Override
     public Resolution handleValidationErrors(ValidationErrors errors) throws Exception {
-        //fill up the data for the table if validation errors occured
         customers = facade.getAllCustomers();
-        //return null to let the event handling continue
         return null;
     }
 
@@ -77,18 +74,13 @@ final static Logger log = LoggerFactory.getLogger(CustomersActionBean.class);
         this.customer = customer;
     }
 
-    //--- part for deleting a book ----
-
     public Resolution delete() {
         log.debug("delete({})", customer.getId());
-        //only id is filled by the form
         customer = facade.getCustomer(customer.getId());
         facade.deleteCustomer(customer);
         getContext().getMessages().add(new LocalizableMessage("customer.delete.message",escapeHTML(customer.getFirstName()),escapeHTML(customer.getLastName())));
         return new RedirectResolution(this.getClass(), "list");
     }
-
-    //--- part for editing a book ----
 
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save"})
     public void loadCustomerFromDatabase() {

@@ -16,8 +16,7 @@ import org.joda.time.DateTime;
  * @author jakub
  */
 public interface ServiceFacade {
-    
-    
+       
     /*
      * Create Methods
      */
@@ -26,9 +25,7 @@ public interface ServiceFacade {
     public void createTrip(TripDTO tripDTO);
     
     public void createExcursion(ExcursionDTO excursionDTO);
-    
-    
-    
+
     /*
      * Get Methods
      */
@@ -36,19 +33,10 @@ public interface ServiceFacade {
     
     public TripDTO getTrip(Long id);
     
-   // public List<ExcursionDTO> getExcursionsByTrip(TripDTO trip);
-    //treba pridat do servisnej
     public ExcursionDTO getExcursion(Long id);
     
     public ReservationDTO getReservation(Long id);
-    
-    public List<ReservationDTO> getReservationsByCustomer(CustomerDTO customerDTO);
-    
-    public List<ReservationDTO> getReservationByTrip(TripDTO tripDTO);
-    
-  
-
-    
+     
     /*
      * Get All Methods
      */
@@ -85,27 +73,9 @@ public interface ServiceFacade {
     public void deleteReservation(ReservationDTO reservationDTO);
     
     /*
-     * 
-     */
-    public List<TripDTO> findTripsByDateRange(DateTime from, DateTime to);
-    
-    /*
-     * 
-     */
-    public List<TripDTO> findTripsByDestination(String destination);
-    
-    
-    /*
-     * 
-     */
-    public void addExcursionToTrip(ExcursionDTO excursionDTO, TripDTO tripDTO);
-    
-    
-    /*
-     * 
+     * Make Reservation
      */
     public ReservationDTO makeReservation(CustomerDTO customerDTO, TripDTO tripDTO, List<ExcursionDTO> excursionDTOs);
-    
-    public void addExcursionToReservation(ExcursionDTO excursionDTO, ReservationDTO reservationDTO);
+
     
 }

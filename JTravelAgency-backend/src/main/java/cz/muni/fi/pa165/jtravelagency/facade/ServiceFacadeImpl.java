@@ -88,12 +88,6 @@ public class ServiceFacadeImpl implements ServiceFacade {
         return tripService.get(id);
     }
 
-    /**
-    public List<ExcursionDTO> getExcursionsByTrip(TripDTO trip) {
-        if ((trip==null)||(trip.getId()==null)) {throw new IllegalArgumentException();}
-        return excursionService.
-    }
-*/
     @Override
     public ExcursionDTO getExcursion(Long id) {
         if (id==null) {throw new IllegalArgumentException();}
@@ -105,20 +99,6 @@ public class ServiceFacadeImpl implements ServiceFacade {
         if (id==null) {throw new IllegalArgumentException();}
         return reservationService.get(id);
     }
-
-    @Override
-    public List<ReservationDTO> getReservationsByCustomer(CustomerDTO customerDTO) {
-        if ((customerDTO==null)||(customerDTO.getId()==null)) {throw new IllegalArgumentException();}
-        return reservationService.getByCustomer(customerDTO);
-    }
-
-    @Override
-    public List<ReservationDTO> getReservationByTrip(TripDTO tripDTO) {
-        if ((tripDTO==null)||(tripDTO.getId()==null)) {throw  new IllegalArgumentException();}
-        return reservationService.getByTrip(tripDTO);
-    }
-
-   
 
     @Override
     public List<CustomerDTO> getAllCustomers() {
@@ -185,30 +165,6 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
-    public List<TripDTO> findTripsByDateRange(DateTime from, DateTime to) {
-        return tripService.findAllByDateRange(from, to);
-    }
-
-    @Override
-    public List<TripDTO> findTripsByDestination(String destination) {
-        return tripService.findAllByDestination(destination);
-    }
-
-    @Override
-    @Transactional
-    public void addExcursionToTrip(ExcursionDTO excursionDTO, TripDTO tripDTO) {
-        if ((excursionDTO==null)||(excursionDTO.getId()==null)) {throw new IllegalArgumentException();}
-        if ((tripDTO==null)||(tripDTO.getId()==null)) {throw new IllegalArgumentException();}
-        
-        List<ExcursionDTO> excursionsDTO=new ArrayList<ExcursionDTO>();
-        excursionsDTO=tripDTO.getExcursions();
-        excursionsDTO.add(excursionDTO);
-        tripDTO.setExcursions(excursionsDTO);
-        
-        tripService.update(tripDTO);
-    }
-
-    @Override
     @Transactional
     public ReservationDTO makeReservation(CustomerDTO customerDTO, TripDTO tripDTO, List<ExcursionDTO> excursionDTOs) {
         
@@ -232,18 +188,4 @@ public class ServiceFacadeImpl implements ServiceFacade {
         
         return reservationDTO;
     }
-
-    @Override
-    @Transactional
-    public void addExcursionToReservation(ExcursionDTO excursionDTO, ReservationDTO reservationDTO) {
-        if ((excursionDTO==null)||(reservationDTO==null)) {throw new IllegalArgumentException();}
-        if ((excursionDTO.getId()==null)||(reservationDTO.getId()==null)) {throw new IllegalArgumentException();}
-        
-        List<ExcursionDTO> excursionDTOs=new ArrayList<ExcursionDTO>();
-        excursionDTOs=reservationDTO.getExcursions();
-        excursionDTOs.add(excursionDTO);
-        reservationDTO.setExcursions(excursionDTOs);
-        reservationService.update(reservationDTO);
-    }
-
 }

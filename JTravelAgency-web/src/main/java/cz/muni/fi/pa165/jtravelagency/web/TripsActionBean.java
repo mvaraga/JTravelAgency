@@ -37,10 +37,9 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
     
     final static String pattern = "dd.MM.yyyy HH:mm";
     
-    @SpringBean //Spring can inject even to private and protected fields
+    @SpringBean
     protected ServiceFacade facade;
 
-    //--- part for showing a list of trips ----
     private List<TripDTO> trips;
 
     @DefaultHandler
@@ -54,15 +53,12 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
         return trips;
     }
 
-    //--- part for adding a trip ----
     @ValidateNestedProperties(value = {
             @Validate(on = {"add", "save"}, field = "destination", required = true),
             @Validate(on = {"add", "save"}, field = "availableTrips", required = true)
     })
     private TripDTO trip;
-    //@Validate(on = {"add", "save"}, required = true, mask = "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2}) ([0-1]\\d|2[0-3]):[0-5]\\d")
     private String dateFrom;
-    //@Validate(on = {"add", "save"}, required = true, mask = "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2}) ([0-1]\\d|2[0-3]):[0-5]\\d")
     private String dateTo;    
 
     public Resolution add() {
@@ -76,9 +72,7 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
 
     @Override
     public Resolution handleValidationErrors(ValidationErrors errors) throws Exception {
-        //fill up the data for the table if validation errors occured
         trips = facade.getAllTrips();
-        //return null to let the event handling continue
         return null;
     }
 
@@ -106,7 +100,6 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
         this.dateTo = dateTo;
     }
     
-    //--- part for deleting a trip ----
 
     public Resolution delete() {
         log.debug("delete({})", trip.getId());
@@ -117,7 +110,6 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
         return new RedirectResolution(this.getClass(), "list");
     }
 
-    //--- part for editing a trip ----
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save"})
     public void loadTripFromDatabase() {
         String ids = getContext().getRequest().getParameter("trip.id");
@@ -140,7 +132,6 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
         return new RedirectResolution(this.getClass(), "list");
     }
     
-    //--- part for canceling a trip ----
     public Resolution cancel() {
         return new RedirectResolution(this.getClass(), "list");
     }

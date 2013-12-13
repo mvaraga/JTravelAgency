@@ -170,7 +170,6 @@ public class ReservationsActionBean extends BaseActionBean {
         this.customer = customer;
     }
 
-    //--- part for deleting a reservation ----
 
     public Resolution delete() {
         log.debug("delete({})", reservation.getId());
@@ -182,7 +181,6 @@ public class ReservationsActionBean extends BaseActionBean {
         return new RedirectResolution(this.getClass(), "list");
     }
 
-    //--- part for editing a book ----
 
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save"})
     public void loadReservationFromDatabase() {

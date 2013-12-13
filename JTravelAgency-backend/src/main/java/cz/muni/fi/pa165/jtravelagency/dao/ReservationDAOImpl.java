@@ -7,8 +7,6 @@ package cz.muni.fi.pa165.jtravelagency.dao;
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
 import cz.muni.fi.pa165.jtravelagency.entity.Reservation;
 import cz.muni.fi.pa165.jtravelagency.entity.Customer;
-import cz.muni.fi.pa165.jtravelagency.entity.Excursion;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -72,8 +70,6 @@ public class ReservationDAOImpl implements ReservationDAO {
         }
         Reservation reservationToDelete = em.find(Reservation.class, reservation.getId());
         em.remove(reservationToDelete);
-      //  em.flush();
-       // em.detach(reservation);
     }
 
     public List<Reservation> getAllReservations() {
@@ -107,11 +103,5 @@ public class ReservationDAOImpl implements ReservationDAO {
         if (reservation.getTrip() == null) {
             throw new IllegalArgumentException("Trip must be set");
         }
-//        if (reservation.getExcursions() == null) {
-//            throw new IllegalArgumentException("At least one excursion must be chosen");
-//        }
-
-        //teda spravime tu validaciu tak, ze aspon jedna exkurzia musi byt vybrata .. ci??
-        //RE: nemyslim si, ze je tam potrebne mat exkurziu (chcem ist na dovolenku pri more, ale nechcem ist na ziaden vylet, tak je to OK)
     }
 }

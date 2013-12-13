@@ -26,7 +26,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.UriInfo;
-import org.joda.time.LocalDateTime;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -40,7 +39,6 @@ public class TripFacade {
 
     private static ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
     private ServiceFacade facade = applicationContext.getBean("facade", ServiceFacade.class);
-    //private static List<TripDTO> trips = new ArrayList<>();
     private String _corsHeaders;
 
     private Response makeCORS(ResponseBuilder req, String returnMethod) {
@@ -61,11 +59,8 @@ public class TripFacade {
     private UriInfo context;
 
     public TripFacade() {
-        //trips.clear();
-//        List<TripDTO> trips = facade.getAllTrips();
-//        this.trips.addAll(trips);
+
     }
-//
 
     @GET
     @Produces("text/plain")
