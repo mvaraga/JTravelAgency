@@ -121,10 +121,12 @@ public class TripFacade {
     @POST
     @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response postJson(TripDTO tripResource) {
-        facade.createTrip(tripResource);
-        System.out.println("Created trip " + tripResource.getDateFrom());
-        return makeCORS(Response.created(URI.create(context.getAbsolutePath() + "/" + tripResource.getId())));
+    public Response postJson(TripResource tripResource) {
+        TripDTO trip = tripResource.toDto();
+        facade.createTrip(trip);
+        System.out.println("Created trip " + trip.getDateFrom());
+        System.out.println(tripResource);
+        return makeCORS(Response.created(URI.create(context.getAbsolutePath() + "/" + trip.getId())));
     }
 
     @OPTIONS
@@ -155,7 +157,8 @@ public class TripFacade {
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response putJson(@PathParam("id") Long id, TripDTO tripResource) {
+    public Response putJson(@PathParam("id") Long id, TripResource tripResource) {
+        TripDTO newTrip = tripResource.toDto();
 
         System.out.println("----  putting item ");
 
@@ -171,7 +174,7 @@ public class TripFacade {
             response = Response.noContent().build();
         }
 
-        facade.updateTrip(tripResource);
+        facade.updateTrip(newTrip);
 
         return response;
     }

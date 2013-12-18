@@ -2,24 +2,26 @@
 <html lang="en">
     <head>
         <title>Noticeboard</title>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
         <link rel="stylesheet" type="text/css" href="style.css" />
         <!-- load JQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-          <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+        <script src="jquery-ui-timepicker-addon.js"></script>
+
         <script>
 
 
-            
+
             $(document).ready(function() {
-                $("#dateFrom").datepicker();
-                $("#dateTo").datepicker();
+                $("#dateFrom").datetimepicker({ dateFormat: "dd.mm.yy" });
+                $("#dateTo").datetimepicker({ dateFormat: "dd.mm.yy" });
                 window.setInterval(updateBoard, 1000);
                 updateBoard();
             });
 
-    
+
 
 
             function updateBoard() {
@@ -41,7 +43,7 @@
                             <td id="availableTrips">' + data[i].availableTrips + '</td>\n\
                             <td id="dateFromOrig">' + new Date(data[i].dateFrom.millis).toLocaleString() + '</td>\n\
                             <td id="dateToOrig">' + new Date(data[i].dateTo.millis).toLocaleString() + '</td>\n\
-                            <td><button onclick="deleteTrip('+data[i].id+');">Delete</button></td>\n\
+                            <td><button onclick="deleteTrip(' + data[i].id + ');">Delete</button></td>\n\
                             <td><button onclick="startEdit(' + data[i].id + ')">Update</button></td>\n\
                             </tr>');
                         }
@@ -162,11 +164,11 @@
             </tr>
             <tr>
                 <td><label for="dateFrom">Date from:</label></td>
-                <td><input id="dateFrom" value="12/18/2013" type="text" size="20" /></td>
+                <td><input id="dateFrom" value="01.12.2013 09:00" type="text" size="20" /></td>
             </tr>
             <tr>
                 <td><label for="dateTo">Date to:</label></td>
-                <td><input id="dateTo" value="12/19/2013" type="text" size="20" /></td>
+                <td><input id="dateTo" value="02.12.2013 10:00" type="text" size="20" /></td>
             </tr>
         </table>
         <button id="pub" onclick="sendText();">Publish</button>
