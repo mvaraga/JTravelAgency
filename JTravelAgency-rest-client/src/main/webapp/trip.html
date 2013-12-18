@@ -108,7 +108,7 @@
             function updateTrip() {
                 var destination = $('input#destination').val();
                 var price = $('input#price').val();
-                var availableTrips = $("input#availableTrips").val();
+                var availableTrips = $("input#availableTrips_").val();
                 var dateFrom = $('input#dateFrom').val();
                 var dateTo = $('input#dateTo').val();
                 var updid = $('#up').attr("updid");
@@ -130,6 +130,7 @@
                     }
                 });
                 clearForm();
+                updateBoard();
             }
             function clearForm() {
                 $('#destination').val('');
