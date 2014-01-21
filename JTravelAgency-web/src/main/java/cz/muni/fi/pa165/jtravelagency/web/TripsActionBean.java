@@ -58,7 +58,9 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
             @Validate(on = {"add", "save"}, field = "availableTrips", required = true)
     })
     private TripDTO trip;
+    @Validate(on = {"add", "save"}, required = true)
     private String dateFrom;
+    @Validate(on = {"add", "save"}, required = true)
     private String dateTo;    
 
     public Resolution add() {

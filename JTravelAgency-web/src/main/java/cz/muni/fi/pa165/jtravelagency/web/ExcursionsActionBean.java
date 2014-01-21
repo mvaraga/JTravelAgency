@@ -65,6 +65,7 @@ public class ExcursionsActionBean extends BaseActionBean implements ValidationEr
             @Validate(on = {"add", "save"}, field = "price", required = true, minvalue = 0, mask = "(\\d+|\\d+\\.\\d{1,2})"),
     })
     private ExcursionDTO excursion;
+    @Validate(on = {"add", "save"}, required = true)
     private String date;
     @Validate(on = {"add", "save"}, required = true)
     private Long tripId; 
