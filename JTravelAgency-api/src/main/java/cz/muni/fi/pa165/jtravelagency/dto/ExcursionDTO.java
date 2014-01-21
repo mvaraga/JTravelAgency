@@ -6,6 +6,7 @@ package cz.muni.fi.pa165.jtravelagency.dto;
 
 
 import java.math.BigDecimal;
+import java.util.List;
 import org.joda.time.DateTime;
 
 /**
@@ -57,6 +58,11 @@ public class ExcursionDTO {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "ExcursionDTO{" + "id=" + id + ", excursionDate=" + excursionDate + ", description=" + description + ", price=" + price + ", trip=" + trip.getId() + '}';
     }
 
     @Override
