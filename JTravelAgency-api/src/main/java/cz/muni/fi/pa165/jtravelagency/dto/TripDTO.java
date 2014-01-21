@@ -5,6 +5,7 @@
 package cz.muni.fi.pa165.jtravelagency.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
 import org.joda.time.DateTime;
 
 /**
@@ -24,6 +25,16 @@ public class TripDTO {
     private int availableTrips;
 
     private BigDecimal price;
+    
+    private List<ExcursionDTO> excursions;
+
+    public List<ExcursionDTO> getExcursions() {
+        return excursions;
+    }
+
+    public void setExcursions(List<ExcursionDTO> excursions) {
+        this.excursions = excursions;
+    }
 
     public TripDTO() {
     }
@@ -100,7 +111,7 @@ public class TripDTO {
 
     @Override
     public String toString() {
-        return "TripDTO{" + "id=" + id + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo + ", destination=" + destination + ", availableTrips=" + availableTrips + ", price=" + price + '}';
+        return "TripDTO{" + "id=" + id + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo + ", destination=" + destination + ", availableTrips=" + availableTrips + ", price=" + price + ", excursions=" + excursions + '}';
     }
 
 }
