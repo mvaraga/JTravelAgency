@@ -74,11 +74,7 @@ public class ReservationDAOImpl implements ReservationDAO {
     public List<Reservation> getAllReservations() {
         TypedQuery<Reservation> query = em.createNamedQuery(
                 "getAllReservations", Reservation.class);
-        List<Reservation> reservations = (List<Reservation>) query.getResultList();
-        for(Reservation r : reservations) {
-            em.detach(r);
-        }
-        return reservations;
+        return (List<Reservation>) query.getResultList();
     }
 
     public List<Reservation> getReservationByTrip(Trip trip) {
