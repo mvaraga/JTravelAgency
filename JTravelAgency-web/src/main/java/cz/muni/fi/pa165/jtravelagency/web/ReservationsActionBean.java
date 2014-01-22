@@ -206,6 +206,11 @@ public class ReservationsActionBean extends BaseActionBean {
         log.debug("save() reservation={}", reservation);
         reservation.setCustomer(facade.getCustomer(customerId));
         reservation.setTrip(facade.getTrip(tripId));
+        List<ExcursionDTO> pomExcursions=new ArrayList<ExcursionDTO>();
+        for(int i=0;i<excursionsIds.size();i++){
+            pomExcursions.add(facade.getExcursion(excursionsIds.get(i)));
+        }
+        reservation.setExcursions(pomExcursions);
         facade.updateReservation(reservation);
         return new RedirectResolution(this.getClass(), "list");
     }
