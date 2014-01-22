@@ -5,16 +5,12 @@
 package cz.muni.fi.pa165.jtravelagency.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 /**
  *
@@ -35,9 +31,9 @@ public class Customer implements Serializable {
     private String lastName;
     
     
-    @OneToMany(mappedBy = "customer")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<Reservation> reservations;
+//    @OneToMany(mappedBy = "customer")
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    private List<Reservation> reservations;
 
     public Customer() {
     }
@@ -91,13 +87,13 @@ public class Customer implements Serializable {
     }
 
 
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
-    }
+//    public List<Reservation> getReservations() {
+//        return reservations;
+//    }
+//
+//    public void setReservations(List<Reservation> reservations) {
+//        this.reservations = reservations;
+//    }
 
     @Override
     public boolean equals(Object obj) {

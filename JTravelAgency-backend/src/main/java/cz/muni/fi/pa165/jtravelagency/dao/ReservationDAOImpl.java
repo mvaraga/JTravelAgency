@@ -24,7 +24,6 @@ public class ReservationDAOImpl implements ReservationDAO {
 
     @PersistenceContext(type= PersistenceContextType.EXTENDED)
     EntityManager em;
-    ExcursionDAOImpl excursionDao=new ExcursionDAOImpl();
 
     public ReservationDAOImpl() {
     }
@@ -75,8 +74,11 @@ public class ReservationDAOImpl implements ReservationDAO {
     public List<Reservation> getAllReservations() {
         TypedQuery<Reservation> query = em.createNamedQuery(
                 "getAllReservations", Reservation.class);
-      
-        return (List<Reservation>) query.getResultList();
+        List<Reservation> reservations = (List<Reservation>) query.getResultList();
+        for(Reservation r : reservations) {
+            em.detach(r);
+        }
+        return reservations;
     }
 
     public List<Reservation> getReservationByTrip(Trip trip) {

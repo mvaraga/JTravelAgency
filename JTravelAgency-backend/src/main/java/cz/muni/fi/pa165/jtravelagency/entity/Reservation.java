@@ -4,8 +4,11 @@
  */
 package cz.muni.fi.pa165.jtravelagency.entity;
 
+import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +29,7 @@ import javax.persistence.NamedQuery;
             query = "SELECT e FROM Reservation e WHERE e.trip.id = :trip"),
     @NamedQuery(name = "getReservationsByCustomer",
             query = "SELECT e FROM Reservation e WHERE e.customer.id = :customer"),})
-public class Reservation {
+public class Reservation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -38,7 +41,7 @@ public class Reservation {
     @ManyToOne
     private Trip trip;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Excursion> excursions;
 
     /**

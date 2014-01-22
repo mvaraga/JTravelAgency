@@ -134,10 +134,10 @@ public class CustomerServiceImplTest extends TestCase {
         Customer customer = new Customer();
         customer.setFirstName("John");
         customer.setLastName("Deo");
-        List<Reservation> reservations = new ArrayList<Reservation>();
-        reservations.add(new Reservation());
-        reservations.add(new Reservation());
-        customer.setReservations(reservations);
+//        List<Reservation> reservations = new ArrayList<Reservation>();
+//        reservations.add(new Reservation());
+//        reservations.add(new Reservation());
+//        customer.setReservations(reservations);
         return customer;
     }
 
@@ -145,7 +145,7 @@ public class CustomerServiceImplTest extends TestCase {
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getFirstName(), actual.getFirstName());
         assertEquals(expected.getLastName(), actual.getLastName());
-        assertEquals(expected.getReservations().size(), actual.getReservations().size());
+        //assertEquals(expected.getReservations().size(), actual.getReservations().size());
     }
     
     private void assertDeepEquals(List<CustomerDTO> expectedList, List<CustomerDTO> actualList) {
