@@ -82,7 +82,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         
         Customer customerToDelete = em.find(Customer.class, customer.getId());
         em.remove(customerToDelete);
-        em.flush();
+       // em.flush();
     }
 
     @Override

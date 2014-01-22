@@ -12,10 +12,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import org.hibernate.annotations.Cascade;
 
 /**
  *
@@ -27,6 +29,8 @@ import javax.persistence.NamedQuery;
             query = "SELECT e FROM Reservation e"),
     @NamedQuery(name = "getReservationsByTrip",
             query = "SELECT e FROM Reservation e WHERE e.trip.id = :trip"),
+  //  @NamedQuery(name = "getReservationsByExcursion",
+    //        query = "SELECT DISTINCT e FROM Reservation e, Reservation_excursion re WHERE e.id=re.reservation_id AND re.excursion_id=:excursion"),
     @NamedQuery(name = "getReservationsByCustomer",
             query = "SELECT e FROM Reservation e WHERE e.customer.id = :customer"),})
 public class Reservation implements Serializable {
@@ -42,6 +46,7 @@ public class Reservation implements Serializable {
     private Trip trip;
     
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "RESERVATION_EXCURSION")
     private List<Excursion> excursions;
 
     /**

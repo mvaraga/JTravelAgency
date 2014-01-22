@@ -80,7 +80,7 @@ public class TripDAOImpl implements TripDAO {
         
         Trip tripToDelete = em.find(Trip.class, trip.getId());
         em.remove(tripToDelete);
-        em.flush();       
+        //em.flush();       
     }
 
     @Override

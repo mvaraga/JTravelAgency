@@ -563,10 +563,10 @@ public class ServiceFacadeImplTest {
         CustomerDTO customer = new CustomerDTO();
         customer.setFirstName("John");
         customer.setLastName("Doe");
-        List<ReservationDTO> reservations = new ArrayList<ReservationDTO>();
-        reservations.add(new ReservationDTO());
-        reservations.add(new ReservationDTO());
-        customer.setReservations(reservations);
+//        List<ReservationDTO> reservations = new ArrayList<ReservationDTO>();
+//        reservations.add(new ReservationDTO());
+//        reservations.add(new ReservationDTO());
+//        customer.setReservations(reservations);
         return customer;
     }
     

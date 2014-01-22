@@ -14,6 +14,8 @@ import cz.muni.fi.pa165.jtravelagency.service.ReservationService;
 import cz.muni.fi.pa165.jtravelagency.service.TripService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -146,16 +148,26 @@ public class ServiceFacadeImpl implements ServiceFacade {
 
     @Override
     public void deleteCustomer(CustomerDTO customerDTO) {
+        for(ReservationDTO r: reservationService.getByCustomer(customerDTO)){
+            reservationService.delete(r);
+        }
         customerService.delete(customerDTO);
     }
 
     @Override
     public void deleteTrip(TripDTO tripDTO) {
+        for(ReservationDTO r : reservationService.getByTrip(tripDTO)){
+            reservationService.delete(r);
+        }
         tripService.delete(tripDTO);
     }
 
     @Override
     public void deleteExcursion(ExcursionDTO excursionDTO) {
+        for(ReservationDTO r : reservationService.getAll()){
+            r.getExcursions().remove(excursionDTO);
+            reservationService.update(r);
+        }
         excursionService.delete(excursionDTO);
     }
 
