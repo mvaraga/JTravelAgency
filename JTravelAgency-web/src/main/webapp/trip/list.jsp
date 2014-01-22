@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
+<%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 
 <s:layout-render name="/layout.jsp" titlekey="trip.list.title">
     <s:layout-component name="body">
@@ -24,8 +25,8 @@
                 <tr>
                     <td>${trip.id}</td>
                     <td><c:out value="${trip.destination}"/></td>
-                    <td><c:out value="${trip.dateFrom}"/></td>
-                    <td><c:out value="${trip.dateTo}"/></td>
+                    <td><joda:format value="${trip.dateFrom}" pattern="dd.MM.yyyy" /></td>
+                    <td><joda:format value="${trip.dateTo}" pattern="dd.MM.yyyy" /></td>
                     <td><c:out value="${trip.price}"/></td>        
                     <td><c:out value="${trip.availableTrips}"/></td>
                     <td>
