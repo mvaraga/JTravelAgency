@@ -60,8 +60,8 @@ public class ExcursionDAOImpl implements ExcursionDAO {
             throw new IllegalArgumentException("Id cannot be null.");
         }
         em.merge(excursion);
-        em.flush();
-        em.detach(excursion);
+        //em.flush();
+        //em.detach(excursion);
     }
 
     @Override

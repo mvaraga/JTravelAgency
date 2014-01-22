@@ -63,8 +63,8 @@ public class TripDAOImpl implements TripDAO {
         }
         validateTrip(trip);
         em.merge(trip);
-        em.flush();
-        em.detach(trip);
+        //em.flush();
+        //em.detach(trip);
     }
 
     @Override

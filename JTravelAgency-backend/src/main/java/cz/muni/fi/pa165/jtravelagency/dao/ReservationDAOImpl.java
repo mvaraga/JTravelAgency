@@ -51,8 +51,8 @@ public class ReservationDAOImpl implements ReservationDAO {
         }
 
         em.merge(reservation);
-        em.flush();
-        em.detach(reservation);
+        //em.flush();
+        //em.detach(reservation);
     }
 
     public Reservation getReservation(Long id) {

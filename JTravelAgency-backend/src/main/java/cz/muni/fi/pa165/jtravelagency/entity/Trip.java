@@ -58,7 +58,7 @@ public class Trip implements Serializable {
     @Column(name="available_trips")
     private int availableTrips;
     
-    @OneToMany(mappedBy="trip", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="trip")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Excursion> excursions;
 
