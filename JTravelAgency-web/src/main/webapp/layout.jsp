@@ -34,7 +34,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="/pa165/"><f:message key="index.welcome"/></a>
+                        <a class="navbar-brand" href="${pageContext.request.contextPath}"><f:message key="index.welcome"/></a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
@@ -42,15 +42,18 @@
                             <li class="nav-customer"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomersActionBean"><f:message key="index.customers.link"/></s:link></li>
                             <li class="nav-excursion"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ExcursionsActionBean"><f:message key="index.excursions.link"/></s:link></li>
                             <li class="nav-reservation"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean"><f:message key="index.reservations.link"/></s:link></li>
-                            <li><a href="/pa165/login.jsp">Login page - temporary</a></li>
+                                <li><a href="${pageContext.request.contextPath}/login.jsp">Login page - temporary</a></li>
                             </ul>
                         </div><!--/.nav-collapse -->
+                        <div class="navbar-right">
+                            <button type="submit" class="btn btn-success" onclick="window.location.href='${pageContext.request.contextPath}/j_spring_security_logout'">Logout</button>
+                        </div>
                     </div>
                 </div>
                 <div class="container">
-                <div id="notice"><s:messages/><s:errors/></div>
+                    <div id="notice"><s:messages/><s:errors/></div>
                 <s:layout-component name="body"/>
             </div>
-            </body>
-        </html>
+        </body>
+    </html>
 </s:layout-definition>
