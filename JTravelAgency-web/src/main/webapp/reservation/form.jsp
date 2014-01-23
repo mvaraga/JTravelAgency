@@ -1,35 +1,31 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
-<s:errors/>
+<script>$(window).on('load', function() {
+        $('.selectpicker').selectpicker();
+        $('#excursionsIds').attr('multiple');
+    });
+</script>
 <table>
     <tr>
         <th><s:label for="r1" name="reservation.customer"/></th>
-        
-                <td>
-            <s:select name="customerId">
+        <th><s:label for="r2" name="reservation.trip"/></th>
+        <th><s:label for="r3" name="reservation.excursions"/></th>
+    </tr>
+    <tr>
+        <td>
+            <s:select name="customerId" class="selectpicker">
                 <s:options-collection id="r1" collection="${actionBean.customers}" value="id" label="lastName"/>
             </s:select>
         </td>
-            
-    </tr>
-<tr>
-    <th><s:label for="r2" name="reservation.trip"/></th>
-                  
-         <td>
-    
-              <s:select name="tripId">
+        <td>
+            <s:select name="tripId" class="selectpicker">
                 <s:options-collection id="r2" collection="${actionBean.trips}" value="id" label="destination"/>
             </s:select>
         </td>
-   </tr>
-   <tr>
-       <th><s:label for="r3" name="reservation.excursions"/></th>
-       <td>
-               <s:select name="excursionsIds" multiple="true">
+        <td>
+            <s:select name="excursionsIds" multiple="true" class="selectpicker">
                 <s:options-collection id="r3" collection="${actionBean.excursions}" value="id" label="description"/>
-                   
-                
             </s:select>          
-       </td>
-   </tr>
+        </td>
+    </tr>
 </table>

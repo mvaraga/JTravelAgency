@@ -7,52 +7,55 @@
 <s:layout-render name="/layout.jsp" titlekey="reservation.list.title">
     <s:layout-component name="body">
         <s:useActionBean beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean" var="actionBean"/>
+        <script>
+            $(document).ready(function() {
+                $("li.nav-reservation").addClass("active");
+            });
+        </script>
+        <s:form beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean" class="new-form">
+            <fieldset><legend><f:message key="reservation.list.newreservation"/></legend>
+                <%@include file="form.jsp"%>
+                <div class="new-form-input">
+                    <s:submit name="add" class="btn btn-default"><f:message key="form.submit"/></s:submit>
+                    </div>
+                </fieldset>
+        </s:form>
 
-        <p><f:message key="reservation.list.allreservations"/></p>
-
-        <table class="basic">
+        <div class="block-title"><f:message key="reservation.list.allreservations"/></div>
+        <table class="table table-bordered table-striped">
             <tr>
                 <th>id</th>
                 <th><f:message key="reservation.customer"/></th>
                 <th><f:message key="reservation.trip"/></th>
                 <th><f:message key="reservation.excursions"/></th>
-                <th></th>
-                <th></th>
+                <th><f:message key="form.action"/></th>
             </tr>
             <c:forEach items="${actionBean.reservations}" var="reservation">
                 <tr>
                     <td>${reservation.id}</td>
                     <td>
                         <c:out value="${reservation.customer.firstName}"/>
-                <c:out value="${reservation.customer.lastName}"/>
+                        <c:out value="${reservation.customer.lastName}"/>
                     </td>
                     <td><c:out value="${reservation.trip.destination}"/></td>
                     <td>
                         <c:forEach items="${reservation.excursions}" var="excursion">
-                    <c:out value="${excursion.description}"/>
+                            <c:out value="${excursion.description}"/>
                         </c:forEach>
                     </td>
-
-
-                   <td>
-                     <s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean" event="edit">
-                         <s:param name="reservation.id" value="${reservation.id}"/>edit</s:link>
-                    </td> 
                     <td>
+                        <div class="list-action-edit">
+                            <s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean" event="edit" class="btn btn-default btn-sm">
+                                <s:param name="reservation.id" value="${reservation.id}"/><span class="glyphicon glyphicon-pencil"></span> <f:message key="form.edit"/>
+                            </s:link>
+                            </div>
                         <s:form beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean">
                             <s:hidden name="reservation.id" value="${reservation.id}"/>
-                            <s:submit name="delete"><f:message key="reservation.list.delete"/></s:submit>
+                            <button name="delete" type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span> <f:message key="form.delete"/></button>
                         </s:form>
                     </td>
                 </tr>
             </c:forEach>
         </table>
-
-        <s:form beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean">
-            <fieldset><legend><f:message key="reservation.list.newreservation"/></legend>
-                <%@include file="form.jsp"%>
-                <s:submit name="add"><f:message key="reservation.list.create"/></s:submit>
-            </fieldset>
-        </s:form>
     </s:layout-component>
 </s:layout-render>

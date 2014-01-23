@@ -15,8 +15,8 @@
             <fieldset><legend><f:message key="customer.edit.edit"/></legend>
                 <%@include file="form.jsp"%>
                 <div class="new-form-input">
-                    <s:submit name="save" class="btn btn-default"><f:message key="customer.edit.save"/></s:submit>
-                    <s:submit name="cancel" class="btn btn-default"><f:message key="customer.edit.cancel"/></s:submit>
+                    <s:submit name="save" class="btn btn-default"><f:message key="form.save"/></s:submit>
+                    <s:submit name="cancel" class="btn btn-default"><f:message key="form.cancel"/></s:submit>
                     </div>
                 </fieldset>
         </s:form>

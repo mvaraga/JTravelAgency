@@ -7,18 +7,29 @@
 <s:layout-render name="/layout.jsp" titlekey="excursion.list.title">
     <s:layout-component name="body">
         <s:useActionBean beanclass="cz.muni.fi.pa165.jtravelagency.web.ExcursionsActionBean" var="actionBean"/>
+        <script>
+            $(document).ready(function() {
+                $("li.nav-excursion").addClass("active");
+            });
+        </script>
+        <s:form beanclass="cz.muni.fi.pa165.jtravelagency.web.ExcursionsActionBean" class="new-form">
+            <fieldset><legend><f:message key="excursion.list.newexcursion"/></legend>
+                <%@include file="form.jsp"%>
+                <div class="new-form-input">
+                    <s:submit name="add" class="btn btn-default"><f:message key="form.submit"/></s:submit>
+                    </div>
+                </fieldset>
+        </s:form>
 
-        <p><f:message key="excursion.list.allexcursions"/></p>
-
-        <table class="basic">
+        <div class="block-title"><f:message key="excursion.list.allexcursions"/></div>
+        <table class="table table-bordered table-striped">
             <tr>
                 <th>id</th>
                 <th><f:message key="excursion.excursionDate"/></th>
                 <th><f:message key="excursion.description"/></th>
                 <th><f:message key="excursion.price"/></th>
                 <th><f:message key="excursion.trip"/></th>
-                <th></th>
-                <th></th>
+                <th><f:message key="form.action"/></th>
             </tr>
             <c:forEach items="${actionBean.excursions}" var="excursion">
                 <tr>
@@ -28,23 +39,18 @@
                     <td><c:out value="${excursion.price}"/></td>
                     <td><c:out value="${excursion.trip.destination}"/></td>
                     <td>
-                     <s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ExcursionsActionBean" event="edit"><s:param name="excursion.id" value="${excursion.id}"/>edit</s:link>
-                    </td>
-                    <td>
+                        <div class="list-action-edit">
+                            <s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ExcursionsActionBean" event="edit" class="btn btn-default btn-sm">
+                                <s:param name="excursion.id" value="${excursion.id}"/><span class="glyphicon glyphicon-pencil"></span> <f:message key="form.edit"/>
+                            </s:link>
+                        </div>
                         <s:form beanclass="cz.muni.fi.pa165.jtravelagency.web.ExcursionsActionBean">
                             <s:hidden name="excursion.id" value="${excursion.id}"/>
-                            <s:submit name="delete"><f:message key="excursion.list.delete"/></s:submit>
+                            <button name="delete" type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span> <f:message key="form.delete"/></button>
                         </s:form>
                     </td>
                 </tr>
             </c:forEach>
         </table>
-
-        <s:form beanclass="cz.muni.fi.pa165.jtravelagency.web.ExcursionsActionBean">
-            <fieldset><legend><f:message key="excursion.list.newexcursion"/></legend>
-                <%@include file="form.jsp"%>
-                <s:submit name="add"><f:message key="excursion.list.create"/></s:submit>
-            </fieldset>
-        </s:form>
     </s:layout-component>
 </s:layout-render>

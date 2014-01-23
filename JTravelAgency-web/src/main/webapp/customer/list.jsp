@@ -15,7 +15,7 @@
             <fieldset><legend><f:message key="customer.list.newcustomer"/></legend>
                 <%@include file="form.jsp"%>
                 <div class="new-form-input">
-                    <s:submit name="add" class="btn btn-default"><f:message key="customer.list.submit"/></s:submit>
+                    <s:submit name="add" class="btn btn-default"><f:message key="form.submit"/></s:submit>
                     </div>
                 </fieldset>
         </s:form>
@@ -26,8 +26,7 @@
                 <th>id</th>
                 <th><f:message key="customer.firstName"/></th>
                 <th><f:message key="customer.lastName"/></th>
-
-                <th><f:message key="customer.list.action"/></th>
+                <th><f:message key="form.action"/></th>
             </tr>
             <c:forEach items="${actionBean.customers}" var="customer">
                 <tr>
@@ -38,11 +37,11 @@
                     <td>
                         <div class="list-action-edit">
                             <s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomersActionBean" event="edit" class="btn btn-default btn-sm">
-                                <s:param name="customer.id" value="${customer.id}"/><span class="glyphicon glyphicon-pencil"></span> <f:message key="customer.list.action.edit"/></s:link>
+                                <s:param name="customer.id" value="${customer.id}"/><span class="glyphicon glyphicon-pencil"></span> <f:message key="form.edit"/></s:link>
                             </div>
                         <s:form beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomersActionBean">
                             <s:hidden name="customer.id" value="${customer.id}"/>
-                            <button name="delete" type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span> <f:message key="customer.list.action.delete"/></button>
+                            <button name="delete" type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span> <f:message key="form.delete"/></button>
                         </s:form>
                     </td>
                 </tr>

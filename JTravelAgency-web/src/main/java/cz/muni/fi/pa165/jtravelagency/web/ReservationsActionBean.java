@@ -131,7 +131,9 @@ public class ReservationsActionBean extends BaseActionBean {
         log.debug("list()");
         reservations = facade.getAllReservations();
         customers=facade.getAllCustomers();
-        
+        for(CustomerDTO c : customers) {
+            c.setLastName(c.getFirstName() + " " + c.getLastName());
+        }
         trips=facade.getAllTrips();
         
         excursions=facade.getAllExcursions();

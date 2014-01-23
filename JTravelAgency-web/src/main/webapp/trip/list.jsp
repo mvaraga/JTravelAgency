@@ -6,17 +6,17 @@
 
 <s:layout-render name="/layout.jsp" titlekey="trip.list.title">
     <s:layout-component name="body">
+        <s:useActionBean beanclass="cz.muni.fi.pa165.jtravelagency.web.TripsActionBean" var="actionBean"/>
         <script>
             $(document).ready(function() {
                 $("li.nav-trip").addClass("active");
             });
         </script>
-        <s:useActionBean beanclass="cz.muni.fi.pa165.jtravelagency.web.TripsActionBean" var="actionBean"/>
         <s:form beanclass="cz.muni.fi.pa165.jtravelagency.web.TripsActionBean" class="new-form">
             <fieldset><legend><f:message key="trip.list.newtrip"/></legend>
                 <%@include file="form.jsp"%>
                 <div class="new-form-input">
-                    <s:submit name="add" class="btn btn-default"><f:message key="trip.list.submit"/></s:submit>
+                    <s:submit name="add" class="btn btn-default"><f:message key="form.submit"/></s:submit>
                     </div>
                 </fieldset>
         </s:form>
@@ -31,7 +31,7 @@
                 <th><f:message key="trip.date_to"/></th>
                 <th><f:message key="trip.price"/></th>
                 <th><f:message key="trip.available_trips"/></th>
-                <th><f:message key="customer.list.action"/></th>
+                <th><f:message key="form.action"/></th>
             </tr>
             <c:forEach items="${actionBean.trips}" var="trip">
                 <tr>
@@ -44,11 +44,11 @@
                     <td>
                         <div class="list-action-edit">
                             <s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.TripsActionBean" event="edit" class="btn btn-default btn-sm">
-                                <s:param name="trip.id" value="${trip.id}"/><span class="glyphicon glyphicon-pencil"></span> <f:message key="trip.list.action.edit"/></s:link>
+                                <s:param name="trip.id" value="${trip.id}"/><span class="glyphicon glyphicon-pencil"></span> <f:message key="form.edit"/></s:link>
                             </div>
                         <s:form beanclass="cz.muni.fi.pa165.jtravelagency.web.TripsActionBean">
                             <s:hidden name="trip.id" value="${trip.id}"/>
-                            <button name="delete" type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span> <f:message key="trip.list.action.delete"/></button>
+                            <button name="delete" type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span> <f:message key="form.delete"/></button>
                         </s:form>
                     </td>
                 </tr>

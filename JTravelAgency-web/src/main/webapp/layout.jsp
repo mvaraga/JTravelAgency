@@ -7,13 +7,15 @@
     <html lang="${pageContext.request.locale}">
         <head>
             <title><f:message key="${titlekey}"/></title>
-            <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-            <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-            <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui.css" />
+            <script src="${pageContext.request.contextPath}/js/jquery-1.9.1.js"></script>
+            <script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
             <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
             <script src="${pageContext.request.contextPath}/js/jquery-ui-timepicker-addon.js"></script>
+            <script src="${pageContext.request.contextPath}/js/bootstrap-select.min.js"></script>
             <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
             <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.css" />
+            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-select.css" />
             <script>
                 $(function() {
                     $("#datepicker").datetimepicker({dateFormat: "dd.mm.yy"});
