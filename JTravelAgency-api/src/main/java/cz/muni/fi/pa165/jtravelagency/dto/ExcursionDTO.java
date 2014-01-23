@@ -62,7 +62,7 @@ public class ExcursionDTO {
 
     @Override
     public String toString() {
-        return "ExcursionDTO{" + "id=" + id + ", excursionDate=" + excursionDate + ", description=" + description + ", price=" + price + ", trip=" + trip.getId() + '}';
+        return "ExcursionDTO{" + "id=" + id + ", excursionDate=" + excursionDate + ", description=" + description + ", price=" + price + "}";
     }
 
     @Override
