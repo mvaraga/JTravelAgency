@@ -7,6 +7,7 @@ package cz.muni.fi.pa165.jtravelagency.web;
 import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
 import cz.muni.fi.pa165.jtravelagency.facade.ServiceFacade;
+import static cz.muni.fi.pa165.jtravelagency.web.BaseActionBean.escapeHTML;
 import java.util.List;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -141,6 +142,7 @@ public class ExcursionsActionBean extends BaseActionBean implements ValidationEr
         excursion.setExcursionDate(DateTime.parse(date, DateTimeFormat.forPattern(pattern)));
         excursion.setTrip(facade.getTrip(tripId));
         facade.updateExcursion(excursion);
+        getContext().getMessages().add(new LocalizableMessage("excursion.update.message",escapeHTML(excursion.getDescription())));
         return new RedirectResolution(this.getClass(), "list");
     }
     

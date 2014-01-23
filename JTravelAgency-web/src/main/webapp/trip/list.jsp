@@ -4,7 +4,7 @@
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 
-<s:layout-render name="/layout.jsp" titlekey="trip.list.title">
+<s:layout-render name="/layout.jsp" titlekey="index.trips.link">
     <s:layout-component name="body">
         <s:useActionBean beanclass="cz.muni.fi.pa165.jtravelagency.web.TripsActionBean" var="actionBean"/>
         <script>

@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
-<s:layout-render name="/layout.jsp" titlekey="excursion.edit.title">
+<s:layout-render name="/layout.jsp" titlekey="excursion.edit.edit">
     <s:layout-component name="body">
         <s:useActionBean beanclass="cz.muni.fi.pa165.jtravelagency.web.ExcursionsActionBean" var="actionBean"/>
         <script>
@@ -16,7 +16,7 @@
                 <%@include file="form.jsp"%>
                 <div class="new-form-input">
                     <s:submit name="save" class="btn btn-default"><f:message key="form.save"/></s:submit>
-                    <s:submit name="cancel" class="btn btn-default"><f:message key="form    .cancel"/></s:submit>
+                    <s:submit name="cancel" class="btn btn-default"><f:message key="form.cancel"/></s:submit>
                     </div>
                 </fieldset>
         </s:form>

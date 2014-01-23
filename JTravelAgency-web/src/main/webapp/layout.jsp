@@ -34,11 +34,10 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="/pa165/">Welcome</a>
+                        <a class="navbar-brand" href="/pa165/"><f:message key="index.welcome"/></a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <!--<li class="active"><a href="#">Home</a></li>-->
                             <li class="nav-trip"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.TripsActionBean"><f:message key="index.trips.link"/></s:link></li>
                             <li class="nav-customer"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomersActionBean"><f:message key="index.customers.link"/></s:link></li>
                             <li class="nav-excursion"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ExcursionsActionBean"><f:message key="index.excursions.link"/></s:link></li>
@@ -48,15 +47,6 @@
                         </div><!--/.nav-collapse -->
                     </div>
                 </div>
-            <!--<h1><f:message key="${titlekey}"/></h1>
-            <div id="navigation">
-                <ul class="nav nav-pills nav-stacked">
-                    <li><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.TripsActionBean"><f:message key="index.trips.link"/></s:link></li>
-                    <li><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomersActionBean"><f:message key="index.customers.link"/></s:link></li>
-                    <li><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ExcursionsActionBean"><f:message key="index.excursions.link"/></s:link></li>
-                    <li><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean"><f:message key="index.reservations.link"/></s:link></li>
-                    </ul>
-                </div>-->
                 <div class="container">
                 <div id="notice"><s:messages/><s:errors/></div>
                 <s:layout-component name="body"/>

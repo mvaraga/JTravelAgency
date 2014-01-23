@@ -4,7 +4,7 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
-<s:layout-render name="/layout.jsp" titlekey="reservation.list.title">
+<s:layout-render name="/layout.jsp" titlekey="index.reservations.link">
     <s:layout-component name="body">
         <s:useActionBean beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean" var="actionBean"/>
         <script>
@@ -40,7 +40,7 @@
                     <td><c:out value="${reservation.trip.destination}"/></td>
                     <td>
                         <c:forEach items="${reservation.excursions}" var="excursion">
-                            <c:out value="${excursion.description}"/>
+                            <c:out value="${excursion.description}, "/>
                         </c:forEach>
                     </td>
                     <td>

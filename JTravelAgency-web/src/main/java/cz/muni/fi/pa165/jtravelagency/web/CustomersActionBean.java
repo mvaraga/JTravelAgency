@@ -6,6 +6,7 @@ package cz.muni.fi.pa165.jtravelagency.web;
 
 import cz.muni.fi.pa165.jtravelagency.dto.CustomerDTO;
 import cz.muni.fi.pa165.jtravelagency.facade.ServiceFacade;
+import static cz.muni.fi.pa165.jtravelagency.web.BaseActionBean.escapeHTML;
 import java.util.List;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -97,6 +98,7 @@ final static Logger log = LoggerFactory.getLogger(CustomersActionBean.class);
     public Resolution save() {
         log.debug("save() customer={}", customer);
         facade.updateCustomer(customer);
+        getContext().getMessages().add(new LocalizableMessage("customer.update.message",escapeHTML(customer.getFirstName()),escapeHTML(customer.getLastName())));
         return new RedirectResolution(this.getClass(), "list");
     }
     

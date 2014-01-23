@@ -3,6 +3,16 @@
 <script>$(window).on('load', function() {
         $('.selectpicker').selectpicker();
         $('#excursionsIds').attr('multiple');
+        var lang = $("html").attr("lang");
+        if (lang == "sk") {
+            $('.selectpicker-mult').selectpicker({
+                title: 'Vybrať exkurzie...',
+            });
+        } else {
+            $('.selectpicker-mult').selectpicker({
+                title: 'Select excursions...',
+            });
+        }
     });
 </script>
 <table>
@@ -23,7 +33,7 @@
             </s:select>
         </td>
         <td>
-            <s:select name="excursionsIds" multiple="true" class="selectpicker">
+            <s:select name="excursionsIds" multiple="true" class="selectpicker-mult">
                 <s:options-collection id="r3" collection="${actionBean.excursions}" value="id" label="description"/>
             </s:select>          
         </td>

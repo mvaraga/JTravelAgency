@@ -9,6 +9,7 @@ import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
 import cz.muni.fi.pa165.jtravelagency.facade.ServiceFacade;
+import static cz.muni.fi.pa165.jtravelagency.web.BaseActionBean.escapeHTML;
 import static cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean.log;
 import java.util.ArrayList;
 
@@ -214,6 +215,7 @@ public class ReservationsActionBean extends BaseActionBean {
         }
         reservation.setExcursions(pomExcursions);
         facade.updateReservation(reservation);
+        getContext().getMessages().add(new LocalizableMessage("reservation.update.message",escapeHTML(reservation.getId().toString())));
         return new RedirectResolution(this.getClass(), "list");
     }
     

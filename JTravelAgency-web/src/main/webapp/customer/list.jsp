@@ -3,7 +3,7 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
-<s:layout-render name="/layout.jsp" titlekey="customer.list.title">
+<s:layout-render name="/layout.jsp" titlekey="index.customers.link">
     <s:layout-component name="body">
         <s:useActionBean beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomersActionBean" var="actionBean"/>
         <script>

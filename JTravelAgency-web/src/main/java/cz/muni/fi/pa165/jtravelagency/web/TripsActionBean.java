@@ -6,6 +6,7 @@ package cz.muni.fi.pa165.jtravelagency.web;
 
 import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
 import cz.muni.fi.pa165.jtravelagency.facade.ServiceFacade;
+import static cz.muni.fi.pa165.jtravelagency.web.BaseActionBean.escapeHTML;
 import static cz.muni.fi.pa165.jtravelagency.web.ExcursionsActionBean.pattern;
 import java.util.List;
 import net.sourceforge.stripes.action.Before;
@@ -132,6 +133,7 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
         trip.setDateFrom(DateTime.parse(dateFrom, DateTimeFormat.forPattern(pattern)));
         trip.setDateTo(DateTime.parse(dateTo, DateTimeFormat.forPattern(pattern)));
         facade.updateTrip(trip);
+        getContext().getMessages().add(new LocalizableMessage("trip.update.message",escapeHTML(trip.getDestination())));
         return new RedirectResolution(this.getClass(), "list");
     }
     
