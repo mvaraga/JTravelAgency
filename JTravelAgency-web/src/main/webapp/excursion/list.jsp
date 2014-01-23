@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
+<%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 
 <s:layout-render name="/layout.jsp" titlekey="excursion.list.title">
     <s:layout-component name="body">
@@ -22,7 +23,7 @@
             <c:forEach items="${actionBean.excursions}" var="excursion">
                 <tr>
                     <td>${excursion.id}</td>
-                    <td><c:out value="${excursion.excursionDate}"/></td>
+                    <td><joda:format value="${excursion.excursionDate}" pattern="dd.MM.yyyy HH:mm" /></td>
                     <td><c:out value="${excursion.description}"/></td>
                     <td><c:out value="${excursion.price}"/></td>
                     <td><c:out value="${excursion.trip.destination}"/></td>

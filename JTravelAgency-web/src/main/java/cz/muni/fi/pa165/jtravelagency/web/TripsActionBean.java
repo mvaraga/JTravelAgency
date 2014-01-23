@@ -55,6 +55,7 @@ public class TripsActionBean extends BaseActionBean implements ValidationErrorHa
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"add", "save"}, field = "destination", required = true),
+            @Validate(on = {"add", "save"}, field = "price", required = true),
             @Validate(on = {"add", "save"}, field = "availableTrips", required = true)
     })
     private TripDTO trip;
