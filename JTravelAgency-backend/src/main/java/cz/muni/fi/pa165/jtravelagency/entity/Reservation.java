@@ -45,7 +45,7 @@ public class Reservation implements Serializable {
     @ManyToOne
     private Trip trip;
     
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany//(fetch = FetchType.EAGER)
     @JoinTable(name = "RESERVATION_EXCURSION")
     private List<Excursion> excursions;
 

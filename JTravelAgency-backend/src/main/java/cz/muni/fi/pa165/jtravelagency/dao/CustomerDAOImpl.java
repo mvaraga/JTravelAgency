@@ -65,8 +65,8 @@ public class CustomerDAOImpl implements CustomerDAO {
         validateCustomer(customer);
 
         em.merge(customer);
-        em.flush();
-        em.detach(customer);
+        //em.flush();
+        //em.detach(customer);
     }
 
     @Override

@@ -26,15 +26,15 @@ public class TripDTO {
 
     private BigDecimal price;
     
-    private List<ExcursionDTO> excursions;
-
-    public List<ExcursionDTO> getExcursions() {
-        return excursions;
-    }
-
-    public void setExcursions(List<ExcursionDTO> excursions) {
-        this.excursions = excursions;
-    }
+//    private List<ExcursionDTO> excursions;
+//
+//    public List<ExcursionDTO> getExcursions() {
+//        return excursions;
+//    }
+//
+//    public void setExcursions(List<ExcursionDTO> excursions) {
+//        this.excursions = excursions;
+//    }
 
     public TripDTO() {
     }
@@ -111,7 +111,7 @@ public class TripDTO {
 
     @Override
     public String toString() {
-        return "TripDTO{" + "id=" + id + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo + ", destination=" + destination + ", availableTrips=" + availableTrips + ", price=" + price + ", excursions=" + excursions + '}';
+        return "TripDTO{" + "id=" + id + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo + ", destination=" + destination + ", availableTrips=" + availableTrips + ", price=" + price + "}";
     }
 
 }

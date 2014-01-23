@@ -17,7 +17,6 @@ public class CustomerDTO {
     private Long id;
     private String firstName;
     private String lastName;
-    private List<ReservationDTO> reservations;
 
     public CustomerDTO() {
     }
@@ -46,14 +45,6 @@ public class CustomerDTO {
         this.lastName = lastName;
     }
 
-    public List<ReservationDTO> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(List<ReservationDTO> reservations) {
-        this.reservations = reservations;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
@@ -78,7 +69,7 @@ public class CustomerDTO {
 
     @Override
     public String toString() {
-        return "CustomerDTO{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", reservations=" + reservations + '}';
+        return "CustomerDTO{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "}";
     }
     
 }
