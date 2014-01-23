@@ -3,6 +3,7 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
+
 <s:layout-render name="/layout.jsp" titlekey="index.customers.link">
     <s:layout-component name="body">
         <s:useActionBean beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomersActionBean" var="actionBean"/>
@@ -35,14 +36,21 @@
                     <td><c:out value="${customer.lastName}"/></td>
 
                     <td>
+                       
                         <div class="list-action-edit">
+                            
+                             
                             <s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomersActionBean" event="edit" class="btn btn-default btn-sm">
-                                <s:param name="customer.id" value="${customer.id}"/><span class="glyphicon glyphicon-pencil"></span> <f:message key="form.edit"/></s:link>
+                                
+                               
+                              <s:param name="customer.id" value="${customer.id}"/><span class="glyphicon glyphicon-pencil"></span> <f:message key="form.edit"/></s:link>
+                              
                             </div>
                         <s:form beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomersActionBean">
                             <s:hidden name="customer.id" value="${customer.id}"/>
                             <button name="delete" type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span> <f:message key="form.delete"/></button>
                         </s:form>
+                            
                     </td>
                 </tr>
             </c:forEach>
