@@ -35,7 +35,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="/pa165/"><f:message key="index.welcome"/></a>
+                        <a class="navbar-brand" href="${pageContext.request.contextPath}"><f:message key="index.welcome"/></a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
@@ -48,12 +48,15 @@
                             </sec:authorize>
                             </ul>
                         </div><!--/.nav-collapse -->
+                        <div class="navbar-right">
+                            <button type="submit" class="btn btn-success" onclick="window.location.href='${pageContext.request.contextPath}/j_spring_security_logout'">Logout</button>
+                        </div>
                     </div>
                 </div>
                 <div class="container">
-                <div id="notice"><s:messages/><s:errors/></div>
+                    <div id="notice"><s:messages/><s:errors/></div>
                 <s:layout-component name="body"/>
             </div>
-            </body>
-        </html>
+        </body>
+    </html>
 </s:layout-definition>

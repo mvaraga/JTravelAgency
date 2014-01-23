@@ -4423,6 +4423,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
     height: auto !important;
     padding-bottom: 0;
     overflow: visible !important;
+    /*default*/
+    float: left;
   }
   .navbar-collapse.in {
     overflow-y: visible;
@@ -4590,6 +4592,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
   }
   .navbar-right {
     float: right !important;
+/*    default*/
+    padding-top: 8px;
   }
 }
 
