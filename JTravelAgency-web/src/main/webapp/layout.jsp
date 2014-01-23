@@ -2,6 +2,7 @@
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <s:layout-definition>
     <!DOCTYPE html>
     <html lang="${pageContext.request.locale}">
@@ -38,11 +39,13 @@
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
                             <li class="nav-trip"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.TripsActionBean"><f:message key="index.trips.link"/></s:link></li>
                             <li class="nav-customer"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomersActionBean"><f:message key="index.customers.link"/></s:link></li>
                             <li class="nav-excursion"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ExcursionsActionBean"><f:message key="index.excursions.link"/></s:link></li>
                             <li class="nav-reservation"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean"><f:message key="index.reservations.link"/></s:link></li>
-                                <li><a href="${pageContext.request.contextPath}/login.jsp">Login page - temporary</a></li>
+                            <li><a href="/pa165/login.jsp">Login page - temporary</a></li>
+                            </sec:authorize>
                             </ul>
                         </div><!--/.nav-collapse -->
                         <div class="navbar-right">
