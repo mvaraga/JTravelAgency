@@ -9,9 +9,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
-
 
 /**
  *
@@ -19,35 +19,36 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
-    
+
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
     public CustomerDAOImpl() {
     }
-    
+
     public CustomerDAOImpl(EntityManager em) {
-        if(em==null)
+        if (em == null) {
             throw new IllegalArgumentException("Entity manager cannot be null");
+        }
         this.em = em;
     }
 
     @Override
     public void createCustomer(Customer customer) {
-        if(customer == null) {
+        if (customer == null) {
             throw new IllegalArgumentException("Customer cannot be null");
         }
-        if(customer.getId() != null) {
+        if (customer.getId() != null) {
             throw new IllegalArgumentException("Id has to be null");
         }
-        
+
         validateCustomer(customer);
         em.persist(customer);
     }
-    
+
     @Override
     public Customer getCustomer(Long id) {
-        if(id==null) {
+        if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
         return em.find(Customer.class, id);
@@ -55,13 +56,13 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public void updateCustomer(Customer customer) {
-        if(customer==null){
+        if (customer == null) {
             throw new IllegalArgumentException("Customer cannot be null");
         }
-        if(customer.getId()==null){
+        if (customer.getId() == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
-            
+
         validateCustomer(customer);
 
         em.merge(customer);
@@ -71,18 +72,18 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public void deleteCustomer(Customer customer) {
-        if(customer==null){
+        if (customer == null) {
             throw new IllegalArgumentException("Customer cannot be null");
         }
-        if(customer.getId()==null){
+        if (customer.getId() == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
-        
+
         validateCustomer(customer);
-        
+
         Customer customerToDelete = em.find(Customer.class, customer.getId());
         em.remove(customerToDelete);
-       // em.flush();
+        // em.flush();
     }
 
     @Override
@@ -92,11 +93,19 @@ public class CustomerDAOImpl implements CustomerDAO {
         return query.getResultList();
     }
 
-    private void validateCustomer(Customer customer){
-        if(customer.getFirstName()==null)
-            throw new IllegalArgumentException("FirstName cannot be null");
-        if(customer.getLastName()==null)
-            throw new IllegalArgumentException("LastName cannot be null");
+    @Override
+    public Customer findCustomerWithUsername(String username) {
+        Query query = em.createNamedQuery("findCustomerByUserName", Customer.class);
+        query.setParameter("name", username);
+        return (Customer) query.getSingleResult();
     }
-    
+
+    private void validateCustomer(Customer customer) {
+        if (customer.getFirstName() == null) {
+            throw new IllegalArgumentException("FirstName cannot be null");
+        }
+        if (customer.getLastName() == null) {
+            throw new IllegalArgumentException("LastName cannot be null");
+        }
+    }
 }

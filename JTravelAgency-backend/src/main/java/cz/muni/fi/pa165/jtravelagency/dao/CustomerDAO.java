@@ -42,4 +42,6 @@ public interface CustomerDAO {
      * Gets all customers from database.
      */
     List<Customer> getAllCustomers();
+    
+    Customer findCustomerWithUsername(String username);
 }
