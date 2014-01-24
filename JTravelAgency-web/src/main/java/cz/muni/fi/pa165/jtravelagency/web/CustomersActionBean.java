@@ -49,8 +49,10 @@ final static Logger log = LoggerFactory.getLogger(CustomersActionBean.class);
     }
 
     @ValidateNestedProperties(value = {
-            @Validate(on = {"add", "save"}, field = "firstName", required = true),
-            @Validate(on = {"add", "save"}, field = "lastName", required = true)
+            @Validate(on = {"add", "save"}, field = "userName", required = true),
+            @Validate(on = {"add", "save"}, field = "lastName", required = true),
+            @Validate(on = {"add", "save"}, field = "lastName", required = true),
+            @Validate(on = {"add", "save"}, field = "password", required = true),
     })
     private CustomerDTO customer;
 

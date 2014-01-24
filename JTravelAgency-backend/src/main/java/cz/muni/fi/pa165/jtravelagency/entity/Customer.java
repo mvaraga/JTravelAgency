@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 /**
@@ -17,27 +18,45 @@ import javax.persistence.NamedQuery;
  * @author Marian Varaga
  */
 @Entity
-@NamedQuery(name = "findAllCustomers", query = "SELECT c FROM Customer c")
+@NamedQueries({
+@NamedQuery(name = "findAllCustomers", query = "SELECT c FROM Customer c"),
+@NamedQuery(name = "findCustomerByUserName", query = "SELECT c FROM Customer c WHERE c.userName LIKE :name")})
 public class Customer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    
+    @Column(name = "user_name")
+    private String userName;
     @Column(name = "first_name")
     private String firstName;
-    
     @Column(name = "last_name")
     private String lastName;
-    
-    
-//    @OneToMany(mappedBy = "customer")
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-//    private List<Reservation> reservations;
+    @Column(name = "password")
+    private String password;
 
     public Customer() {
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+//    @OneToMany(mappedBy = "customer")
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    private List<Reservation> reservations;
     /**
      * @return the id
      */
@@ -58,8 +77,6 @@ public class Customer implements Serializable {
     public String getFirstName() {
         return firstName;
     }
-    
-    
 
     /**
      * @param firstName the firstName to set
@@ -74,9 +91,9 @@ public class Customer implements Serializable {
     public String getLastName() {
         return lastName;
     }
-    
-    public void setLastName(String lastName){
-        this.lastName=lastName;
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @Override
@@ -86,7 +103,6 @@ public class Customer implements Serializable {
         return hash;
     }
 
-
 //    public List<Reservation> getReservations() {
 //        return reservations;
 //    }
@@ -94,7 +110,6 @@ public class Customer implements Serializable {
 //    public void setReservations(List<Reservation> reservations) {
 //        this.reservations = reservations;
 //    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
