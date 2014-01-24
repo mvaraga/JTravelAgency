@@ -1982,7 +1982,9 @@ textarea.form-control {
 }
 
 .form-group {
-  margin-bottom: 15px;
+/*Default
+  margin-bottom: 15px;*/
+  
 }
 
 .radio,
@@ -4424,7 +4426,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
     padding-bottom: 0;
     overflow: visible !important;
     /*default*/
-    float: left;
+/*    float: left;*/
   }
   .navbar-collapse.in {
     overflow-y: visible;
@@ -4592,7 +4594,9 @@ textarea.input-group-sm > .input-group-btn > .btn {
   }
   .navbar-right {
     float: right !important;
-/*    default*/
+  }
+  /*default*/
+  .navbar-right > li > div {
     padding-top: 8px;
   }
 }

@@ -6,7 +6,7 @@
         xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
         xmlns:jpa="http://www.springframework.org/schema/data/jpa"
         xmlns:tx="http://www.springframework.org/schema/tx"
-         xmlns:security="http://www.springframework.org/schema/security"
+        xmlns:security="http://www.springframework.org/schema/security"
         xmlns:jee="http://www.springframework.org/schema/jee"
         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
@@ -65,10 +65,12 @@
         </security:authentication-provider>
 </security:authentication-manager>
 
-<security:http>
-  <security:intercept-url pattern="/**" access="ROLE_USER" />
-  <security:form-login />
-  <security:logout />
-</security:http>
+    <security:http pattern="/css/**" security="none"/>
+    <security:http>
+        <security:intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <security:intercept-url pattern="/**" access="ROLE_USER, ROLE_ADMIN" />
+        <security:form-login login-page='/login.jsp'/>
+        <security:logout />
+    </security:http>
     
 </beans>
