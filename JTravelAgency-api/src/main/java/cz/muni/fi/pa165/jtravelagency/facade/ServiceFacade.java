@@ -48,6 +48,9 @@ public interface ServiceFacade {
     
     public List<ReservationDTO> getAllReservations();
     
+    public List<ReservationDTO> getReservationsByCustomer(CustomerDTO customer);
+    
+    public CustomerDTO getCustomerByUsername(String username);
     
     /*
      * Update Methods

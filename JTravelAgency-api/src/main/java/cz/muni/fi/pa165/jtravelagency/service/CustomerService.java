@@ -40,4 +40,6 @@ public interface CustomerService {
      * Gets all customers from database.
      */
     List<CustomerDTO> getAll();
+    
+    CustomerDTO getCustomerByUsername(String username);
 }
