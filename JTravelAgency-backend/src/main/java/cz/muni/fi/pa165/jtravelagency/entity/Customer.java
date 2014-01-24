@@ -30,7 +30,9 @@ public class Customer implements Serializable {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    @Column(name = "user_name")
     private String userName;
+    @Column(name = "password")
     private String password;
 
     public Customer() {
