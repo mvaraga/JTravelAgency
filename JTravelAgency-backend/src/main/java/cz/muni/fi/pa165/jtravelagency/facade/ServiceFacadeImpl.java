@@ -205,4 +205,9 @@ public class ServiceFacadeImpl implements ServiceFacade {
     public List<ReservationDTO> getReservationsByCustomer(CustomerDTO customer) {
         return reservationService.getByCustomer(customer);
     }
+    
+    @Override
+    public CustomerDTO getCustomerByUsername(String username){
+        return customerService.getCustomerByUsername(username);
+    }
 }
