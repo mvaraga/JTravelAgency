@@ -50,6 +50,7 @@
     
     <bean id="facade" class="cz.muni.fi.pa165.jtravelagency.facade.ServiceFacadeImpl" />
     
+    
     <bean id="webexpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
     
     <security:global-method-security secured-annotations="enabled" />
@@ -60,6 +61,8 @@
       <security:user name="user" password="user" authorities="ROLE_USER" />
     </security:user-service>
   </security:authentication-provider>
+  <security:authentication-provider user-service-ref="userDetailsService">
+        </security:authentication-provider>
 </security:authentication-manager>
 
 <security:http>
