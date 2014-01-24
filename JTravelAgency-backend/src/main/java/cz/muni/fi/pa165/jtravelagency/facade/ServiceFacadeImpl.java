@@ -175,6 +175,11 @@ public class ServiceFacadeImpl implements ServiceFacade {
     public void deleteReservation(ReservationDTO reservationDTO) {
         reservationService.delete(reservationDTO);
     }
+    
+    @Override
+    public List<ExcursionDTO> getExcursionsByTrip(TripDTO tripDTO) {
+        return excursionService.getByTrip(tripDTO);
+    }
 
     @Override
     @Transactional

@@ -50,4 +50,11 @@ public interface ExcursionDAO {
      * @param excursion 
      */
     Trip getTrip(Excursion excursion);
+    
+    /*
+     * Gets all excursions associated with the trip
+     * 
+     * @param trip
+     */
+    List<Excursion> getExcursionsByTrip(Trip trip);
 }

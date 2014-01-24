@@ -5,6 +5,7 @@
 package cz.muni.fi.pa165.jtravelagency.service;
 
 import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
+import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
 import java.util.List;
 
 /**
@@ -50,4 +51,6 @@ public interface ExcursionService {
      * @return 
      */
     //TripDTO getTrip(ExcursionDTO excursionDTO);
+    
+    List<ExcursionDTO> getByTrip(TripDTO trip);
 }

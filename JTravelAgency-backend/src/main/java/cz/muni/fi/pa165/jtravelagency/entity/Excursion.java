@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -22,15 +23,17 @@ import org.joda.time.DateTime;
  * @author Peter Petrinec
  */
 @Entity
-@NamedQuery(name = "getAllExcursions", query = "SELECT e FROM Excursion e")
+@NamedQueries({
+    @NamedQuery(name = "getAllExcursions", query = "SELECT e FROM Excursion e"),
+    @NamedQuery(name = "getExcursionByTrip", query = "SELECT e FROM Excursion e WHERE e.trip.id = :tripId")
+})
 public class Excursion implements Serializable {
 
     public Excursion() {
-        
     }
     
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
     @Column(name = "excursion_date")
@@ -129,5 +132,4 @@ public class Excursion implements Serializable {
         }
         return true;
     }
-    
 }

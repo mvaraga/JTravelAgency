@@ -5,6 +5,7 @@
 package cz.muni.fi.pa165.jtravelagency.dao;
 
 import cz.muni.fi.pa165.jtravelagency.entity.Excursion;
+import cz.muni.fi.pa165.jtravelagency.entity.Reservation;
 import cz.muni.fi.pa165.jtravelagency.entity.Trip;
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -84,6 +86,14 @@ public class ExcursionDAOImpl implements ExcursionDAO {
     @Override
     public Trip getTrip(Excursion excursion) {
         return excursion.getTrip();
+    }
+    
+    @Override
+    public List<Excursion> getExcursionsByTrip(Trip trip) {
+        TypedQuery<Excursion> query = em.createNamedQuery(
+                "getExcursionsByTrip", Excursion.class);
+        query.setParameter(":tripId",trip.getId());
+        return (List<Excursion>) query.getResultList();
     }
     
     private void validateExcursion(Excursion excursion) {

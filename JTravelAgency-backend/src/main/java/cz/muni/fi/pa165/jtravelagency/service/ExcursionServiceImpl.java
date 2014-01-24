@@ -6,7 +6,10 @@ package cz.muni.fi.pa165.jtravelagency.service;
 
 import cz.muni.fi.pa165.jtravelagency.dao.ExcursionDAO;
 import cz.muni.fi.pa165.jtravelagency.dto.ExcursionDTO;
+import cz.muni.fi.pa165.jtravelagency.dto.TripDTO;
 import cz.muni.fi.pa165.jtravelagency.entity.Excursion;
+import cz.muni.fi.pa165.jtravelagency.entity.Reservation;
+import cz.muni.fi.pa165.jtravelagency.entity.Trip;
 import cz.muni.fi.pa165.jtravelagency.util.DTOAndEntityMapper;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -65,6 +68,18 @@ public class ExcursionServiceImpl implements ExcursionService{
     public List<ExcursionDTO> getAll() {
         List<Excursion> excursions = excursionDAO.getAllExcursions();
         List<ExcursionDTO> excursionDTOs = new ArrayList<ExcursionDTO>();
+        for(Excursion e : excursions) {
+            excursionDTOs.add(DTOAndEntityMapper.entityToDto(e, ExcursionDTO.class));
+        }
+        return excursionDTOs;
+    }
+    
+    public List<ExcursionDTO> getByTrip(TripDTO trip) {
+        if (trip == null) {
+            throw new IllegalArgumentException("Trip can not be null.");
+        }
+        List<Excursion> excursions = excursionDAO.getExcursionsByTrip(DTOAndEntityMapper.dtoToEntity(trip, Trip.class));
+        List<ExcursionDTO> excursionDTOs = new ArrayList<>();
         for(Excursion e : excursions) {
             excursionDTOs.add(DTOAndEntityMapper.entityToDto(e, ExcursionDTO.class));
         }

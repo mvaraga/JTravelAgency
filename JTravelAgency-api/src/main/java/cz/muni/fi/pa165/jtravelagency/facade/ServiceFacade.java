@@ -73,6 +73,11 @@ public interface ServiceFacade {
     public void deleteReservation(ReservationDTO reservationDTO);
     
     /*
+     * Get Excursions by trip
+     */
+    public List<ExcursionDTO> getExcursionsByTrip(TripDTO tripDTO);
+    
+    /*
      * Make Reservation
      */
     public ReservationDTO makeReservation(CustomerDTO customerDTO, TripDTO tripDTO, List<ExcursionDTO> excursionDTOs);
