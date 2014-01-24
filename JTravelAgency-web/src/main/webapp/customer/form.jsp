@@ -14,7 +14,7 @@
     </tr>
     <tr>
         <td><s:text id="username" name="customer.userName" class="form-control"/></td>
-        <td><s:text id="name" name="customer.lastName" class="form-control"/></td>
+        <td><s:text id="name" name="customer.firstName" class="form-control"/></td>
         <td><s:text id="surname" name="customer.lastName" class="form-control"/></td>
         <td><s:text id="password" name="customer.password" class="form-control"/></td>
     </tr>
