@@ -8,21 +8,16 @@
     <html lang="${pageContext.request.locale}">
         <head>
             <title><f:message key="${titlekey}"/></title>
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui.css" />
             <script src="${pageContext.request.contextPath}/js/jquery-1.9.1.js"></script>
-            <script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
+            <script src="${pageContext.request.contextPath}/js/moment.min.js"></script>
             <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/jquery-ui-timepicker-addon.js"></script>
+            <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script>
+            <script type="text/javascript" src="${pageContext.request.contextPath}/js/locales/bootstrap-datetimepicker.sk.js"></script>
             <script src="${pageContext.request.contextPath}/js/bootstrap-select.min.js"></script>
             <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
             <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.css" />
             <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-select.css" />
-            <script>
-                $(function() {
-                    $("#datepicker").datetimepicker({dateFormat: "dd.mm.yy"});
-                    $("#datepicker2").datetimepicker({dateFormat: "dd.mm.yy"});
-                });
-            </script>
+            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css" />
             <s:layout-component name="header"/>
         </head>
         <body>
