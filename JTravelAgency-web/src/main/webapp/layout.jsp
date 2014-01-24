@@ -40,6 +40,8 @@
                                 <li class="nav-excursion"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ExcursionsActionBean"><f:message key="index.excursions.link"/></s:link></li>
                                 <li class="nav-reservation"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean"><f:message key="index.reservations.link"/></s:link></li>
                             </sec:authorize>
+                                <li class="nav-reservation"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomerReservationsActionBean"><f:message key="index.reservations.link"/></s:link></li>
+
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li>
