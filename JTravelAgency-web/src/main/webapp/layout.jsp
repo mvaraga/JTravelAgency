@@ -21,7 +21,7 @@
             <s:layout-component name="header"/>
         </head>
         <body>
-            <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
                 <div class="container">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -32,24 +32,35 @@
                         </button>
                         <a class="navbar-brand" href="${pageContext.request.contextPath}"><f:message key="index.welcome"/></a>
                     </div>
-                    <div class="collapse navbar-collapse">
+                    <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
                         <ul class="nav navbar-nav">
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
-                            <li class="nav-trip"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.TripsActionBean"><f:message key="index.trips.link"/></s:link></li>
-                            <li class="nav-customer"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomersActionBean"><f:message key="index.customers.link"/></s:link></li>
-                            <li class="nav-excursion"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ExcursionsActionBean"><f:message key="index.excursions.link"/></s:link></li>
-                            <li class="nav-reservation"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean"><f:message key="index.reservations.link"/></s:link></li>
-                            <li><a href="/pa165/login.jsp">Login page - temporary</a></li>
+                                <li class="nav-trip"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.TripsActionBean"><f:message key="index.trips.link"/></s:link></li>
+                                <li class="nav-customer"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomersActionBean"><f:message key="index.customers.link"/></s:link></li>
+                                <li class="nav-excursion"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ExcursionsActionBean"><f:message key="index.excursions.link"/></s:link></li>
+                                <li class="nav-reservation"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean"><f:message key="index.reservations.link"/></s:link></li>
                             </sec:authorize>
-                            </ul>
-                        </div><!--/.nav-collapse -->
-                        <div class="navbar-right">
-                            <button type="submit" class="btn btn-success" onclick="window.location.href='${pageContext.request.contextPath}/j_spring_security_logout'">Logout</button>
-                        </div>
-                    </div>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a>
+                                    <sec:authorize access="hasRole('ROLE_USER')">
+                                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                                    </sec:authorize>
+                                    <sec:authentication property="principal.username" />
+                                </a>
+                            </li>
+                            <li>
+                                <div>
+                                    <button type="submit" class="btn btn-success" onclick="window.location.href = '${pageContext.request.contextPath}/j_spring_security_logout'">Logout</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-                <div class="container">
-                    <div id="notice"><s:messages/><s:errors/></div>
+            </header>
+            <div class="container">
+                <div id="notice"><s:messages/><s:errors/></div>
                 <s:layout-component name="body"/>
             </div>
         </body>

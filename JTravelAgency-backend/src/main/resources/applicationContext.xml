@@ -56,7 +56,7 @@
     <security:authentication-manager>
         <security:authentication-provider>
             <security:user-service>
-                <security:user name="admin" password="admin" authorities="ROLE_USER, ROLE_ADMIN" />
+                <security:user name="admin" password="admin" authorities="ROLE_ADMIN" />
                 <security:user name="user" password="user" authorities="ROLE_USER" />
             </security:user-service>
         </security:authentication-provider>
@@ -65,7 +65,7 @@
     <security:http pattern="/css/**" security="none"/>
     <security:http>
         <security:intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-        <security:intercept-url pattern="/**" access="ROLE_USER" />
+        <security:intercept-url pattern="/**" access="ROLE_USER, ROLE_ADMIN" />
         <security:form-login login-page='/login.jsp'/>
         <security:logout />
     </security:http>
