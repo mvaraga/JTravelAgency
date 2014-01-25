@@ -92,7 +92,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
     public List<Excursion> getExcursionsByTrip(Trip trip) {
         TypedQuery<Excursion> query = em.createNamedQuery(
                 "getExcursionsByTrip", Excursion.class);
-        query.setParameter(":tripId",trip.getId());
+        query.setParameter("tripId", trip.getId());
         return (List<Excursion>) query.getResultList();
     }
     

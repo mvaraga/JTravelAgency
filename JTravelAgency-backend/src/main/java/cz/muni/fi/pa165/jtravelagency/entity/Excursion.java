@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "getAllExcursions", query = "SELECT e FROM Excursion e"),
-    @NamedQuery(name = "getExcursionByTrip", query = "SELECT e FROM Excursion e WHERE e.trip.id = :tripId")
+    @NamedQuery(name = "getExcursionsByTrip", query = "SELECT e FROM Excursion e WHERE e.trip.id = :tripId")
 })
 public class Excursion implements Serializable {
 

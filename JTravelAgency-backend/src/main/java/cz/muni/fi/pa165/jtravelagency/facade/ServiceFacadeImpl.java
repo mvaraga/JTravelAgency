@@ -83,7 +83,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
         if(id==null) {throw new IllegalArgumentException();}
         return customerService.get(id);
     }
-
+    
     @Override
     public TripDTO getTrip(Long id) {
         if (id==null) {throw new IllegalArgumentException();}

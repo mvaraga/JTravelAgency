@@ -20,7 +20,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
 @NamedQuery(name = "findAllCustomers", query = "SELECT c FROM Customer c"),
-@NamedQuery(name = "findCustomerByUserName", query = "SELECT c FROM Customer c WHERE c.userName LIKE :name")})
+@NamedQuery(name = "findCustomerByUserName", query = "SELECT c FROM Customer c WHERE c.userName = :name")})
 public class Customer implements Serializable {
 
     @Id
