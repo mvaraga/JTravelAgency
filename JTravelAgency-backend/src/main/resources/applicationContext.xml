@@ -69,11 +69,16 @@
 
     <security:http pattern="/css/**" security="none"/>
     <security:http use-expressions="true">
+       <security:intercept-url pattern="/client**" access="permitAll" /> 
         <security:intercept-url pattern="/client/**" access="permitAll" />
-        <security:intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-     <!--   <security:intercept-url pattern="/**" access="ROLE_USER, ROLE_ADMIN" />  -->
+        <security:intercept-url pattern="/login.jsp*" access="isAnonymous()" />
+     
+      <security:intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" /> 
         <security:form-login login-page='/login.jsp'/>
+        
         <security:logout />
+
     </security:http>
-    
+
+
 </beans>

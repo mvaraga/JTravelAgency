@@ -14,7 +14,7 @@ import org.glassfish.jersey.client.filter.HttpBasicAuthFilter;
 @javax.ws.rs.ApplicationPath("webresources")
 public class ApplicationConfig extends Application {
 
-       private static final String API_URL = "http://localhost:8081/client";
+       private static final String API_URL = "http://localhost:8080/pa165";
     private WebTarget webTarget;
     
     public ApplicationConfig(){

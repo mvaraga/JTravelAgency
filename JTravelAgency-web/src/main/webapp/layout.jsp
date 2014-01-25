@@ -46,14 +46,18 @@
 
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
+                            <!-
                             <li>
                                 <a>
                                     <sec:authorize access="hasRole('ROLE_USER')">
                                         <span class="glyphicon glyphicon-shopping-cart"></span>
                                     </sec:authorize>
-                                    <sec:authentication property="principal.username" />
+                                     <!--  -->
+                                     
+                                     <sec:authentication property="principal.username" />  
+                                   
                                 </a>
-                            </li>
+                            </li>  
                             <li>
                                 <div>
                                     <button type="submit" class="btn btn-success" onclick="window.location.href = '${pageContext.request.contextPath}/j_spring_security_logout'">Logout</button>
