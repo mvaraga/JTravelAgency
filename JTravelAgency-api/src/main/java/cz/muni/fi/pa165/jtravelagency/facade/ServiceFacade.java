@@ -52,6 +52,8 @@ public interface ServiceFacade {
     
     public CustomerDTO getCustomerByUsername(String username);
     
+    public List<ExcursionDTO> getExcursionsByTrip(TripDTO tripDTO);
+    
     /*
      * Update Methods
      */
@@ -75,11 +77,7 @@ public interface ServiceFacade {
     
     public void deleteReservation(ReservationDTO reservationDTO);
     
-    /*
-     * Get Excursions by trip
-     */
-    public List<ExcursionDTO> getExcursionsByTrip(TripDTO tripDTO);
-    
+
     /*
      * Make Reservation
      */

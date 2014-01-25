@@ -31,7 +31,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  *
  * @author majo
  */
-@UrlBinding("/customer_reservations/{$event}/{reservation.id}")
+@UrlBinding("/customer_reservations/{$event}/")
 public class CustomerReservationsActionBean extends BaseActionBean {
 
     final static Logger log = LoggerFactory.getLogger(CustomerReservationsActionBean.class);
@@ -42,6 +42,24 @@ public class CustomerReservationsActionBean extends BaseActionBean {
     private List<ReservationDTO> reservations;
     private CustomerDTO customer;
     private ReservationDTO reservation;
+    private Long reservationId;
+    private Integer reservationsCount;
+
+    public Integer getReservationsCount() {
+        return reservationsCount;
+    }
+
+    public void setReservationsCount(Integer reservationsCount) {
+        this.reservationsCount = reservationsCount;
+    }
+    
+    public Long getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(Long reservationId) {
+        this.reservationId = reservationId;
+    }
 
     public ServiceFacade getFacade() {
         return facade;
@@ -79,7 +97,8 @@ public class CustomerReservationsActionBean extends BaseActionBean {
             username = principal.toString();
         }
         customer = facade.getCustomerByUsername(username);
-
+       
+        reservationsCount = facade.getReservationsByCustomer(facade.getCustomerByUsername(username)).size();
         reservations = facade.getReservationsByCustomer(customer);
         return new ForwardResolution("/customer_reservations/list.jsp");
     }
@@ -93,9 +112,9 @@ public class CustomerReservationsActionBean extends BaseActionBean {
     }
 
     public Resolution delete() {
-        log.debug("delete({})", reservation.getId());
+        log.debug("delete()");
         //only id is filled by the form
-        reservation = facade.getReservation(reservation.getId());
+        reservation = facade.getReservation(reservationId);
         facade.deleteReservation(reservation);
 
         getContext().getMessages().add(new LocalizableMessage("reservation.delete.message", escapeHTML(reservation.getId().toString())));

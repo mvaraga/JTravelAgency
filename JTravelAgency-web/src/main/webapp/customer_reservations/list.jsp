@@ -9,6 +9,7 @@
         <script>
             $(document).ready(function() {
                 $("li.nav-reservation").addClass("active");
+                $("#reservationsCount").text("(" + ${actionBean.reservationsCount} + ")");
             });
         </script>
         
@@ -30,7 +31,7 @@
                     </td>
                     <td>
                         <s:form beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomerReservationsActionBean">
-                            <s:hidden name="reservation.id" value="${reservation.id}"/>
+                            <s:hidden name="reservationId" value="${reservation.id}"/>
                             <button name="delete" type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span> <f:message key="form.delete"/></button>
                         </s:form>
                     </td>
