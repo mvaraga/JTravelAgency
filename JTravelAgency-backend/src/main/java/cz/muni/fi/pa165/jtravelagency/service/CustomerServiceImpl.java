@@ -61,6 +61,11 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = DTOAndEntityMapper.dtoToEntity(customerDto, Customer.class);
         customerDao.deleteCustomer(customer);
     }
+    
+    @Override
+    public CustomerDTO getCustomerByUsername(String username){
+       return DTOAndEntityMapper.entityToDto(customerDao.findCustomerWithUsername(username), CustomerDTO.class);
+    }
 
     public List<CustomerDTO> getAll() {
         List<CustomerDTO> list = new ArrayList<CustomerDTO>();

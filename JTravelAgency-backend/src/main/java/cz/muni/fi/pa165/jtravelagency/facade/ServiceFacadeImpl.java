@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -61,18 +62,21 @@ public class ServiceFacadeImpl implements ServiceFacade {
     
 
     @Override
+    @Secured({"ROLE_ADMIN"})
     public void createCustomer(CustomerDTO customerDTO) {
         if((customerDTO==null)||(customerDTO.getId()!=null)) {throw new IllegalArgumentException();}
         customerService.create(customerDTO);
     }
 
     @Override
+    @Secured({"ROLE_ADMIN"})
     public void createTrip(TripDTO tripDTO) {
         if((tripDTO==null)||(tripDTO.getId()!=null)) {throw new IllegalArgumentException();}
         tripService.create(tripDTO);
     }
 
     @Override
+    @Secured({"ROLE_ADMIN"})
     public void createExcursion(ExcursionDTO excursionDTO) {
         if((excursionDTO==null)||(excursionDTO.getId()!=null)) {throw new IllegalArgumentException();}
         excursionService.create(excursionDTO);
@@ -129,12 +133,14 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
+    @Secured({"ROLE_ADMIN"})
     public void updateTrip(TripDTO tripDTO) {
         if ((tripDTO==null)||(tripDTO.getId()==null)) {throw new IllegalArgumentException();}
         tripService.update(tripDTO);
     }
 
     @Override
+    @Secured({"ROLE_ADMIN"})
     public void updateExcursion(ExcursionDTO excursionDTO) {
         if ((excursionDTO==null)||(excursionDTO.getId()==null)) {throw new IllegalArgumentException();}
        excursionService.update(excursionDTO);
@@ -147,6 +153,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
+    @Secured({"ROLE_ADMIN"})
     public void deleteCustomer(CustomerDTO customerDTO) {
         for(ReservationDTO r: reservationService.getByCustomer(customerDTO)){
             reservationService.delete(r);
@@ -155,6 +162,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
+    @Secured({"ROLE_ADMIN"})
     public void deleteTrip(TripDTO tripDTO) {
         for(ReservationDTO r : reservationService.getByTrip(tripDTO)){
             reservationService.delete(r);
@@ -163,6 +171,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
+    @Secured({"ROLE_ADMIN"})
     public void deleteExcursion(ExcursionDTO excursionDTO) {
         for(ReservationDTO r : reservationService.getAll()){
             r.getExcursions().remove(excursionDTO);
@@ -209,5 +218,10 @@ public class ServiceFacadeImpl implements ServiceFacade {
     @Override
     public List<ReservationDTO> getReservationsByCustomer(CustomerDTO customer) {
         return reservationService.getByCustomer(customer);
+    }
+    
+    @Override
+    public CustomerDTO getCustomerByUsername(String username){
+        return customerService.getCustomerByUsername(username);
     }
 }

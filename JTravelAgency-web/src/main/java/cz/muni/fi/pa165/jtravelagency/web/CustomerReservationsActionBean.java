@@ -24,6 +24,8 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  *
@@ -68,7 +70,16 @@ public class CustomerReservationsActionBean extends BaseActionBean {
     @DefaultHandler
     public Resolution list() {
         log.debug("list()");
-        customer = facade.getAllCustomers().get(0);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+        
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        customer = facade.getCustomerByUsername(username);
+
         reservations = facade.getReservationsByCustomer(customer);
         return new ForwardResolution("/customer_reservations/list.jsp");
     }

@@ -39,19 +39,25 @@
                                 <li class="nav-customer"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomersActionBean"><f:message key="index.customers.link"/></s:link></li>
                                 <li class="nav-excursion"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ExcursionsActionBean"><f:message key="index.excursions.link"/></s:link></li>
                                 <li class="nav-reservation"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.ReservationsActionBean"><f:message key="index.reservations.link"/></s:link></li>
-                            </sec:authorize>
+                             </sec:authorize>
+                             <sec:authorize access="hasRole('ROLE_USER')">
                                 <li class="nav-reservation"><s:link beanclass="cz.muni.fi.pa165.jtravelagency.web.CustomerReservationsActionBean"><f:message key="index.reservations.link"/></s:link></li>
+                             </sec:authorize>
 
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
+                            <!-
                             <li>
                                 <a>
                                     <sec:authorize access="hasRole('ROLE_USER')">
                                         <span class="glyphicon glyphicon-shopping-cart"></span>
                                     </sec:authorize>
-                                    <sec:authentication property="principal.username" />
+                                     <!--  -->
+                                     
+                                     <sec:authentication property="principal.username" />  
+                                   
                                 </a>
-                            </li>
+                            </li>  
                             <li>
                                 <div>
                                     <button type="submit" class="btn btn-success" onclick="window.location.href = '${pageContext.request.contextPath}/j_spring_security_logout'">Logout</button>
