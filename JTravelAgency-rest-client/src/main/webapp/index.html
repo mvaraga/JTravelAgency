@@ -8,6 +8,13 @@ and open the template in the editor.
         <title>REST Client Application</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="style.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $.post("http://localhost:8080/pa165/j_spring_security_check",
+                {j_username: "rest", j_password: "rest"});
+            });
+        </script>
     </head>
     <body>
 	<h1>REST Client Application</h1>

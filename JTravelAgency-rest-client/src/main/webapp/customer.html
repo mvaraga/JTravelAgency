@@ -7,7 +7,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
-
+                $.post("http://localhost:8080/pa165/j_spring_security_check",
+                {j_username: "rest", j_password: "rest"});
                 window.setInterval(updateBoard, 1000);
                 updateBoard();
             });
@@ -33,7 +34,8 @@
                         var myTable = $('#customers-table > table');
                         for (var i = 0; i < data.length; i++) {
                             myTable.append('<tr id=' + data[i].id + '><td id="fname">' + data[i].firstName + '</td>\n\
-                            <td id="lname">' + data[i].lastName + '</td> <td><button onclick="deleteCustomer(' + data[i].id + ');">Delete</button></td><td><button onclick="startEdit(' + data[i].id + ')">Update</button></td></tr>');
+                            <td id="lname">' + data[i].lastName + '</td>\n\\n\
+                             <td id="uname">'+ data[i].userName +'</td><td id="passwd">'+data[i].password+'</td> <td><button onclick="deleteCustomer(' + data[i].id + ');">Delete</button></td><td><button onclick="startEdit(' + data[i].id + ')">Update</button></td></tr>');
                         }
                     },
                     failure: function(errMsg) {
@@ -51,13 +53,20 @@
             function sendText() {
                 var firstname = $('#first_name').val();
                 var lastname = $('#last_name').val();
+                var username = $("#username").val();
+                var password = $("#password").val();
+                
+                if (firstname == "" || lastname == "" || username == "" || password == ""){
+                    alert("Required fields are blank");
+                    return;
+                }
 
                 $.ajax({
                     type: 'POST',
                     contentType: 'application/json; charset=utf-8',
                     dataType: "json",
                     url: "http://localhost:8080/pa165/webresources/customers/",
-                    data: JSON.stringify({'firstName': firstname, 'lastName': lastname}),
+                    data: JSON.stringify({'firstName': firstname, 'lastName': lastname, "userName": username, "password": password}),
                     success: function(data) {
                         console.log('got ' + data);
                     },
@@ -88,6 +97,8 @@
 
             function startEdit(eid) {
                 $("input#first_name").val($("#" + eid + " #fname").text());
+                $("input#username").val($("#"+eid+" #uname").text());
+                $("input#password").val($("#"+eid+" #passwd").text());
                 $("input#last_name").val($("#" + eid + " #lname").text());
                 $("button#up").removeAttr("disabled");
                 $("button#up").attr("updid", eid);
@@ -97,14 +108,21 @@
             function updateCustomer() {
                 var firstname = $('#first_name').val();
                 var lastname = $('#last_name').val();
+                var username = $("#username").val();
+                var password = $("#password").val();
                 var updid = $('#up').attr("updid");
+                
+                if (firstname == "" || lastname == "" || username == "" || password == ""){
+                    alert("Required fields are blank");
+                    return;
+                }
 
                 $.ajax({
                     type: 'PUT',
                     contentType: 'application/json; charset=utf-8',
                     dataType: "json",
                     url: "http://localhost:8080/pa165/webresources/customers/" + updid,
-                    data: JSON.stringify({'id': updid, 'firstName': firstname, 'lastName': lastname}),
+                    data: JSON.stringify({'id': updid, 'firstName': firstname, 'lastName': lastname, "userName": username, "password": password}),
                     success: function(data) {
                         console.log('got ' + data);
                     },
@@ -119,6 +137,8 @@
             function clearForm() {
                 $('#first_name').val('');
                 $('#last_name').val('');
+                $("#username").val("");
+                $("#password").val("");
                 $('#up').removeAttr('updid');
                 $("button#pub").removeAttr( "disabled" );
                 $("button#up").attr("disabled", "true");
@@ -131,7 +151,10 @@
         </div>
         <div id="customers-table"></div>
         <label for="publish">First name: </label><input id="first_name" type="text" name="firstname" value="first name" size="15"></br>
-        <label for="publish">Last name: </label><input id="last_name" type="text" name="lastname" value="last name" size="15"></br></br>
+        <label for="publish">Last name: </label><input id="last_name" type="text" name="lastname" value="last name" size="15"></br>
+        <label for="publish">Username: </label><input id="username" type="text" name="username" value="username" size="15"></br>
+        <label for="publish">Password: </label><input id="password" type="text" name="password" value="password" size="15"></br>
+        </br>
         <button id="pub" onclick="sendText();">Publish</button>
         <button id="up" disabled="true" onclick="updateCustomer()">Update</button>
         <button id="cancel" onclick="clearForm()">Cancel</button>

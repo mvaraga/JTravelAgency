@@ -4,11 +4,30 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
+     
     <!-- Spring -->
     <listener>
         <description>activates Spring IoC container during start</description>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+         <filter>
+
+        <filter-name>CORS</filter-name>
+
+        <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+
+    </filter>
+
+ 
+
+    <filter-mapping>
+
+        <filter-name>CORS</filter-name>
+
+        <url-pattern>/*</url-pattern>
+
+    </filter-mapping>
+    
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>
@@ -25,6 +44,9 @@
         <param-value>classpath:applicationContext.xml
             /WEB-INF/spring-context.xml</param-value>
     </context-param>
+
+ 
+
 
     <!-- JSTL -->
     <context-param>
@@ -91,5 +113,6 @@
         <filter-name>characterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
+    
+       
 </web-app>

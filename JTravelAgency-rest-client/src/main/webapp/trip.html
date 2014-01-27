@@ -15,6 +15,8 @@
 
 
             $(document).ready(function() {
+                $.post("http://localhost:8080/pa165/j_spring_security_check",
+                {j_username: "rest", j_password: "rest"});
                 $("#dateFrom").datetimepicker({ dateFormat: "dd.mm.yy" });
                 $("#dateTo").datetimepicker({ dateFormat: "dd.mm.yy" });
                 window.setInterval(updateBoard, 1000);
@@ -58,6 +60,11 @@
                 var dateFrom = $('#dateFrom').val();
                 var dateTo = $('#dateTo').val();
                 var availableTrips = $("input#availableTrips_").val();
+                
+                if (destination == "" || price == "" || dateFrom == "" || dateTo == "" || availableTrips == ""){
+                    alert("Required fields are blank");
+                    return;
+                }
 
 
                 $.ajax({
@@ -112,6 +119,11 @@
                 var dateFrom = $('input#dateFrom').val();
                 var dateTo = $('input#dateTo').val();
                 var updid = $('#up').attr("updid");
+                
+                if (destination == "" || price == "" || dateFrom == "" || dateTo == "" || availableTrips == ""){
+                    alert("Required fields are blank");
+                    return;
+                }
 
                 $.ajax({
                     type: 'PUT',

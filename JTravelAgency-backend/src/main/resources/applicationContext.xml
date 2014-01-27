@@ -50,6 +50,7 @@
     
     <bean id="facade" class="cz.muni.fi.pa165.jtravelagency.facade.ServiceFacadeImpl" />
     
+   <bean id="abcd" class="com.thetransactioncompany.cors.CORSFilter"/>
     
     <bean id="webexpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
     
@@ -69,12 +70,13 @@
 
     <security:http pattern="/css/**" security="none"/>
     <security:http use-expressions="true">
-       <security:intercept-url pattern="/client**" access="permitAll" /> 
-        <security:intercept-url pattern="/client/**" access="permitAll" />
+       <!--security:intercept-url pattern="/client**" access="permitAll" /--> 
+       <security:intercept-url pattern="/client/**" access="permitAll"/>
+       
         <security:intercept-url pattern="/login.jsp*" access="isAnonymous()" />
      
-      <security:intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" /> 
-        <security:form-login login-page='/login.jsp'/>
+    <security:intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" /> 
+       <security:form-login login-page='/login.jsp'/> 
         
         <security:logout />
 
