@@ -52,7 +52,7 @@
                             </li>  
                             <li>
                                 <div>
-                                    <button type="submit" class="btn btn-success" onclick="window.location.href = '${pageContext.request.contextPath}/j_spring_security_logout'">Logout</button>
+                                    <button type="submit" class="btn btn-success" onclick="window.location.href = '${pageContext.request.contextPath}/j_spring_security_logout'"><f:message key="index.logout"/></button>
                                 </div>
                             </li>
                         </ul>
